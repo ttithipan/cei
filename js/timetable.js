@@ -6,6 +6,7 @@
 const Timetable = (() => {
   const STORAGE_KEY = "cei_grid_v3";
   const DAYS = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -13,7 +14,7 @@ const Timetable = (() => {
     "Friday",
     "Saturday",
   ];
-  const DAYS_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   // Time slots 08:00–20:00 in 30-min steps
   const TIME_SLOTS = [];
@@ -82,7 +83,7 @@ const Timetable = (() => {
     if (!courseData?.years?.[activeYear]?.courses) return;
     initEmptyGrid();
     for (const c of courseData.years[activeYear].courses) {
-      const di = c.day - 2; // Netlify data: 2=Mon,3=Tue,4=Wed,5=Thu,6=Fri → our 0=Mon
+      const di = c.day; // 0=Sun,1=Mon,...,6=Sat (standard JS getDay convention)
       if (di < 0 || di >= DAYS.length) continue;
       if (!c.start || !c.end) continue;
 

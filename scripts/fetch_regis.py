@@ -69,34 +69,34 @@ def detect_semester() -> tuple[str, str]:
 
 
 DAY_MAP = {
-    "monday": 0,
-    "tuesday": 1,
-    "wednesday": 2,
-    "thursday": 3,
-    "friday": 4,
-    "saturday": 5,
-    "sunday": 6,
-    "mon": 0,
-    "tue": 1,
-    "wed": 2,
-    "thu": 3,
-    "fri": 4,
-    "sat": 5,
-    "sun": 6,
-    "จันทร์": 0,
-    "อังคาร": 1,
-    "พุธ": 2,
-    "พฤหัส": 3,
-    "ศุกร์": 4,
-    "เสาร์": 5,
-    "อาทิตย์": 6,
-    "จ.": 0,
-    "อ.": 1,
-    "พ.": 2,
-    "พฤ.": 3,
-    "ศ.": 4,
-    "ส.": 5,
-    "อา.": 6,
+    "sunday": 0,
+    "monday": 1,
+    "tuesday": 2,
+    "wednesday": 3,
+    "thursday": 4,
+    "friday": 5,
+    "saturday": 6,
+    "sun": 0,
+    "mon": 1,
+    "tue": 2,
+    "wed": 3,
+    "thu": 4,
+    "fri": 5,
+    "sat": 6,
+    "อาทิตย์": 0,
+    "จันทร์": 1,
+    "อังคาร": 2,
+    "พุธ": 3,
+    "พฤหัสบดี": 4,
+    "ศุกร์": 5,
+    "เสาร์": 6,
+    "อา.": 0,
+    "จ.": 1,
+    "อ.": 2,
+    "พ.": 3,
+    "พฤ.": 4,
+    "ศ.": 5,
+    "ส.": 6,
 }
 
 
@@ -118,7 +118,7 @@ def build_url(class_year: str, year: str, semester: str) -> str:
 
 
 def parse_day(text: str) -> int | None:
-    """Parse day string to 0-based index (Mon=0)."""
+    """Parse day string to 0-based index (Sun=0)."""
     if not text:
         return None
     t = text.strip().lower()
