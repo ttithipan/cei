@@ -261,8 +261,7 @@ def extract_courses_from_page(page) -> list[dict]:
                         }
                     )
 
-            if courses:
-                break
+            # Collect from ALL tables (regis has multiple groups)
 
     except Exception as e:
         print(f"      ⚠️  Table extraction failed: {e}")

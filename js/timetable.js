@@ -1,10 +1,10 @@
 /**
- * CEI Timetable — Weekly grid
- * Days=columns, Time=rows, 08:00–20:00, popup editor
+ * CEI Timetable — Google Calendar-style week view
+ * 7-day columns, continuous time axis, absolute-positioned events
  */
 
 const Timetable = (() => {
-  const STORAGE_KEY = "cei_grid_v3";
+  const STORAGE_KEY = "cei_cal_v1";
   const DAYS = [
     "Sunday",
     "Monday",
@@ -16,23 +16,15 @@ const Timetable = (() => {
   ];
   const DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // Time slots 08:00–20:00 in 30-min steps
-  const TIME_SLOTS = [];
-  for (let h = 8; h < 20; h++) {
-    for (let m = 0; m < 60; m += 30) {
-      const s = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-      const eh = m === 30 ? h + 1 : h;
-      const em = m === 30 ? 0 : 30;
-      const e = `${String(eh).padStart(2, "0")}:${String(em).padStart(2, "0")}`;
-      TIME_SLOTS.push({ label: s, start: s, end: e });
-    }
-  }
+  const HOUR_HEIGHT = 64; // px per hour
+  const START_HOUR = 7; // 7:00
+  const END_HOUR = 21; // 21:00
+  const TOTAL_HOURS = END_HOUR - START_HOUR;
 
   // ── State ───────────────────────────────────────────────────────
   let courseData = null;
   let activeYear = "1";
-  let grid = []; // grid[timeIdx][dayIdx] = {code,name,room,start,end,source} | null
-  let popupTarget = null; // {ti, di}
+  let grid = []; // flat list of {code,name,room,start,end,day,source}
 
   // ── Load courses.json ───────────────────────────────────────────
   async function loadCourseData() {
@@ -50,112 +42,55 @@ const Timetable = (() => {
     }
   }
 
-  // ── Grid persistence ────────────────────────────────────────────
+  // ── Persistence ─────────────────────────────────────────────────
   function loadGrid() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        const saved = JSON.parse(raw);
-        grid = Array.from({ length: TIME_SLOTS.length }, (_, ti) =>
-          Array.from(
-            { length: DAYS.length },
-            (_, di) => saved[ti]?.[di] || null,
-          ),
-        );
+        grid = JSON.parse(raw);
         return;
       }
     } catch (e) {}
-    initEmptyGrid();
-  }
-
-  function initEmptyGrid() {
-    grid = Array.from({ length: TIME_SLOTS.length }, () =>
-      Array(DAYS.length).fill(null),
-    );
+    grid = [];
   }
 
   function saveGrid() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(grid));
   }
 
-  // ── Populate from JSON (day index = 1-based in data, we use 0-based) ──
   function populateFromJSON() {
     if (!courseData?.years?.[activeYear]?.courses) return;
-    initEmptyGrid();
-    for (const c of courseData.years[activeYear].courses) {
-      const di = c.day; // 0=Sun,1=Mon,...,6=Sat (standard JS getDay convention)
-      if (di < 0 || di >= DAYS.length) continue;
-      if (!c.start || !c.end) continue;
-
-      const [sh, sm] = c.start.split(":").map(Number);
-      const [eh, em] = c.end.split(":").map(Number);
-      const startMin = sh * 60 + sm;
-      const endMin = eh * 60 + em;
-
-      for (let ti = 0; ti < TIME_SLOTS.length; ti++) {
-        const [ssh, ssm] = TIME_SLOTS[ti].start.split(":").map(Number);
-        const slotMin = ssh * 60 + ssm;
-        if (slotMin >= startMin && slotMin < endMin) {
-          grid[ti][di] = {
-            code: c.code || "",
-            name: c.name || "",
-            room: c.room || "",
-            start: c.start,
-            end: c.end,
-            source: "regis",
-          };
-        }
-      }
-    }
+    grid = courseData.years[activeYear].courses
+      .filter(
+        (c) =>
+          c.day !== null && c.day !== undefined && c.start && c.end && c.name,
+      )
+      .map((c) => ({
+        code: c.code || "",
+        name: c.name,
+        room: c.room || "",
+        start: c.start,
+        end: c.end,
+        day: c.day,
+        source: "regis",
+      }));
     saveGrid();
   }
 
-  // ── Cell ops ────────────────────────────────────────────────────
-  function setCell(ti, di, data) {
-    grid[ti][di] = data;
-    saveGrid();
-    renderGrid();
+  function timeToPx(timeStr) {
+    const [h, m] = timeStr.split(":").map(Number);
+    return (h - START_HOUR) * HOUR_HEIGHT + (m / 60) * HOUR_HEIGHT;
   }
 
-  function clearCell(ti, di) {
-    grid[ti][di] = null;
-    saveGrid();
-    renderGrid();
+  function durationPx(startStr, endStr) {
+    return timeToPx(endStr) - timeToPx(startStr);
   }
 
-  function fillSlots(ti, di, start, end, data) {
-    const [sh, sm] = start.split(":").map(Number);
-    const [eh, em] = end.split(":").map(Number);
-    const smin = sh * 60 + sm;
-    const emin = eh * 60 + em;
-    for (let i = ti; i < TIME_SLOTS.length; i++) {
-      const [ssh, ssm] = TIME_SLOTS[i].start.split(":").map(Number);
-      const slotMin = ssh * 60 + ssm;
-      if (slotMin >= smin && slotMin < emin) {
-        grid[i][di] = { ...data, start, end };
-      } else if (slotMin >= emin) break;
-    }
-    saveGrid();
-  }
-
-  function getSpan(ti, di) {
-    const cell = grid[ti][di];
-    if (!cell) return { rowSpan: 1, isFirst: true };
-    if (
-      ti > 0 &&
-      grid[ti - 1][di] &&
-      grid[ti - 1][di].code === cell.code &&
-      grid[ti - 1][di].start === cell.start
-    ) {
-      return { rowSpan: 0, isFirst: false };
-    }
-    let s = 1;
-    for (let i = ti + 1; i < TIME_SLOTS.length; i++) {
-      const n = grid[i][di];
-      if (n && n.code === cell.code && n.start === cell.start) s++;
-      else break;
-    }
-    return { rowSpan: s, isFirst: true };
+  function pxToTime(px) {
+    const totalMin = (px / HOUR_HEIGHT) * 60 + START_HOUR * 60;
+    const h = Math.floor(totalMin / 60);
+    const m = Math.round(totalMin % 60);
+    return `${String(Math.min(h, 23)).padStart(2, "0")}:${String(Math.min(m, 59)).padStart(2, "0")}`;
   }
 
   // ── Available courses ───────────────────────────────────────────
@@ -165,7 +100,6 @@ const Timetable = (() => {
   }
 
   function getGenEdCourses() {
-    // Collect all GenEd courses across all years (deduplicated by code)
     const seen = new Set();
     const gened = [];
     if (!courseData?.years) return gened;
@@ -194,237 +128,150 @@ const Timetable = (() => {
     c.querySelectorAll(".year-tab").forEach((b) =>
       b.addEventListener("click", () => {
         activeYear = b.dataset.year;
-        popupTarget = null;
         populateFromJSON();
         renderYearTabs();
-        renderGrid();
+        renderCalendar();
         renderExamSchedule();
         updateRegisLink();
       }),
     );
   }
 
-  // ── Render: Weekly Grid ─────────────────────────────────────────
-  function renderGrid() {
+  // ── Render: Google Calendar Grid ────────────────────────────────
+  function renderCalendar() {
     const container = document.getElementById("weekly-timetable");
     if (!container) return;
 
-    let h =
-      '<div class="grid-scroll"><table class="grid-table"><thead><tr><th class="time-th"></th>';
-    for (const d of DAYS) h += `<th>${d}</th>`;
-    h += "</tr></thead><tbody>";
+    const totalHeight = TOTAL_HOURS * HOUR_HEIGHT;
 
-    for (let ti = 0; ti < TIME_SLOTS.length; ti++) {
-      const slot = TIME_SLOTS[ti];
-      const showTime = slot.label.endsWith(":00");
-      h += "<tr>";
-      h += `<td class="time-th">${showTime ? slot.label : ""}</td>`;
-      for (let di = 0; di < DAYS.length; di++) {
-        const cell = grid[ti][di];
-        const span = cell ? getSpan(ti, di) : { rowSpan: 1, isFirst: true };
-        if (span.rowSpan === 0) continue;
-        h += `<td class="grid-cell${cell ? " filled" : ""}" rowspan="${span.rowSpan}" data-ti="${ti}" data-di="${di}">`;
-        if (cell) {
-          h += `<div class="cell-content">
-            <div class="cell-code">${esc(cell.code)}</div>
-            <div class="cell-name">${esc(cell.name)}</div>
-            ${cell.room ? `<div class="cell-room">${esc(cell.room)}</div>` : ""}
-            ${cell.source === "manual" ? '<span class="cell-badge">✏️</span>' : ""}
-            <button class="cell-pen" data-ti="${ti}" data-di="${di}" title="Edit">✏️</button>
-          </div>`;
-        } else {
-          h += `<div class="cell-empty" data-ti="${ti}" data-di="${di}">
-            <span class="cell-plus">+</span>
-          </div>`;
-        }
-        h += "</td>";
-      }
-      h += "</tr>";
+    let html =
+      '<div class="cal-scroll"><div class="cal-grid" style="height:' +
+      totalHeight +
+      'px">';
+
+    // Time gutter
+    html += '<div class="cal-gutter">';
+    for (let h = START_HOUR; h <= END_HOUR; h++) {
+      html += `<div class="cal-hour" style="top:${(h - START_HOUR) * HOUR_HEIGHT}px">${String(h).padStart(2, "0")}:00</div>`;
     }
-    h += "</tbody></table></div>";
-    container.innerHTML = h;
-    attachGridEvents();
+    html += "</div>";
+
+    // Day columns
+    for (let di = 0; di < DAYS.length; di++) {
+      html += `<div class="cal-col" data-day="${di}">`;
+      // Hour lines
+      for (let h = START_HOUR; h <= END_HOUR; h++) {
+        html += `<div class="cal-hour-line" style="top:${(h - START_HOUR) * HOUR_HEIGHT}px"></div>`;
+      }
+      // Half-hour lines
+      for (let h = START_HOUR; h < END_HOUR; h++) {
+        html += `<div class="cal-half-line" style="top:${(h - START_HOUR) * HOUR_HEIGHT + HOUR_HEIGHT / 2}px"></div>`;
+      }
+      // Events for this day
+      const dayCourses = grid.filter((c) => c.day === di);
+      for (const c of dayCourses) {
+        const top = timeToPx(c.start);
+        const height = Math.max(durationPx(c.start, c.end), 20);
+        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
+          <div class="cal-event-code">${esc(c.code)}</div>
+          <div class="cal-event-name">${esc(c.name)}</div>
+          ${c.room ? `<div class="cal-event-room">${esc(c.room)}</div>` : ""}
+          <button class="cal-event-pen" data-day="${di}" data-start="${c.start}" title="Edit">✏️</button>
+        </div>`;
+      }
+      html += "</div>";
+    }
+
+    html += "</div></div>";
+    container.innerHTML = html;
+
+    attachCalendarEvents();
   }
 
-  function attachGridEvents() {
+  function attachCalendarEvents() {
     const ct = document.getElementById("weekly-timetable");
     if (!ct) return;
 
-    // Pen click → open popup
-    ct.querySelectorAll(".cell-pen").forEach((btn) => {
+    // Pen click → edit popup
+    ct.querySelectorAll(".cal-event-pen").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        openPopup(parseInt(btn.dataset.ti), parseInt(btn.dataset.di));
+        const day = parseInt(btn.dataset.day);
+        openPopup(day, btn.dataset.start, btn.dataset.end, btn.parentElement);
       });
     });
 
-    // Empty cell click → open popup
-    ct.querySelectorAll(".cell-empty").forEach((div) => {
-      div.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPopup(parseInt(div.dataset.ti), parseInt(div.dataset.di));
+    // Event click → edit popup
+    ct.querySelectorAll(".cal-event").forEach((ev) => {
+      ev.addEventListener("click", (e) => {
+        if (e.target.closest(".cal-event-pen")) return;
+        const day = parseInt(ev.dataset.day);
+        openPopup(day, ev.dataset.start, ev.dataset.end, ev);
       });
       // Long press on mobile
       let timer;
-      div.addEventListener(
+      ev.addEventListener(
         "touchstart",
         (e) => {
           timer = setTimeout(() => {
-            e.preventDefault();
-            openPopup(parseInt(div.dataset.ti), parseInt(div.dataset.di));
+            const day = parseInt(ev.dataset.day);
+            openPopup(day, ev.dataset.start, ev.dataset.end, ev);
           }, 500);
         },
-        { passive: false },
+        { passive: true },
       );
-      div.addEventListener("touchend", () => clearTimeout(timer));
-      div.addEventListener("touchmove", () => clearTimeout(timer));
+      ev.addEventListener("touchend", () => clearTimeout(timer));
+      ev.addEventListener("touchmove", () => clearTimeout(timer));
     });
 
-    // Filled cell click → open popup (for mobile ease)
-    ct.querySelectorAll(".cell-content").forEach((div) => {
-      div.addEventListener("click", (e) => {
-        if (e.target.closest(".cell-pen")) return; // pen handles itself
-        const td = div.closest(".grid-cell");
-        openPopup(parseInt(td.dataset.ti), parseInt(td.dataset.di));
+    // Click on empty column area → add at that time
+    ct.querySelectorAll(".cal-col").forEach((col) => {
+      col.addEventListener("click", (e) => {
+        if (e.target.closest(".cal-event")) return;
+        const rect = col.getBoundingClientRect();
+        const y = e.clientY - rect.top + col.scrollTop;
+        const start = pxToTime(y);
+        const end = pxToTime(y + HOUR_HEIGHT);
+        const day = parseInt(col.dataset.day);
+        openPopup(day, start, end, null);
       });
-      // Long press
-      let timer;
-      div.addEventListener(
-        "touchstart",
-        (e) => {
-          timer = setTimeout(() => {
-            e.preventDefault();
-            const td = div.closest(".grid-cell");
-            openPopup(parseInt(td.dataset.ti), parseInt(td.dataset.di));
-          }, 500);
-        },
-        { passive: false },
-      );
-      div.addEventListener("touchend", () => clearTimeout(timer));
-      div.addEventListener("touchmove", () => clearTimeout(timer));
     });
   }
 
-  // ── Popup Editor ────────────────────────────────────────────────
-  function openPopup(ti, di) {
-    popupTarget = { ti, di };
-    const cell = grid[ti][di];
+  // ── Popup ───────────────────────────────────────────────────────
+  function openPopup(day, start, end, existingEvent) {
     const courses = getAvailableCourses();
     const genedCourses = getGenEdCourses();
-    const slot = TIME_SLOTS[ti];
+
+    // Find existing course if any
+    const existing = existingEvent
+      ? grid.find((c) => c.day === day && c.start === start && c.end === end)
+      : null;
 
     let html = `<div class="popup-overlay visible" id="cell-popup-overlay">
       <div class="popup-card">
         <div class="popup-header">
-          <span>${DAYS[di]} ${slot.label}</span>
+          <span>${DAYS[day]} ${start}–${end}</span>
           <button class="popup-close">&times;</button>
         </div>
         <div class="popup-body">
           <input type="text" class="popup-search" id="popup-search" placeholder="🔍 Search courses..." autocomplete="off">
-          <div class="popup-list" id="popup-list">`;
-
-    // Show matching courses
-    const renderList = (filter = "") => {
-      const list = document.getElementById("popup-list");
-      if (!list) return;
-      const q = filter.toLowerCase();
-
-      const majorCourses = courses.filter((c) => c.tag !== "GenEd");
-      const gened = genedCourses.filter(
-        (c) =>
-          !q ||
-          c.code.toLowerCase().includes(q) ||
-          c.name.toLowerCase().includes(q),
-      );
-      const majorFiltered = majorCourses.filter(
-        (c) =>
-          !q ||
-          c.code.toLowerCase().includes(q) ||
-          c.name.toLowerCase().includes(q),
-      );
-
-      let html = "";
-      if (majorFiltered.length > 0) {
-        html += '<div class="popup-section-title">📚 Major</div>';
-        html += majorFiltered
-          .map(
-            (c) => `
-          <div class="popup-item" data-code="${esc(c.code)}">
-            <span class="popup-item-code">${esc(c.code)}</span>
-            <span class="popup-item-name">${esc(c.name)}</span>
-            <span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span>
-          </div>
-        `,
-          )
-          .join("");
-      }
-      if (gened.length > 0) {
-        html += '<div class="popup-section-title">🎓 GenEd</div>';
-        html += gened
-          .map(
-            (c) => `
-          <div class="popup-item gened-item" data-code="${esc(c.code)}">
-            <span class="popup-item-code">${esc(c.code)}</span>
-            <span class="popup-item-name">${esc(c.name)}</span>
-            <span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span>
-          </div>
-        `,
-          )
-          .join("");
-      }
-      if (!html) {
-        html = '<div class="popup-empty">No matches — use custom below</div>';
-      }
-      list.innerHTML = html;
-      // Click to select
-      list.querySelectorAll(".popup-item").forEach((item) => {
-        item.addEventListener("click", () => {
-          const code = item.dataset.code;
-          const course = [...courses, ...genedCourses].find(
-            (c) => c.code === code,
-          );
-          if (course) {
-            fillSlots(
-              ti,
-              di,
-              course.start || slot.start,
-              course.end ||
-                TIME_SLOTS[Math.min(ti + 3, TIME_SLOTS.length - 1)].end,
-              {
-                code: course.code,
-                name: course.name,
-                room: course.room || "",
-                start: course.start || slot.start,
-                end:
-                  course.end ||
-                  TIME_SLOTS[Math.min(ti + 3, TIME_SLOTS.length - 1)].end,
-                source: "regis",
-              },
-            );
-            closePopup();
-            renderGrid();
-          }
-        });
-      });
-    };
-
-    // Custom entry fields
-    html += `</div>
+          <div class="popup-list" id="popup-list"></div>
           <div class="popup-custom">
             <div class="popup-custom-title">— or enter custom —</div>
             <div class="popup-fields">
-              <input type="text" id="popup-code" placeholder="Course code" value="${esc(cell?.code || "")}">
-              <input type="text" id="popup-name" placeholder="Course name" value="${esc(cell?.name || "")}">
+              <input type="text" id="popup-code" placeholder="Course code" value="${esc(existing?.code || "")}">
+              <input type="text" id="popup-name" placeholder="Course name" value="${esc(existing?.name || "")}">
               <div class="popup-row">
-                <input type="text" id="popup-room" placeholder="Room" value="${esc(cell?.room || "")}">
-                <input type="time" id="popup-start" value="${cell?.start || slot.start}">
+                <input type="text" id="popup-room" placeholder="Room" value="${esc(existing?.room || "")}">
+                <input type="time" id="popup-start" value="${existing?.start || start}">
                 <span class="time-sep">–</span>
-                <input type="time" id="popup-end" value="${cell?.end || TIME_SLOTS[Math.min(ti + 3, TIME_SLOTS.length - 1)].end}">
+                <input type="time" id="popup-end" value="${existing?.end || end}">
               </div>
             </div>
             <div class="popup-actions">
               <button class="btn btn-primary" id="popup-save">✓ Save</button>
-              ${cell ? '<button class="btn" id="popup-clear" style="color:var(--danger)">✕ Clear</button>' : ""}
+              ${existing ? '<button class="btn" id="popup-clear" style="color:var(--danger)">✕ Remove</button>' : ""}
               <button class="btn" id="popup-cancel">Cancel</button>
             </div>
           </div>
@@ -432,22 +279,78 @@ const Timetable = (() => {
       </div>
     </div>`;
 
-    // Remove any existing popup
     document.getElementById("cell-popup-overlay")?.remove();
     document.body.insertAdjacentHTML("beforeend", html);
 
-    // Events
     const overlay = document.getElementById("cell-popup-overlay");
-    const search = document.getElementById("popup-search");
+    const searchEl = document.getElementById("popup-search");
+
+    function renderList(filter = "") {
+      const list = document.getElementById("popup-list");
+      if (!list) return;
+      const q = filter.toLowerCase();
+      const major = courses.filter((c) => c.tag !== "GenEd");
+      const mf = major.filter(
+        (c) =>
+          !q ||
+          c.code.toLowerCase().includes(q) ||
+          c.name.toLowerCase().includes(q),
+      );
+      const gf = genedCourses.filter(
+        (c) =>
+          !q ||
+          c.code.toLowerCase().includes(q) ||
+          c.name.toLowerCase().includes(q),
+      );
+
+      let h = "";
+      if (mf.length) {
+        h += '<div class="popup-section-title">📚 Major</div>';
+        h += mf
+          .map(
+            (c) =>
+              `<div class="popup-item" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`,
+          )
+          .join("");
+      }
+      if (gf.length) {
+        h += '<div class="popup-section-title">🎓 GenEd</div>';
+        h += gf
+          .map(
+            (c) =>
+              `<div class="popup-item gened-item" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`,
+          )
+          .join("");
+      }
+      list.innerHTML =
+        h || '<div class="popup-empty">No matches — use custom</div>';
+
+      list.querySelectorAll(".popup-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          const code = item.dataset.code;
+          const course = [...courses, ...genedCourses].find(
+            (c) => c.code === code,
+          );
+          if (course) {
+            addOrUpdate(day, course.start || start, course.end || end, {
+              code: course.code,
+              name: course.name,
+              room: course.room || "",
+              source: "regis",
+            });
+            overlay.remove();
+            renderCalendar();
+          }
+        });
+      });
+    }
 
     renderList("");
-    search.addEventListener("input", () => renderList(search.value));
-    search.focus();
+    searchEl.addEventListener("input", () => renderList(searchEl.value));
+    searchEl.focus();
 
-    // Close handlers
     const close = () => {
       overlay.remove();
-      popupTarget = null;
     };
     overlay.querySelector(".popup-close").addEventListener("click", close);
     overlay.addEventListener("click", (e) => {
@@ -455,45 +358,48 @@ const Timetable = (() => {
     });
     document.getElementById("popup-cancel").addEventListener("click", close);
 
-    // Save
     document.getElementById("popup-save").addEventListener("click", () => {
       const name = document.getElementById("popup-name").value.trim();
       if (!name) return;
-      const code = document.getElementById("popup-code").value.trim();
-      const room = document.getElementById("popup-room").value.trim();
-      const start = document.getElementById("popup-start").value;
-      const end = document.getElementById("popup-end").value;
-      fillSlots(ti, di, start, end, {
-        code,
-        name,
-        room,
-        start,
-        end,
-        source: "manual",
-      });
+      addOrUpdate(
+        day,
+        document.getElementById("popup-start").value,
+        document.getElementById("popup-end").value,
+        {
+          code: document.getElementById("popup-code").value.trim(),
+          name,
+          room: document.getElementById("popup-room").value.trim(),
+          source: "manual",
+        },
+      );
       close();
-      renderGrid();
+      renderCalendar();
     });
 
-    // Clear
     document.getElementById("popup-clear")?.addEventListener("click", () => {
-      clearCell(ti, di);
+      grid = grid.filter(
+        (c) => !(c.day === day && c.start === start && c.end === end),
+      );
+      saveGrid();
       close();
-      renderGrid();
+      renderCalendar();
     });
 
-    // Keyboard
-    document.addEventListener("keydown", function escHandler(e) {
+    document.addEventListener("keydown", function escH(e) {
       if (e.key === "Escape") {
         close();
-        document.removeEventListener("keydown", escHandler);
+        document.removeEventListener("keydown", escH);
       }
     });
   }
 
-  function closePopup() {
-    document.getElementById("cell-popup-overlay")?.remove();
-    popupTarget = null;
+  function addOrUpdate(day, start, end, data) {
+    // Remove any existing course at this exact slot
+    grid = grid.filter(
+      (c) => !(c.day === day && c.start === start && c.end === end),
+    );
+    grid.push({ day, start, end, ...data });
+    saveGrid();
   }
 
   // ── Exam Schedule ───────────────────────────────────────────────
@@ -506,7 +412,7 @@ const Timetable = (() => {
     const exams = courseData.years[activeYear].courses.filter(
       (c) => c.midterm || c.final,
     );
-    if (exams.length === 0) {
+    if (!exams.length) {
       container.innerHTML = '<p class="empty-hint">No exam dates.</p>';
       return;
     }
@@ -558,22 +464,7 @@ const Timetable = (() => {
     return `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}T${pad2(d.getHours())}${pad2(d.getMinutes())}${pad2(d.getSeconds())}`;
   }
   function generateICS() {
-    const entries = [];
-    for (let ti = 0; ti < TIME_SLOTS.length; ti++) {
-      for (let di = 0; di < DAYS.length; di++) {
-        const cell = grid[ti][di];
-        if (!cell) continue;
-        const span = getSpan(ti, di);
-        if (!span.isFirst) continue;
-        entries.push({
-          ...cell,
-          day: di,
-          start: cell.start || TIME_SLOTS[ti].start,
-          end: cell.end || TIME_SLOTS[ti].end,
-        });
-      }
-    }
-    if (!entries.length) {
+    if (!grid.length) {
       alert("No courses to export.");
       return;
     }
@@ -592,7 +483,7 @@ const Timetable = (() => {
     nm.setHours(0, 0, 0, 0);
     const se = new Date(nm);
     se.setMonth(se.getMonth() + 5);
-    for (const c of entries) {
+    for (const c of grid) {
       const [sh, sm] = c.start.split(":").map(Number);
       const [eh, em] = c.end.split(":").map(Number);
       const ds = new Date(nm);
@@ -627,7 +518,6 @@ const Timetable = (() => {
     URL.revokeObjectURL(url);
   }
 
-  // ── Events ──────────────────────────────────────────────────────
   function setupEvents() {
     ["regis-year", "regis-semester"].forEach((id) => {
       document.getElementById(id)?.addEventListener("change", updateRegisLink);
@@ -644,15 +534,13 @@ const Timetable = (() => {
     return div.innerHTML;
   }
 
-  // ── Init ────────────────────────────────────────────────────────
   async function init() {
     await loadCourseData();
     loadGrid();
-    const hasData = grid.some((row) => row.some((cell) => cell !== null));
-    if (!hasData) populateFromJSON();
+    if (!grid.length) populateFromJSON();
     setupEvents();
     renderYearTabs();
-    renderGrid();
+    renderCalendar();
     renderExamSchedule();
     updateRegisLink();
   }
