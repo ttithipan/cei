@@ -39,10 +39,9 @@ CLASS_YEARS = ["1", "2", "3", "4"]
 def detect_semester() -> tuple[str, str]:
     """
     Auto-detect academic year (พ.ศ.) and semester from current date.
-    Thai academic calendar:
-      - Semester 1: August – December
-      - Semester 2: January – May
-      - Summer:     June – July
+    Schedule publishing pattern:
+      - June:     Semester 1 schedule available → scrape Sem 1
+      - October:  Semester 2 schedule available → scrape Sem 2
     Override with env vars REGIS_YEAR and REGIS_SEMESTER.
     """
     year_env = os.environ.get("REGIS_YEAR", "").strip()
@@ -55,15 +54,18 @@ def detect_semester() -> tuple[str, str]:
     month = now.month
     buddhist_year = now.year + 543
 
-    if month >= 8:
-        # Aug–Dec: Semester 1 of this Buddhist year
+    if 6 <= month <= 9:
+        # June–September: Semester 1 of this Buddhist year
         return str(buddhist_year), "1"
-    elif month >= 1 and month <= 5:
-        # Jan–May: Semester 2 of previous Buddhist year
-        return str(buddhist_year - 1), "2"
     else:
-        # Jun–Jul: Summer of previous Buddhist year
-        return str(buddhist_year - 1), "3"
+        # October–May: Semester 2
+        # Academic year doesn't change in January — Buddhist year does.
+        # Oct–Dec: buddhist_year is still the same (e.g. Oct 2026 → 2569)
+        # Jan–May: buddhist_year has ticked over (e.g. Jan 2027 → 2570, but still academic year 2569)
+        if month >= 10:
+            return str(buddhist_year), "2"
+        else:
+            return str(buddhist_year - 1), "2"
 
 
 DAY_MAP = {
