@@ -14,6 +14,7 @@ Usage (GitHub Actions):
 """
 
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
