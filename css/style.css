@@ -1217,3 +1217,16 @@ select:focus {
     .cal-event-code { font-size: 0.6rem; }
     .cal-event-name { font-size: 0.62rem; }
 }
+
+/* No horizontal scroll — calendar fills page */
+.cal-scroll { overflow-x: visible; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+.cal-grid { min-width: 0; }
+.cal-col { min-width: 0; }
+
+/* Break indicator */
+.cal-event.has-break { border-left-style: dashed; }
+.cal-event.has-break::after {
+    content: 'break';
+    position: absolute; right: 4px; bottom: 2px;
+    font-size: 0.5rem; color: var(--text-light); font-style: italic;
+}

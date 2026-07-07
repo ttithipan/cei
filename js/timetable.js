@@ -60,7 +60,7 @@ const Timetable = (() => {
 
   function populateFromJSON() {
     if (!courseData?.years?.[activeYear]?.courses) return;
-    grid = courseData.years[activeYear].courses
+    const raw = courseData.years[activeYear].courses
       .filter(
         (c) =>
           c.day !== null && c.day !== undefined && c.start && c.end && c.name,
@@ -74,6 +74,32 @@ const Timetable = (() => {
         day: c.day,
         source: "regis",
       }));
+
+    // Merge courses with same (code, day) — handles split sessions like
+    // "อังคาร 08:45-10:15 + อังคาร 10:30-12:00"
+    const merged = [];
+    const groups = {};
+    for (const c of raw) {
+      const key = `${c.code}|${c.day}`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(c);
+    }
+    for (const [key, items] of Object.entries(groups)) {
+      if (items.length === 1) {
+        merged.push(items[0]);
+      } else {
+        // Merge: earliest start, latest end
+        const starts = items.map((i) => i.start).sort();
+        const ends = items.map((i) => i.end).sort();
+        merged.push({
+          ...items[0],
+          start: starts[0],
+          end: ends[ends.length - 1],
+          hasBreak: true,
+        });
+      }
+    }
+    grid = merged;
     saveGrid();
   }
 
@@ -172,8 +198,8 @@ const Timetable = (() => {
       for (const c of dayCourses) {
         const top = timeToPx(c.start);
         const height = Math.max(durationPx(c.start, c.end), 20);
-        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
-          <div class="cal-event-code">${esc(c.code)}</div>
+        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}${c.hasBreak ? " has-break" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
+          <div class="cal-event-code">${esc(c.code)}${c.hasBreak ? " ⏸" : ""}</div>
           <div class="cal-event-name">${esc(c.name)}</div>
           ${c.room ? `<div class="cal-event-room">${esc(c.room)}</div>` : ""}
           <button class="cal-event-pen" data-day="${di}" data-start="${c.start}" title="Edit">✏️</button>
