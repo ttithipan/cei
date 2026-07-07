@@ -268,7 +268,7 @@ const Timetable = (() => {
 
   // ── Popup ───────────────────────────────────────────────────────
   function openPopup(day, start, end, existingEvent) {
-    // Filter courses that match this day + time slot
+    // Show ALL courses from active year (not just time-slot matches)
     const allCourses = getAvailableCourses();
     const genedCourses = getGenEdCourses();
 
@@ -277,8 +277,8 @@ const Timetable = (() => {
         c.day === day && c.start && c.end && c.start <= start && c.end >= start
       );
     }
-    const courses = allCourses.filter(matchesSlot);
-    const gened = genedCourses.filter(matchesSlot);
+    const slotMajor = allCourses.filter(matchesSlot);
+    const slotGened = genedCourses.filter(matchesSlot);
 
     // Find existing course if any
     const existing = existingEvent
@@ -326,46 +326,52 @@ const Timetable = (() => {
       const list = document.getElementById("popup-list");
       if (!list) return;
       const q = filter.toLowerCase();
-      const major = courses.filter((c) => c.tag !== "GenEd");
-      const mf = major.filter(
-        (c) =>
-          !q ||
-          c.code.toLowerCase().includes(q) ||
-          c.name.toLowerCase().includes(q),
-      );
-      const gf = gened.filter(
-        (c) =>
-          !q ||
-          c.code.toLowerCase().includes(q) ||
-          c.name.toLowerCase().includes(q),
-      );
+      const ff = (c) =>
+        !q ||
+        c.code.toLowerCase().includes(q) ||
+        c.name.toLowerCase().includes(q);
+
+      function row(c, cls) {
+        return `<div class="popup-item${cls ? " " + cls : ""}" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`;
+      }
 
       let h = "";
-      if (mf.length) {
+
+      // Time-slot matches first
+      const sm = allCourses.filter(
+        (c) => c.tag !== "GenEd" && matchesSlot(c) && ff(c),
+      );
+      const sg = genedCourses.filter((c) => matchesSlot(c) && ff(c));
+      if (sm.length + sg.length) {
+        h += '<div class="popup-section-title">🎯 At this time</div>';
+        h +=
+          sm.map((c) => row(c)).join("") +
+          sg.map((c) => row(c, "gened-item")).join("");
+      }
+
+      // All major
+      const mj = allCourses.filter((c) => c.tag !== "GenEd" && ff(c));
+      if (mj.length) {
         h += '<div class="popup-section-title">📚 Major</div>';
-        h += mf
-          .map(
-            (c) =>
-              `<div class="popup-item" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`,
-          )
-          .join("");
+        h += mj.map((c) => row(c)).join("");
       }
-      if (gf.length) {
+
+      // All GenEd
+      const ge = genedCourses.filter(ff);
+      if (ge.length) {
         h += '<div class="popup-section-title">🎓 GenEd</div>';
-        h += gf
-          .map(
-            (c) =>
-              `<div class="popup-item gened-item" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`,
-          )
-          .join("");
+        h += ge.map((c) => row(c, "gened-item")).join("");
       }
+
       list.innerHTML =
-        h || '<div class="popup-empty">No matches — use custom</div>';
+        h || '<div class="popup-empty">No matches — use custom below</div>';
 
       list.querySelectorAll(".popup-item").forEach((item) => {
         item.addEventListener("click", () => {
           const code = item.dataset.code;
-          const course = [...courses, ...gened].find((c) => c.code === code);
+          const course = [...allCourses, ...genedCourses].find(
+            (c) => c.code === code,
+          );
           if (course) {
             addOrUpdate(day, course.start || start, course.end || end, {
               code: course.code,
