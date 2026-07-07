@@ -1148,3 +1148,8 @@ select:focus {
     transition: color 0.1s;
 }
 .cell-empty:hover .cell-plus { color: var(--accent); }
+
+/* Fixed column sizing */
+.grid-table { table-layout: fixed; }
+.grid-table thead th { width: 1fr; }
+.grid-table .time-th { width: 50px; min-width: 50px; max-width: 50px; }

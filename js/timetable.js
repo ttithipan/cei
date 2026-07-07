@@ -82,7 +82,7 @@ const Timetable = (() => {
     if (!courseData?.years?.[activeYear]?.courses) return;
     initEmptyGrid();
     for (const c of courseData.years[activeYear].courses) {
-      const di = c.day; // data uses 0=Monday (from scraper or manual)
+      const di = c.day - 2; // Netlify data: 2=Mon,3=Tue,4=Wed,5=Thu,6=Fri → our 0=Mon
       if (di < 0 || di >= DAYS.length) continue;
       if (!c.start || !c.end) continue;
 
