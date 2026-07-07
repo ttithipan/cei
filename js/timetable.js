@@ -443,16 +443,21 @@ const Timetable = (() => {
       if (container) container.innerHTML = "";
       return;
     }
-    const exams = courseData.years[activeYear].courses.filter(
-      (c) => c.midterm || c.final,
-    );
+    // Deduplicate by course code (split sessions create duplicates)
+    const seen = new Set();
+    const exams = courseData.years[activeYear].courses.filter((c) => {
+      if (!c.midterm && !c.final) return false;
+      if (seen.has(c.code)) return false;
+      seen.add(c.code);
+      return true;
+    });
     if (!exams.length) {
       container.innerHTML = '<p class="empty-hint">No exam dates.</p>';
       return;
     }
     function fd(d) {
       if (!d) return "—";
-      const dt = new Date(d);
+      const dt = new Date(d + "T00:00:00");
       if (isNaN(dt.getTime())) return d;
       const m = [
         "Jan",
