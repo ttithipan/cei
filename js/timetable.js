@@ -240,8 +240,17 @@ const Timetable = (() => {
 
   // ── Popup ───────────────────────────────────────────────────────
   function openPopup(day, start, end, existingEvent) {
-    const courses = getAvailableCourses();
+    // Filter courses that match this day + time slot
+    const allCourses = getAvailableCourses();
     const genedCourses = getGenEdCourses();
+
+    function matchesSlot(c) {
+      return (
+        c.day === day && c.start && c.end && c.start <= start && c.end >= start
+      );
+    }
+    const courses = allCourses.filter(matchesSlot);
+    const gened = genedCourses.filter(matchesSlot);
 
     // Find existing course if any
     const existing = existingEvent
@@ -296,7 +305,7 @@ const Timetable = (() => {
           c.code.toLowerCase().includes(q) ||
           c.name.toLowerCase().includes(q),
       );
-      const gf = genedCourses.filter(
+      const gf = gened.filter(
         (c) =>
           !q ||
           c.code.toLowerCase().includes(q) ||
@@ -328,9 +337,7 @@ const Timetable = (() => {
       list.querySelectorAll(".popup-item").forEach((item) => {
         item.addEventListener("click", () => {
           const code = item.dataset.code;
-          const course = [...courses, ...genedCourses].find(
-            (c) => c.code === code,
-          );
+          const course = [...courses, ...gened].find((c) => c.code === code);
           if (course) {
             addOrUpdate(day, course.start || start, course.end || end, {
               code: course.code,
