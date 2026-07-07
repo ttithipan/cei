@@ -1230,3 +1230,5 @@ select:focus {
     position: absolute; right: 4px; bottom: 2px;
     font-size: 0.5rem; color: var(--text-light); font-style: italic;
 }
+.cal-event.lab { background: #e8f0fa; border-left-color: #6a9bcc; }
+.cal-event.lab .cal-event-code { color: #6a9bcc; }

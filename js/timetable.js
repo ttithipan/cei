@@ -73,6 +73,7 @@ const Timetable = (() => {
         end: c.end,
         day: c.day,
         section: c.section || "",
+        kind: c.kind || "theory",
         source: "regis",
       }));
 
@@ -81,7 +82,7 @@ const Timetable = (() => {
     const merged = [];
     const groups = {};
     for (const c of raw) {
-      const key = `${c.code}|${c.day}|${c.section || ""}`;
+      const key = `${c.code}|${c.day}|${c.section || ""}|${c.kind || "theory"}`;
       if (!groups[key]) groups[key] = [];
       groups[key].push(c);
     }
@@ -198,8 +199,8 @@ const Timetable = (() => {
       for (const c of dayCourses) {
         const top = timeToPx(c.start);
         const height = Math.max(durationPx(c.start, c.end), 20);
-        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}${c.hasBreak ? " has-break" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
-          <div class="cal-event-code">${esc(c.code)}${c.hasBreak ? " ⏸" : ""}</div>
+        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}${c.hasBreak ? " has-break" : ""}${c.kind === "lab" ? " lab" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
+          <div class="cal-event-code">${esc(c.code)}${c.hasBreak ? " ⏸" : ""}${c.kind === "lab" ? " 🔬" : ""}</div>
           <div class="cal-event-name">${esc(c.name)}</div>
           ${c.room ? `<div class="cal-event-room">${esc(c.room)}</div>` : ""}
           <button class="cal-event-pen" data-day="${di}" data-start="${c.start}" title="Edit">✏️</button>
