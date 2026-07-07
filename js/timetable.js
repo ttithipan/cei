@@ -59,13 +59,6 @@ const Timetable = (() => {
   }
 
   function populateFromJSON() {
-    // Only auto-populate Year 1 (reference timetable)
-    // Years 2-4 stay empty for manual customization
-    if (activeYear !== "1") {
-      grid = [];
-      saveGrid();
-      return;
-    }
     if (!courseData?.years?.[activeYear]?.courses) return;
     const raw = courseData.years[activeYear].courses
       .filter(

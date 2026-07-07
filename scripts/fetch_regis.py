@@ -34,7 +34,7 @@ DEPARTMENT = "05"
 CURRICULUM = "127"
 
 # Year tabs to scrape (1-4)
-CLASS_YEARS = ["1"]  # Regis shows all courses regardless of class_year; fetch once
+CLASS_YEARS = ["1", "2", "3", "4"]
 
 
 def detect_semester() -> tuple[str, str]:
@@ -449,17 +449,6 @@ def main():
 
     try:
         years = scrape_with_playwright(year, semester)
-
-        # Regis ignores class_year param — same data for all years.
-        # Distribute the fetched courses to all year labels.
-        if "1" in years:
-            courses = years["1"]["courses"]
-            years = {
-                "1": {"label": "Year 1", "courses": courses},
-                "2": {"label": "Year 2", "courses": courses},
-                "3": {"label": "Year 3", "courses": courses},
-                "4": {"label": "Year 4", "courses": courses},
-            }
     except ImportError:
         print("❌ playwright not installed.")
         print("   Install: pip install playwright && playwright install chromium")
