@@ -34,7 +34,7 @@ DEPARTMENT = "05"
 CURRICULUM = "127"
 
 # Year tabs to scrape (1-4)
-CLASS_YEARS = ["1", "2", "3", "4"]
+CLASS_YEARS = ["1"]  # Regis shows all courses regardless of class_year; fetch once
 
 
 def detect_semester() -> tuple[str, str]:
@@ -233,8 +233,13 @@ def extract_courses_from_page(page) -> list[dict]:
                                     start, end = times
                                 break
 
-                # Build room string
-                full_room = " ".join(filter(None, [room, building])).strip() or None
+                # Build room string (avoid duplicates like "HM 601 HM")
+                room_parts = []
+                if room and room != "-":
+                    room_parts.append(room)
+                if building and building != "-" and building not in (room or ""):
+                    room_parts.append(building)
+                full_room = " ".join(room_parts).strip() or None
 
                 if name:
                     courses.append(
@@ -248,7 +253,7 @@ def extract_courses_from_page(page) -> list[dict]:
                             "end": end,
                             "hasBreak": None,
                             "room": full_room,
-                            "teacher": teacher or None,
+                            "teacher": teacher.replace("\n", ", ") if teacher else None,
                             "credit": credit or None,
                             "tag": None,
                             "midterm": None,
@@ -365,6 +370,17 @@ def main():
 
     try:
         years = scrape_with_playwright(year, semester)
+
+        # Regis ignores class_year param — same data for all years.
+        # Distribute the fetched courses to all year labels.
+        if "1" in years:
+            courses = years["1"]["courses"]
+            years = {
+                "1": {"label": "Year 1", "courses": courses},
+                "2": {"label": "Year 2", "courses": courses},
+                "3": {"label": "Year 3", "courses": courses},
+                "4": {"label": "Year 4", "courses": courses},
+            }
     except ImportError:
         print("❌ playwright not installed.")
         print("   Install: pip install playwright && playwright install chromium")
