@@ -164,6 +164,22 @@ const Timetable = (() => {
     return courseData.years[activeYear].courses.filter((c) => c.name && c.code);
   }
 
+  function getGenEdCourses() {
+    // Collect all GenEd courses across all years (deduplicated by code)
+    const seen = new Set();
+    const gened = [];
+    if (!courseData?.years) return gened;
+    for (const y of Object.values(courseData.years)) {
+      for (const c of y.courses || []) {
+        if (c.tag === "GenEd" && c.code && !seen.has(c.code)) {
+          seen.add(c.code);
+          gened.push(c);
+        }
+      }
+    }
+    return gened;
+  }
+
   // ── Render: Year Tabs ───────────────────────────────────────────
   function renderYearTabs() {
     const c = document.getElementById("year-tabs");
@@ -294,6 +310,7 @@ const Timetable = (() => {
     popupTarget = { ti, di };
     const cell = grid[ti][di];
     const courses = getAvailableCourses();
+    const genedCourses = getGenEdCourses();
     const slot = TIME_SLOTS[ti];
 
     let html = `<div class="popup-overlay visible" id="cell-popup-overlay">
@@ -311,32 +328,61 @@ const Timetable = (() => {
       const list = document.getElementById("popup-list");
       if (!list) return;
       const q = filter.toLowerCase();
-      const filtered = courses.filter(
+
+      const majorCourses = courses.filter((c) => c.tag !== "GenEd");
+      const gened = genedCourses.filter(
         (c) =>
           !q ||
           c.code.toLowerCase().includes(q) ||
           c.name.toLowerCase().includes(q),
       );
-      list.innerHTML = filtered
-        .map(
-          (c) => `
-        <div class="popup-item" data-code="${esc(c.code)}">
-          <span class="popup-item-code">${esc(c.code)}</span>
-          <span class="popup-item-name">${esc(c.name)}</span>
-          <span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span>
-        </div>
-      `,
-        )
-        .join("");
-      if (filtered.length === 0) {
-        list.innerHTML =
-          '<div class="popup-empty">No matches — use custom below</div>';
+      const majorFiltered = majorCourses.filter(
+        (c) =>
+          !q ||
+          c.code.toLowerCase().includes(q) ||
+          c.name.toLowerCase().includes(q),
+      );
+
+      let html = "";
+      if (majorFiltered.length > 0) {
+        html += '<div class="popup-section-title">📚 Major</div>';
+        html += majorFiltered
+          .map(
+            (c) => `
+          <div class="popup-item" data-code="${esc(c.code)}">
+            <span class="popup-item-code">${esc(c.code)}</span>
+            <span class="popup-item-name">${esc(c.name)}</span>
+            <span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span>
+          </div>
+        `,
+          )
+          .join("");
       }
+      if (gened.length > 0) {
+        html += '<div class="popup-section-title">🎓 GenEd</div>';
+        html += gened
+          .map(
+            (c) => `
+          <div class="popup-item gened-item" data-code="${esc(c.code)}">
+            <span class="popup-item-code">${esc(c.code)}</span>
+            <span class="popup-item-name">${esc(c.name)}</span>
+            <span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span>
+          </div>
+        `,
+          )
+          .join("");
+      }
+      if (!html) {
+        html = '<div class="popup-empty">No matches — use custom below</div>';
+      }
+      list.innerHTML = html;
       // Click to select
       list.querySelectorAll(".popup-item").forEach((item) => {
         item.addEventListener("click", () => {
           const code = item.dataset.code;
-          const course = courses.find((c) => c.code === code);
+          const course = [...courses, ...genedCourses].find(
+            (c) => c.code === code,
+          );
           if (course) {
             fillSlots(
               ti,

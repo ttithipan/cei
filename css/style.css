@@ -1153,3 +1153,9 @@ select:focus {
 .grid-table { table-layout: fixed; }
 .grid-table thead th { width: 1fr; }
 .grid-table .time-th { width: 50px; min-width: 50px; max-width: 50px; }
+.popup-section-title {
+    font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+    padding: 4px 6px 2px; text-transform: uppercase; letter-spacing: 0.04em;
+    border-top: 1px solid var(--border); margin-top: 4px;
+}
+.popup-section-title:first-child { border-top: none; margin-top: 0; }

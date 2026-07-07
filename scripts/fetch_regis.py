@@ -255,7 +255,7 @@ def extract_courses_from_page(page) -> list[dict]:
                             "room": full_room,
                             "teacher": teacher.replace("\n", ", ") if teacher else None,
                             "credit": credit or None,
-                            "tag": None,
+                            "tag": "GenEd" if code.startswith("9664") else None,
                             "midterm": None,
                             "final": None,
                         }
