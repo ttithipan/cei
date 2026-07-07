@@ -81,7 +81,6 @@ a:hover {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     position: relative;
-    overflow: hidden;
 }
 .site-header::after {
     content: "";
