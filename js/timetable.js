@@ -72,23 +72,23 @@ const Timetable = (() => {
         start: c.start,
         end: c.end,
         day: c.day,
+        section: c.section || "",
         source: "regis",
       }));
 
-    // Merge courses with same (code, day) — handles split sessions like
-    // "อังคาร 08:45-10:15 + อังคาร 10:30-12:00"
+    // Merge split-session entries (same code+day+section, hasBreak=true)
+    // Different sections stay separate
     const merged = [];
     const groups = {};
     for (const c of raw) {
-      const key = `${c.code}|${c.day}`;
+      const key = `${c.code}|${c.day}|${c.section || ""}`;
       if (!groups[key]) groups[key] = [];
       groups[key].push(c);
     }
-    for (const [key, items] of Object.entries(groups)) {
+    for (const items of Object.values(groups)) {
       if (items.length === 1) {
         merged.push(items[0]);
       } else {
-        // Merge: earliest start, latest end
         const starts = items.map((i) => i.start).sort();
         const ends = items.map((i) => i.end).sort();
         merged.push({
