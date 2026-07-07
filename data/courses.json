@@ -1,0 +1,48 @@
+{
+  "semester": "1/2569",
+  "generated": "2026-07-07",
+  "source": "https://regis.reg.kmitl.ac.th",
+  "years": {
+    "1": {
+      "label": "Year 1",
+      "courses": [
+        { "name": "Intro to Calculus", "code": "01006710", "section": "905", "kind": "theory", "day": 4, "start": "08:45", "end": "12:00", "hasBreak": true, "room": "HM-302", "teacher": "Miss Tulaya Limpiti", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-19 09:30", "final": "2026-10-28 09:30" },
+        { "name": "General Physics 1", "code": "01006723", "section": "905", "kind": "theory", "day": 3, "start": "08:45", "end": "12:00", "hasBreak": true, "room": "HM-302", "teacher": "Mr. Harihara Ramamoorthy", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-21 09:30", "final": "2026-10-30 09:30" },
+        { "name": "General Physics Lab 1", "code": "01006724", "section": "914", "kind": "lab", "day": 2, "start": "13:00", "end": "16:00", "room": "HM-504", "teacher": "Mr. Nagoor Basha Shaik", "credit": "1(0-3-2)", "tag": null, "midterm": null, "final": null },
+        { "name": "Circuits & Electronics (theory)", "code": "01276111", "section": "905", "kind": "theory", "day": 2, "start": "09:00", "end": "12:00", "room": "ECC-608", "teacher": "Mr. Amnach Khawne, Mr. Jirayu Petchhan", "credit": "4(3-3-8)", "tag": null, "midterm": "2026-08-17 09:30", "final": "2026-10-26 09:30" },
+        { "name": "Circuits & Electronics (lab)", "code": "01276111", "section": "1905", "kind": "lab", "day": 3, "start": "13:00", "end": "16:00", "room": "ECC-502", "teacher": "Mr. Amnach Khawne, Mr. Jirayu Petchhan", "credit": "4(3-3-8)", "tag": null, "midterm": null, "final": null },
+        { "name": "Computer Programming (theory)", "code": "01276121", "section": "905", "kind": "theory", "day": 6, "start": "09:00", "end": "12:00", "room": "ECC-706", "teacher": "Mr. Kanut Tangtisanon", "credit": "4(3-3-8)", "tag": null, "midterm": "2026-08-20 13:30", "final": "2026-10-29 13:30" },
+        { "name": "Computer Programming (lab)", "code": "01276121", "section": "1905", "kind": "lab", "day": 6, "start": "13:00", "end": "16:00", "room": "ECC-706", "teacher": "Mr. Kanut Tangtisanon", "credit": "4(3-3-8)", "tag": null, "midterm": null, "final": null },
+        { "name": "Digital Citizen", "code": "96641007", "section": "905–908", "kind": "theory", "day": 4, "start": "13:00", "end": "16:00", "room": "TBA", "teacher": "Miss Pikulkaew Tangtisanon (and others)", "credit": "3(3-0-6)", "tag": "GenEd", "midterm": null, "final": null },
+        { "name": "GenEd Elective", "code": null, "section": null, "kind": "theory", "day": 5, "start": "09:00", "end": "12:00", "room": null, "teacher": null, "credit": null, "tag": "GenEd", "midterm": null, "final": null }
+      ]
+    },
+    "2": {
+      "label": "Year 2",
+      "courses": [
+        { "name": "Linear Algebra", "code": "01006716", "section": "902", "kind": "theory", "day": 6, "start": "08:45", "end": "12:00", "hasBreak": true, "room": "HM-305", "teacher": "Mr. Nattawut Chaomuang", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-19 13:30", "final": "2026-10-28 13:30" },
+        { "name": "Probability & Random Variables", "code": "01276206", "section": "902", "kind": "theory", "day": 4, "start": "09:00", "end": "12:00", "room": "ECC-609", "teacher": "Assoc. Prof. Dr. Sakchai Thipchaksurat, Mr. Rathachai Chawuthai", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-18 09:30", "final": "2026-10-27 09:30" },
+        { "name": "Discrete Mathematics", "code": "01276209", "section": "902", "kind": "theory", "day": 3, "start": "09:00", "end": "12:00", "room": "ECC-609", "teacher": "Mr. Surin Kittitornkun", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-21 09:30", "final": "2026-10-30 09:30" },
+        { "name": "Data Structures & Algorithms (theory)", "code": "01276222", "section": "902", "kind": "theory", "day": 2, "start": "09:00", "end": "12:00", "room": "ECC-706", "teacher": "Mr. Kanut Tangtisanon", "credit": "4(3-3-8)", "tag": null, "midterm": "2026-08-17 09:30", "final": "2026-11-02 09:30" },
+        { "name": "Data Structures & Algorithms (lab)", "code": "01276222", "section": "1902", "kind": "lab", "day": 2, "start": "13:00", "end": "16:00", "room": "ECC-706", "teacher": "Mr. Kanut Tangtisanon", "credit": "4(3-3-8)", "tag": null, "midterm": null, "final": null },
+        { "name": "Computer Networks (theory)", "code": "01276223", "section": "902", "kind": "theory", "day": 5, "start": "09:00", "end": "12:00", "room": "ECC-609", "teacher": "Mr. Phongsak Keeratiwintakorn", "credit": "4(3-3-8)", "tag": null, "midterm": "2026-08-22 09:30", "final": "2026-11-04 09:30" },
+        { "name": "Computer Networks (lab)", "code": "01276223", "section": "1902", "kind": "lab", "day": 5, "start": "13:00", "end": "16:00", "room": "ECC-609", "teacher": "Mr. Phongsak Keeratiwintakorn", "credit": "4(3-3-8)", "tag": null, "midterm": null, "final": null },
+        { "name": "Database Systems", "code": "01276241", "section": "902", "kind": "theory", "day": 3, "start": "13:00", "end": "16:00", "room": "ECC-609", "teacher": "Mr. Pakorn Watanachaturaporn", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-20 09:30", "final": "2026-11-06 09:30" }
+      ]
+    },
+    "3": {
+      "label": "Year 3",
+      "courses": [
+        { "name": "Intro to Data Analytics", "code": "01276551", "section": "901", "kind": "theory", "day": 2, "start": "09:00", "end": "12:00", "room": "ECC-610", "teacher": "Assoc. Prof. Dr. Rathachai Chawuthai", "credit": "3(3-0-6)", "tag": "CE elective", "midterm": null, "final": "2026-11-02 13:30" },
+        { "name": "UX/UI Design", "code": "01276545", "section": "901", "kind": "theory", "day": 3, "start": "09:00", "end": "12:00", "room": "ECC-610", "teacher": "Asst. Prof. Dr. Chompoonuch Tengcharoen", "credit": "3(3-0-6)", "tag": "CE elective", "midterm": null, "final": null },
+        { "name": "Artificial Intelligence", "code": "01276342", "section": "901", "kind": "theory", "day": 3, "start": "13:00", "end": "16:00", "room": "ECC-610", "teacher": "Assoc. Prof. Dr. Kietikul Jearanaitanakij", "credit": "3(3-0-6)", "tag": null, "midterm": null, "final": "2026-10-26 13:30" },
+        { "name": "Practice of System Administration", "code": "01276521", "section": "901", "kind": "theory", "day": 4, "start": "09:00", "end": "12:00", "room": "ECC-610", "teacher": "Dr. Parinya Ekparinya", "credit": "3(3-0-6)", "tag": "CE elective", "midterm": null, "final": "2026-10-30 13:30" },
+        { "name": "Microcontroller Interfacing (theory)", "code": "01276314", "section": "901", "kind": "theory", "day": 4, "start": "13:00", "end": "16:00", "room": "ECC-610", "teacher": "Asst. Prof. Sorayut Glomglome", "credit": "4(3-3-8)", "tag": null, "midterm": "2026-08-20 13:30", "final": "2026-11-04 13:30" },
+        { "name": "Microcontroller Interfacing (lab)", "code": "01276314", "section": "1901", "kind": "lab", "day": 4, "start": "16:30", "end": "19:30", "room": "ECC-610", "teacher": "Asst. Prof. Sorayut Glomglome", "credit": "4(3-3-8)", "tag": null, "midterm": null, "final": null },
+        { "name": "Operating Systems", "code": "01276324", "section": "901", "kind": "theory", "day": 6, "start": "09:00", "end": "12:00", "room": "ECC-609", "teacher": "Asst. Prof. Watjanapong Kasemsiri", "credit": "3(3-0-6)", "tag": null, "midterm": "2026-08-17 13:30", "final": "2026-10-28 13:30" },
+        { "name": "GenEd Elective", "code": null, "section": null, "kind": "theory", "day": 5, "start": "09:00", "end": "12:00", "room": null, "teacher": null, "credit": null, "tag": "GenEd", "midterm": null, "final": null },
+        { "name": "GenEd Elective", "code": null, "section": null, "kind": "theory", "day": 5, "start": "13:00", "end": "16:00", "room": null, "teacher": null, "credit": null, "tag": "GenEd", "midterm": null, "final": null }
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# GitHub Pages configuration
+title: CEI Resources
+description: Central resources for Computer Engineering International at KMITL
+baseurl: "/cei"
+url: "https://ttithipan.github.io"
+
+# Build settings
+include:
+  - css
+  - js
+  - data
+  - md
+  - documents
+
+exclude:
+  - scripts
+  - requirements.txt
+  - README.md

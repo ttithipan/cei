@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CEI Resources — KMITL Computer Engineering</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <h1 class="site-title">🎓 CEI Resources</h1>
+            <p class="site-subtitle">
+                Computer Engineering International — KMITL
+            </p>
+            <div class="search-bar" id="search-bar">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search documents semantically..."
+                    autocomplete="off"
+                />
+                <div class="search-results" id="search-results"></div>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="timetable">
+                📅 Timetable
+            </button>
+            <button class="tab" data-tab="documents">📄 Documents</button>
+        </nav>
+
+        <main>
+            <!-- Timetable Tab -->
+            <section class="tab-content active" id="tab-timetable">
+                <!-- Regis bar + controls -->
+                <div class="regis-bar">
+                    <div class="regis-fields">
+                        <label
+                            >Year (พ.ศ.)
+                            <input
+                                type="number"
+                                id="regis-year"
+                                value="2569"
+                                min="2560"
+                                max="2575"
+                                class="field-sm"
+                        /></label>
+                        <label
+                            >Semester
+                            <select id="regis-semester" class="field-sm">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">Summer</option>
+                            </select></label
+                        >
+                    </div>
+                    <div
+                        style="display: flex; gap: 0.5rem; align-items: center"
+                    >
+                        <span class="data-source" id="data-source"></span>
+                        <a
+                            class="regis-link"
+                            id="regis-link"
+                            href="#"
+                            target="_blank"
+                            rel="noopener"
+                            >↗ Open Regis</a
+                        >
+                        <button
+                            class="btn btn-sm"
+                            id="btn-export-ics"
+                            title="Export to calendar (.ics)"
+                        >
+                            📅 .ics
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Year tabs -->
+                <div class="year-tabs" id="year-tabs"></div>
+
+                <!-- Weekly Timetable -->
+                <h2 class="section-heading timetable-heading">
+                    Weekly Timetable
+                </h2>
+                <div class="weekly-table-wrapper" id="weekly-timetable"></div>
+
+                <!-- Exam Schedule -->
+                <h2 class="section-heading exam-heading">Exam Schedule</h2>
+                <div class="weekly-table-wrapper" id="exam-schedule"></div>
+
+                <p class="timetable-hint" id="timetable-hint"></p>
+            </section>
+
+            <!-- Documents Tab -->
+            <section class="tab-content" id="tab-documents">
+                <div class="doc-list" id="doc-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>
+                Built for CEI students.
+                <a
+                    href="https://github.com/ttithipan/cei"
+                    target="_blank"
+                    rel="noopener"
+                    >Contribute on GitHub</a
+                >
+            </p>
+        </footer>
+
+        <script src="js/search.js"></script>
+        <script src="js/timetable.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
