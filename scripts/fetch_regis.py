@@ -27,15 +27,44 @@ OUTPUT = DATA_DIR / "courses.json"
 REGIS_BASE = "https://regis.reg.kmitl.ac.th"
 REGIS_PATH = "/#/teach_table"
 
-# Default query — override with env vars for GitHub Actions
-YEAR = "2569"
-SEMESTER = "1"
+# Default values — auto-detected from current date, overridable via env vars
 FACULTY = "01"
 DEPARTMENT = "05"
 CURRICULUM = "127"
 
 # Year tabs to scrape (1-4)
 CLASS_YEARS = ["1", "2", "3", "4"]
+
+
+def detect_semester() -> tuple[str, str]:
+    """
+    Auto-detect academic year (พ.ศ.) and semester from current date.
+    Thai academic calendar:
+      - Semester 1: August – December
+      - Semester 2: January – May
+      - Summer:     June – July
+    Override with env vars REGIS_YEAR and REGIS_SEMESTER.
+    """
+    year_env = os.environ.get("REGIS_YEAR", "").strip()
+    sem_env = os.environ.get("REGIS_SEMESTER", "").strip()
+
+    if year_env and sem_env:
+        return year_env, sem_env
+
+    now = datetime.now()
+    month = now.month
+    buddhist_year = now.year + 543
+
+    if month >= 8:
+        # Aug–Dec: Semester 1 of this Buddhist year
+        return str(buddhist_year), "1"
+    elif month >= 1 and month <= 5:
+        # Jan–May: Semester 2 of previous Buddhist year
+        return str(buddhist_year - 1), "2"
+    else:
+        # Jun–Jul: Summer of previous Buddhist year
+        return str(buddhist_year - 1), "3"
+
 
 DAY_MAP = {
     "monday": 0,
@@ -69,11 +98,11 @@ DAY_MAP = {
 }
 
 
-def build_url(class_year: str) -> str:
+def build_url(class_year: str, year: str, semester: str) -> str:
     params = (
         f"mode=by_class"
-        f"&selected_year={YEAR}"
-        f"&selected_semester={SEMESTER}"
+        f"&selected_year={year}"
+        f"&selected_semester={semester}"
         f"&selected_faculty={FACULTY}"
         f"&selected_department={DEPARTMENT}"
         f"&selected_curriculum={CURRICULUM}"
@@ -183,7 +212,7 @@ def extract_courses_from_page(page) -> list[dict]:
     return courses
 
 
-def scrape_with_playwright() -> dict:
+def scrape_with_playwright(year: str, semester: str) -> dict:
     """Scrape all year tabs using Playwright."""
     from playwright.sync_api import sync_playwright
 
@@ -197,7 +226,7 @@ def scrape_with_playwright() -> dict:
         )
 
         for class_year in CLASS_YEARS:
-            url = build_url(class_year)
+            url = build_url(class_year, year, semester)
             print(f"   Year {class_year}: {url}")
 
             page = context.new_page()
@@ -230,11 +259,14 @@ def scrape_with_playwright() -> dict:
 
 
 def main():
+    year, semester = detect_semester()
     print("📡 Fetching CEI timetable from KMITL Regis...")
-    print(f"   Year: {YEAR}, Semester: {SEMESTER}")
+    print(f"   Auto-detected: Year {year}, Semester {semester}")
+    if os.environ.get("REGIS_YEAR"):
+        print(f"   (overridden via REGIS_YEAR/REGIS_SEMESTER env vars)")
 
     try:
-        years = scrape_with_playwright()
+        years = scrape_with_playwright(year, semester)
     except ImportError:
         print("❌ playwright not installed.")
         print("   Install: pip install playwright && playwright install chromium")
@@ -250,7 +282,7 @@ def main():
         sys.exit(1)
 
     output = {
-        "semester": f"{SEMESTER}/{YEAR}",
+        "semester": f"{semester}/{year}",
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": REGIS_BASE,
         "years": years,
