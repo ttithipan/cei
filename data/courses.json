@@ -1,6 +1,6 @@
 {
   "semester": "1/2569",
-  "generated": "2026-07-07T04:01:38Z",
+  "generated": "2026-07-07T00:00:00Z",
   "source": "https://regis.reg.kmitl.ac.th",
   "years": {
     "1": {
@@ -654,7 +654,23 @@
           "day": 2,
           "start": "17:00",
           "end": "19:00",
-          "hasBreak": null,
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
+          "credit": "0(4-0-8)",
+          "tag": "GenEd",
+          "midterm": null,
+          "final": null
+        },
+        {
+          "code": "96644004",
+          "name": "ACADEMIC LISTENING AND SPEAKING",
+          "section": "101",
+          "kind": "theory",
+          "day": 3,
+          "start": "17:00",
+          "end": "19:00",
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
           "credit": "0(4-0-8)",
@@ -670,13 +686,29 @@
           "day": 3,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
+        },
+        {
+          "code": "01006710",
+          "name": "INTRODUCTION TO CALCULUS",
+          "section": "905",
+          "kind": "theory",
+          "day": 3,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
         },
         {
           "code": "01006723",
@@ -686,13 +718,29 @@
           "day": 2,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
+        },
+        {
+          "code": "01006723",
+          "name": "GENERAL PHYSICS 1",
+          "section": "905",
+          "kind": "theory",
+          "day": 2,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
         },
         {
           "code": "01006724",
@@ -723,8 +771,8 @@
           "teacher": "ผศ. ดร. อำนาจ ขาวเน, ดร. จิรายุ เพชรแหน",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-17",
+          "final": "2026-10-26"
         },
         {
           "code": "01276111",
@@ -755,8 +803,8 @@
           "teacher": "ผศ. คณัฐ ตังติสานนท์",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-20",
+          "final": "2026-10-29"
         },
         {
           "code": "01276121",
@@ -1427,7 +1475,23 @@
           "day": 2,
           "start": "17:00",
           "end": "19:00",
-          "hasBreak": null,
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
+          "credit": "0(4-0-8)",
+          "tag": "GenEd",
+          "midterm": null,
+          "final": null
+        },
+        {
+          "code": "96644004",
+          "name": "ACADEMIC LISTENING AND SPEAKING",
+          "section": "101",
+          "kind": "theory",
+          "day": 3,
+          "start": "17:00",
+          "end": "19:00",
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
           "credit": "0(4-0-8)",
@@ -1443,13 +1507,29 @@
           "day": 3,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
+        },
+        {
+          "code": "01006710",
+          "name": "INTRODUCTION TO CALCULUS",
+          "section": "905",
+          "kind": "theory",
+          "day": 3,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
         },
         {
           "code": "01006723",
@@ -1459,13 +1539,29 @@
           "day": 2,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
+        },
+        {
+          "code": "01006723",
+          "name": "GENERAL PHYSICS 1",
+          "section": "905",
+          "kind": "theory",
+          "day": 2,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
         },
         {
           "code": "01006724",
@@ -1496,8 +1592,8 @@
           "teacher": "ผศ. ดร. อำนาจ ขาวเน, ดร. จิรายุ เพชรแหน",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-17",
+          "final": "2026-10-26"
         },
         {
           "code": "01276111",
@@ -1528,8 +1624,8 @@
           "teacher": "ผศ. คณัฐ ตังติสานนท์",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-20",
+          "final": "2026-10-29"
         },
         {
           "code": "01276121",
@@ -2200,7 +2296,23 @@
           "day": 2,
           "start": "17:00",
           "end": "19:00",
-          "hasBreak": null,
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
+          "credit": "0(4-0-8)",
+          "tag": "GenEd",
+          "midterm": null,
+          "final": null
+        },
+        {
+          "code": "96644004",
+          "name": "ACADEMIC LISTENING AND SPEAKING",
+          "section": "101",
+          "kind": "theory",
+          "day": 3,
+          "start": "17:00",
+          "end": "19:00",
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
           "credit": "0(4-0-8)",
@@ -2216,13 +2328,29 @@
           "day": 3,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
+        },
+        {
+          "code": "01006710",
+          "name": "INTRODUCTION TO CALCULUS",
+          "section": "905",
+          "kind": "theory",
+          "day": 3,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
         },
         {
           "code": "01006723",
@@ -2232,13 +2360,29 @@
           "day": 2,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
+        },
+        {
+          "code": "01006723",
+          "name": "GENERAL PHYSICS 1",
+          "section": "905",
+          "kind": "theory",
+          "day": 2,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
         },
         {
           "code": "01006724",
@@ -2269,8 +2413,8 @@
           "teacher": "ผศ. ดร. อำนาจ ขาวเน, ดร. จิรายุ เพชรแหน",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-17",
+          "final": "2026-10-26"
         },
         {
           "code": "01276111",
@@ -2301,8 +2445,8 @@
           "teacher": "ผศ. คณัฐ ตังติสานนท์",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-20",
+          "final": "2026-10-29"
         },
         {
           "code": "01276121",
@@ -2973,7 +3117,23 @@
           "day": 2,
           "start": "17:00",
           "end": "19:00",
-          "hasBreak": null,
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
+          "credit": "0(4-0-8)",
+          "tag": "GenEd",
+          "midterm": null,
+          "final": null
+        },
+        {
+          "code": "96644004",
+          "name": "ACADEMIC LISTENING AND SPEAKING",
+          "section": "101",
+          "kind": "theory",
+          "day": 3,
+          "start": "17:00",
+          "end": "19:00",
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ฐปนีย์ เขมานุวงศ์",
           "credit": "0(4-0-8)",
@@ -2989,13 +3149,29 @@
           "day": 3,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
+        },
+        {
+          "code": "01006710",
+          "name": "INTRODUCTION TO CALCULUS",
+          "section": "905",
+          "kind": "theory",
+          "day": 3,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "ผศ. ดร. ตุลยา ลิมปิติ",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-19",
+          "final": "2026-10-28"
         },
         {
           "code": "01006723",
@@ -3005,13 +3181,29 @@
           "day": 2,
           "start": "08:45",
           "end": "10:15",
-          "hasBreak": null,
+          "hasBreak": true,
           "room": "HM-302",
           "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
+        },
+        {
+          "code": "01006723",
+          "name": "GENERAL PHYSICS 1",
+          "section": "905",
+          "kind": "theory",
+          "day": 2,
+          "start": "10:30",
+          "end": "12:00",
+          "hasBreak": true,
+          "room": "HM-302",
+          "teacher": "รศ. ดร. HARIHARA RAMAMOORTHY",
+          "credit": "3(3-0-6)",
+          "tag": null,
+          "midterm": "2026-08-21",
+          "final": "2026-10-30"
         },
         {
           "code": "01006724",
@@ -3042,8 +3234,8 @@
           "teacher": "ผศ. ดร. อำนาจ ขาวเน, ดร. จิรายุ เพชรแหน",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-17",
+          "final": "2026-10-26"
         },
         {
           "code": "01276111",
@@ -3074,8 +3266,8 @@
           "teacher": "ผศ. คณัฐ ตังติสานนท์",
           "credit": "4(3-3-8)",
           "tag": null,
-          "midterm": null,
-          "final": null
+          "midterm": "2026-08-20",
+          "final": "2026-10-29"
         },
         {
           "code": "01276121",

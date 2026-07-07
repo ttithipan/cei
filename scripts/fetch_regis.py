@@ -138,6 +138,74 @@ def parse_time_range(text: str) -> tuple[str, str] | None:
     return None
 
 
+THAI_MONTHS = {
+    "มกราคม": 1,
+    "กุมภาพันธ์": 2,
+    "มีนาคม": 3,
+    "เมษายน": 4,
+    "พฤษภาคม": 5,
+    "มิถุนายน": 6,
+    "กรกฎาคม": 7,
+    "สิงหาคม": 8,
+    "กันยายน": 9,
+    "ตุลาคม": 10,
+    "พฤศจิกายน": 11,
+    "ธันวาคม": 12,
+    "ม.ค.": 1,
+    "ก.พ.": 2,
+    "มี.ค.": 3,
+    "เม.ย.": 4,
+    "พ.ค.": 5,
+    "มิ.ย.": 6,
+    "ก.ค.": 7,
+    "ส.ค.": 8,
+    "ก.ย.": 9,
+    "ต.ค.": 10,
+    "พ.ย.": 11,
+    "ธ.ค.": 12,
+}
+
+
+def parse_exam_dates(exam_text: str) -> tuple[str | None, str | None]:
+    """
+    Parse exam column text like:
+      Midterm\nพุธ 19 สิงหาคม 2569\n09:30 - 12:30\nFinal\nพุธ 28 ตุลาคม 2569\n09:30 - 12:30
+    Returns (midterm_iso, final_iso) or (None, None).
+    """
+    if not exam_text:
+        return None, None
+    lines = [l.strip() for l in exam_text.split("\n") if l.strip()]
+    midterm = None
+    final = None
+    current_label = None
+    for line in lines:
+        low = line.lower()
+        if low == "midterm":
+            current_label = "midterm"
+        elif low == "final":
+            current_label = "final"
+        elif current_label and "จัดสอบเอง" in line:
+            current_label = None
+        elif current_label:
+            # Try to parse Thai date: "พุธ 19 สิงหาคม 2569" (day-of-week prefix, then date)
+            m = re.search(r"(\d{1,2})\s+(\S+)\s+(\d{4})", line)
+            if m:
+                day = int(m.group(1))
+                month_str = m.group(2)
+                year_buddhist = int(m.group(3))
+                month = THAI_MONTHS.get(month_str)
+                if month:
+                    year_gregorian = year_buddhist - 543
+                    date_str = f"{year_gregorian:04d}-{month:02d}-{day:02d}"
+                    if current_label == "midterm":
+                        midterm = date_str
+                    else:
+                        final = date_str
+                current_label = None
+                current_label = None
+    return midterm, final
+
+
 def extract_courses_from_page(page) -> list[dict]:
     """
     Extract course rows from KMITL regis teach_table.
@@ -191,6 +259,7 @@ def extract_courses_from_page(page) -> list[dict]:
                 room = texts[5] if len(texts) > 5 else ""
                 building = texts[6] if len(texts) > 6 else ""
                 teacher = texts[7] if len(texts) > 7 else ""
+                exam_text = texts[8] if len(texts) > 8 else ""
 
                 # Must have a course code or name
                 if not re.match(r"^\d{8}$", code) and not name:
@@ -207,31 +276,9 @@ def extract_courses_from_page(page) -> list[dict]:
                 if sm:
                     section_num = sm.group(1)
 
-                # Parse day-time: "พฤหัสบดี 13:00-16:00"
-                day = None
-                start = None
-                end = None
-
-                if day_time:
-                    # Try matching full Thai day name at start
-                    for abbr, idx in sorted(DAY_MAP.items(), key=lambda x: -len(x[0])):
-                        if day_time.startswith(abbr):
-                            day = idx
-                            remainder = day_time[len(abbr) :].strip()
-                            times = parse_time_range(remainder)
-                            if times:
-                                start, end = times
-                            break
-
-                    # Fallback: try matching shorter abbreviations anywhere
-                    if day is None:
-                        for abbr, idx in DAY_MAP.items():
-                            if len(abbr) <= 5 and abbr in day_time:
-                                day = idx
-                                times = parse_time_range(day_time)
-                                if times:
-                                    start, end = times
-                                break
+                # Parse day-time: supports "+ " and "\n+ " separators for split sessions
+                # e.g. "พุธ 08:45-10:15\n+ พุธ 10:30-12:00"
+                segments = re.split(r"\n?\+\s+", day_time) if day_time else []
 
                 # Build room string (avoid duplicates like "HM 601 HM")
                 room_parts = []
@@ -241,25 +288,58 @@ def extract_courses_from_page(page) -> list[dict]:
                     room_parts.append(building)
                 full_room = " ".join(room_parts).strip() or None
 
-                if name:
-                    courses.append(
-                        {
-                            "code": code if re.match(r"^\d{8}$", code) else None,
-                            "name": name.strip(),
-                            "section": section_num,
-                            "kind": kind,
-                            "day": day,
-                            "start": start,
-                            "end": end,
-                            "hasBreak": None,
-                            "room": full_room,
-                            "teacher": teacher.replace("\n", ", ") if teacher else None,
-                            "credit": credit or None,
-                            "tag": "GenEd" if code.startswith("9664") else None,
-                            "midterm": None,
-                            "final": None,
-                        }
-                    )
+                midterm, final = parse_exam_dates(exam_text)
+
+                for seg in segments:
+                    seg = seg.strip()
+                    if not seg:
+                        continue
+
+                    day = None
+                    start = None
+                    end = None
+
+                    # Try matching full Thai day name at start
+                    for abbr, idx in sorted(DAY_MAP.items(), key=lambda x: -len(x[0])):
+                        if seg.startswith(abbr):
+                            day = idx
+                            remainder = seg[len(abbr) :].strip()
+                            times = parse_time_range(remainder)
+                            if times:
+                                start, end = times
+                            break
+
+                    # Fallback: try matching shorter abbreviations
+                    if day is None:
+                        for abbr, idx in DAY_MAP.items():
+                            if len(abbr) <= 5 and abbr in seg:
+                                day = idx
+                                times = parse_time_range(seg)
+                                if times:
+                                    start, end = times
+                                break
+
+                    if name and day is not None:
+                        courses.append(
+                            {
+                                "code": code if re.match(r"^\d{8}$", code) else None,
+                                "name": name.strip(),
+                                "section": section_num,
+                                "kind": kind,
+                                "day": day,
+                                "start": start,
+                                "end": end,
+                                "hasBreak": len(segments) > 1 or None,
+                                "room": full_room,
+                                "teacher": teacher.replace("\n", ", ")
+                                if teacher
+                                else None,
+                                "credit": credit or None,
+                                "tag": "GenEd" if code.startswith("9664") else None,
+                                "midterm": midterm,
+                                "final": final,
+                            }
+                        )
 
             # Collect from ALL tables (regis has multiple groups)
 
