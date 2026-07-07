@@ -46,3 +46,10 @@ jobs:
           git add data/courses.json
           git diff --staged --quiet || git commit -m "📅 Auto-update timetable [skip ci]"
           git push
+
+      - name: Upload debug screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regis-debug-screenshots
+          path: data/debug/

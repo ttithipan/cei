@@ -140,61 +140,72 @@ def parse_time_range(text: str) -> tuple[str, str] | None:
 
 def extract_courses_from_page(page) -> list[dict]:
     """
-    Try to extract course rows from the rendered regis page.
-    The page renders a table — we look for table rows with course data.
+    Extract course rows from the rendered regis page.
+    Tries multiple strategies to find the timetable data.
     """
     courses = []
 
+    # Strategy 1: Look for a table with many rows (timetable table)
     try:
-        # Wait for the table to render
-        page.wait_for_selector("table", timeout=15000)
+        tables = page.locator("table").all()
+        # Pick the largest table (most rows = likely the timetable)
+        best_rows = []
+        for table in tables:
+            rows = table.locator("tbody tr").all()
+            if not rows:
+                rows = table.locator("tr").all()
+            if len(rows) > len(best_rows):
+                best_rows = rows
 
-        # Try to extract from table rows
-        rows = page.locator("table tbody tr").all()
-        if not rows:
-            rows = page.locator("table tr").all()
+        print(f"      Found {len(tables)} table(s), largest has {len(best_rows)} rows")
 
-        for row in rows:
+        for row in best_rows:
             cells = row.locator("td, th").all()
             texts = [c.inner_text().strip() for c in cells]
 
             if len(texts) < 3:
                 continue
 
-            # Skip header rows
-            if any(t.lower() in ("day", "time", "course", "room") for t in texts):
+            # Skip obvious header rows
+            combined = " ".join(texts).lower()
+            if any(
+                kw in combined
+                for kw in (
+                    "day",
+                    "time",
+                    "course",
+                    "section",
+                    "อาจารย์",
+                    "วัน",
+                    "เวลา",
+                    "วิชา",
+                    "ห้อง",
+                )
+            ):
                 continue
 
-            # Try to parse a course row
-            # Common format: Day | Time | Course Code | Course Name | Section | Room | Lecturer
             course = {}
             for t in texts:
-                # Detect day
                 day = parse_day(t)
-                if day is not None:
+                if day is not None and "day" not in course:
                     course["day"] = day
                     continue
-
-                # Detect time range
                 times = parse_time_range(t)
-                if times:
+                if times and "start" not in course:
                     course["start"], course["end"] = times
                     continue
-
-                # Detect course code (digits)
-                if re.match(r"^\d{8}$", t):
+                if re.match(r"^\d{8}$", t) and "code" not in course:
                     course["code"] = t
                     continue
-
-                # Detect room
-                if re.match(r"^[A-Z]+[-.\d]+", t) or t.upper() in ("TBA", "N/A"):
-                    course["room"] = t
+                if re.match(r"^[A-Z]+[-.\d]+", t) or t.upper() in ("TBA", "N/A", "-"):
+                    if "room" not in course:
+                        course["room"] = t if t != "-" else None
                     continue
-
-                # Remaining: likely name or teacher
-                if "name" not in course and len(t) > 2:
+                if "name" not in course and len(t) > 2 and not re.match(r"^\d+$", t):
                     course["name"] = t
-                elif "teacher" not in course and len(t) > 2:
+                elif (
+                    "teacher" not in course and len(t) > 5 and not re.match(r"^\d+$", t)
+                ):
                     course["teacher"] = t
 
             if course.get("name") and course.get("day") is not None:
@@ -207,10 +218,11 @@ def extract_courses_from_page(page) -> list[dict]:
                 course.setdefault("tag", None)
                 course.setdefault("midterm", None)
                 course.setdefault("final", None)
+                course.setdefault("hasBreak", None)
                 courses.append(course)
 
     except Exception as e:
-        print(f"   ⚠️  Table extraction failed: {e}")
+        print(f"      ⚠️  Table extraction failed: {e}")
 
     return courses
 
@@ -220,6 +232,8 @@ def scrape_with_playwright(year: str, semester: str) -> dict:
     from playwright.sync_api import sync_playwright
 
     years = {}
+    debug_dir = Path("data/debug")
+    debug_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -234,9 +248,37 @@ def scrape_with_playwright(year: str, semester: str) -> dict:
 
             page = context.new_page()
             try:
-                page.goto(url, wait_until="networkidle", timeout=30000)
-                # Wait for Angular to render
-                page.wait_for_timeout(3000)
+                # Navigate and wait for Angular to bootstrap
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+
+                # Wait for the Angular app root to appear
+                try:
+                    page.wait_for_selector(
+                        "app-root, #app, [ng-version], .main-content, router-outlet",
+                        timeout=10000,
+                    )
+                except Exception:
+                    pass  # Angular root selector might differ
+
+                # Wait extra time for XHR data to load and render
+                print(f"      Waiting for data to load...")
+                page.wait_for_timeout(8000)
+
+                # Try waiting for network to settle
+                try:
+                    page.wait_for_load_state("networkidle", timeout=15000)
+                except Exception:
+                    pass
+
+                # Extra wait after network settles
+                page.wait_for_timeout(5000)
+
+                # Debug: save page text
+                try:
+                    body_text = page.locator("body").inner_text()[:2000]
+                    print(f"      Page text preview: {body_text[:300]}...")
+                except Exception:
+                    pass
 
                 courses = extract_courses_from_page(page)
 
@@ -247,12 +289,24 @@ def scrape_with_playwright(year: str, semester: str) -> dict:
                     }
                     print(f"      ✓ Found {len(courses)} courses")
                 else:
+                    # Save screenshot for debugging
+                    screenshot_path = debug_dir / f"year_{class_year}.png"
+                    page.screenshot(path=str(screenshot_path), full_page=True)
                     print(
-                        f"      ⚠️  No courses extracted — page structure may have changed"
+                        f"      ⚠️  No courses — screenshot saved to {screenshot_path}"
+                    )
+                    print(
+                        f"      Try opening the URL manually to verify the page renders."
                     )
 
             except Exception as e:
                 print(f"      ❌ Failed: {e}")
+                try:
+                    page.screenshot(
+                        path=str(debug_dir / f"year_{class_year}_error.png")
+                    )
+                except Exception:
+                    pass
             finally:
                 page.close()
 
