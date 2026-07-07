@@ -140,89 +140,130 @@ def parse_time_range(text: str) -> tuple[str, str] | None:
 
 def extract_courses_from_page(page) -> list[dict]:
     """
-    Extract course rows from the rendered regis page.
-    Tries multiple strategies to find the timetable data.
+    Extract course rows from KMITL regis teach_table.
+    Columns: 0=รหัส, 1=ชื่อวิชา, 2=หน่วยกิต, 3=กลุ่มเรียน, 4=วัน-เวลา, 5=ห้อง, 6=ตึก, 7=อาจารย์, 8=สอบ
+    Day-Time format: "พฤหัสบดี 13:00-16:00" (full Thai day name + space + time range)
     """
     courses = []
 
-    # Strategy 1: Look for a table with many rows (timetable table)
     try:
         tables = page.locator("table").all()
-        # Pick the largest table (most rows = likely the timetable)
-        best_rows = []
-        for table in tables:
+        table_sizes = []
+        for i, table in enumerate(tables):
             rows = table.locator("tbody tr").all()
             if not rows:
                 rows = table.locator("tr").all()
-            if len(rows) > len(best_rows):
-                best_rows = rows
+            table_sizes.append((i, len(rows), table))
+        table_sizes.sort(key=lambda x: -x[1])
 
-        print(f"      Found {len(tables)} table(s), largest has {len(best_rows)} rows")
+        if not table_sizes:
+            return courses
 
-        for row in best_rows:
-            cells = row.locator("td, th").all()
-            texts = [c.inner_text().strip() for c in cells]
-
-            if len(texts) < 3:
+        for table_idx, row_count, table in table_sizes[:3]:
+            if row_count < 2:
                 continue
 
-            # Skip obvious header rows
-            combined = " ".join(texts).lower()
-            if any(
-                kw in combined
-                for kw in (
-                    "day",
-                    "time",
-                    "course",
-                    "section",
-                    "อาจารย์",
-                    "วัน",
-                    "เวลา",
-                    "วิชา",
-                    "ห้อง",
-                )
-            ):
-                continue
+            rows = table.locator("tbody tr").all()
+            if not rows:
+                rows = table.locator("tr").all()
 
-            course = {}
-            for t in texts:
-                day = parse_day(t)
-                if day is not None and "day" not in course:
-                    course["day"] = day
-                    continue
-                times = parse_time_range(t)
-                if times and "start" not in course:
-                    course["start"], course["end"] = times
-                    continue
-                if re.match(r"^\d{8}$", t) and "code" not in course:
-                    course["code"] = t
-                    continue
-                if re.match(r"^[A-Z]+[-.\d]+", t) or t.upper() in ("TBA", "N/A", "-"):
-                    if "room" not in course:
-                        course["room"] = t if t != "-" else None
-                    continue
-                if "name" not in course and len(t) > 2 and not re.match(r"^\d+$", t):
-                    course["name"] = t
-                elif (
-                    "teacher" not in course and len(t) > 5 and not re.match(r"^\d+$", t)
-                ):
-                    course["teacher"] = t
+            print(f"      Table #{table_idx} ({row_count} rows):")
+            for i, row in enumerate(rows[: min(2, len(rows))]):
+                cells = row.locator("td, th").all()
+                cell_texts = [c.inner_text().strip()[:50] for c in cells]
+                print(f"        Row {i} ({len(cells)} cols): {cell_texts[:10]}")
 
-            if course.get("name") and course.get("day") is not None:
-                course.setdefault("code", None)
-                course.setdefault("section", None)
-                course.setdefault("kind", "theory")
-                course.setdefault("room", None)
-                course.setdefault("teacher", None)
-                course.setdefault("credit", None)
-                course.setdefault("tag", None)
-                course.setdefault("midterm", None)
-                course.setdefault("final", None)
-                course.setdefault("hasBreak", None)
-                courses.append(course)
+            for row in rows:
+                cells = row.locator("td, th").all()
+                if len(cells) < 5:
+                    continue
+                # Skip <th> header rows
+                if cells[0].evaluate("el => el.tagName") == "TH":
+                    continue
+
+                texts = [c.inner_text().strip() for c in cells]
+
+                code = texts[0] if len(texts) > 0 else ""
+                name = texts[1] if len(texts) > 1 else ""
+                credit = texts[2] if len(texts) > 2 else ""
+                section_raw = texts[3] if len(texts) > 3 else ""
+                day_time = texts[4] if len(texts) > 4 else ""
+                room = texts[5] if len(texts) > 5 else ""
+                building = texts[6] if len(texts) > 6 else ""
+                teacher = texts[7] if len(texts) > 7 else ""
+
+                # Must have a course code or name
+                if not re.match(r"^\d{8}$", code) and not name:
+                    continue
+
+                # Determine kind from section text
+                kind = "theory"
+                if re.search(r"ปฏิบัติ|lab|Lab|LAB", section_raw):
+                    kind = "lab"
+
+                # Extract section number (first number in section cell)
+                section_num = None
+                sm = re.search(r"(\d+)", section_raw)
+                if sm:
+                    section_num = sm.group(1)
+
+                # Parse day-time: "พฤหัสบดี 13:00-16:00"
+                day = None
+                start = None
+                end = None
+
+                if day_time:
+                    # Try matching full Thai day name at start
+                    for abbr, idx in sorted(DAY_MAP.items(), key=lambda x: -len(x[0])):
+                        if day_time.startswith(abbr):
+                            day = idx
+                            remainder = day_time[len(abbr) :].strip()
+                            times = parse_time_range(remainder)
+                            if times:
+                                start, end = times
+                            break
+
+                    # Fallback: try matching shorter abbreviations anywhere
+                    if day is None:
+                        for abbr, idx in DAY_MAP.items():
+                            if len(abbr) <= 5 and abbr in day_time:
+                                day = idx
+                                times = parse_time_range(day_time)
+                                if times:
+                                    start, end = times
+                                break
+
+                # Build room string
+                full_room = " ".join(filter(None, [room, building])).strip() or None
+
+                if name:
+                    courses.append(
+                        {
+                            "code": code if re.match(r"^\d{8}$", code) else None,
+                            "name": name.strip(),
+                            "section": section_num,
+                            "kind": kind,
+                            "day": day,
+                            "start": start,
+                            "end": end,
+                            "hasBreak": None,
+                            "room": full_room,
+                            "teacher": teacher or None,
+                            "credit": credit or None,
+                            "tag": None,
+                            "midterm": None,
+                            "final": None,
+                        }
+                    )
+
+            if courses:
+                break
 
     except Exception as e:
         print(f"      ⚠️  Table extraction failed: {e}")
+        import traceback
+
+        traceback.print_exc()
 
     return courses
 
