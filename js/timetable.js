@@ -4,7 +4,7 @@
  */
 
 const Timetable = (() => {
-  const STORAGE_KEY = "cei_cal_v1";
+  const STORAGE_PREFIX = "cei_cal_v1_y";
   const DAYS = [
     "Sunday",
     "Monday",
@@ -45,7 +45,7 @@ const Timetable = (() => {
   // ── Persistence ─────────────────────────────────────────────────
   function loadGrid() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(STORAGE_PREFIX + activeYear);
       if (raw) {
         grid = JSON.parse(raw);
         return;
@@ -55,7 +55,7 @@ const Timetable = (() => {
   }
 
   function saveGrid() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(grid));
+    localStorage.setItem(STORAGE_PREFIX + activeYear, JSON.stringify(grid));
   }
 
   function populateFromJSON() {
@@ -155,7 +155,8 @@ const Timetable = (() => {
     c.querySelectorAll(".year-tab").forEach((b) =>
       b.addEventListener("click", () => {
         activeYear = b.dataset.year;
-        populateFromJSON();
+        loadGrid();
+        if (!grid.length) populateFromJSON();
         renderYearTabs();
         renderCalendar();
         renderExamSchedule();
