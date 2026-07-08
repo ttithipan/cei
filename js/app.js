@@ -56,7 +56,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  function openDocument(docId) {
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function openDocument(docId, sectionSlug) {
     const doc = SearchEngine.getDocument(docId);
     if (!doc) return;
 
@@ -82,6 +90,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       })
       .then((md) => {
         document.getElementById("modal-body").innerHTML = renderMarkdown(md);
+        if (sectionSlug) {
+          requestAnimationFrame(() => {
+            const el = document.getElementById(sectionSlug);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
       })
       .catch(() => {
         document.getElementById("modal-body").innerHTML =
@@ -113,11 +127,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Inline code
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
 
-    // Headers
-    html = html.replace(/^#### (.+)$/gm, "<h4>$1</h4>");
-    html = html.replace(/^### (.+)$/gm, "<h3>$1</h3>");
-    html = html.replace(/^## (.+)$/gm, "<h2>$1</h2>");
-    html = html.replace(/^# (.+)$/gm, "<h1>$1</h1>");
+    // Headers (with id for anchor linking)
+    html = html.replace(
+      /^###### (.+)$/gm,
+      (_, text) => `<h6 id="${slugify(text)}">${text}</h6>`,
+    );
+    html = html.replace(
+      /^##### (.+)$/gm,
+      (_, text) => `<h5 id="${slugify(text)}">${text}</h5>`,
+    );
+    html = html.replace(
+      /^#### (.+)$/gm,
+      (_, text) => `<h4 id="${slugify(text)}">${text}</h4>`,
+    );
+    html = html.replace(
+      /^### (.+)$/gm,
+      (_, text) => `<h3 id="${slugify(text)}">${text}</h3>`,
+    );
+    html = html.replace(
+      /^## (.+)$/gm,
+      (_, text) => `<h2 id="${slugify(text)}">${text}</h2>`,
+    );
+    html = html.replace(
+      /^# (.+)$/gm,
+      (_, text) => `<h1 id="${slugify(text)}">${text}</h1>`,
+    );
 
     // Bold and italic
     html = html.replace(/\*\*\*(.+?)\*\*\*/g, "<strong><em>$1</em></strong>");
@@ -137,25 +171,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     let inTable = false;
     let tableRows = [];
     let headerRow = null;
+    let maxCols = 0;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       if (/^\|.+\|$/.test(line.trim())) {
-        const cells = line
-          .trim()
-          .split("|")
-          .filter((c) => c.trim() !== "");
+        // Split but keep empty cells (don't filter them out)
+        const raw = line.trim().split("|");
+        // Remove first and last empty elements from split (leading/trailing |)
+        const cells = raw.slice(1, -1).map((c) => c.trim());
         if (!inTable) {
           inTable = true;
-          headerRow = cells.map((c) => c.trim());
+          headerRow = cells;
+          maxCols = cells.length;
           continue;
         }
         if (cells.every((c) => /^[\s:-]+$/.test(c))) continue;
-        tableRows.push(cells.map((c) => c.trim()));
+        if (cells.length > maxCols) maxCols = cells.length;
+        tableRows.push(cells);
       } else {
         if (inTable) {
           let tbl = "<table>";
           if (headerRow) {
+            // Pad header to maxCols
+            while (headerRow.length < maxCols) headerRow.push("");
             tbl +=
               "<thead><tr>" +
               headerRow.map((c) => `<th>${c}</th>`).join("") +
@@ -164,10 +203,13 @@ document.addEventListener("DOMContentLoaded", async () => {
           tbl +=
             "<tbody>" +
             tableRows
-              .map(
-                (r) =>
-                  "<tr>" + r.map((c) => `<td>${c}</td>`).join("") + "</tr>",
-              )
+              .map((r) => {
+                // Pad row to maxCols
+                while (r.length < maxCols) r.push("");
+                return (
+                  "<tr>" + r.map((c) => `<td>${c}</td>`).join("") + "</tr>"
+                );
+              })
               .join("") +
             "</tbody>";
           tbl += "</table>";
@@ -291,7 +333,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchResults.innerHTML = results
       .map(
         (r) => `
-      <div class="search-result-item" data-doc-id="${r.docId}">
+      <div class="search-result-item" data-doc-id="${r.docId}" data-section-slug="${r.sectionSlug || ""}">
         <div class="result-title">${r.title} ${r.section ? "\u2014 " + r.section : ""}${r.decay < 0.99 ? ` <span class="decay-badge" title="Relevance decayed due to age">\u{1F4C5} ${r.date || "older"}</span>` : ""}</div>
         <div class="result-snippet">${r.snippet}</div>
         <div class="result-source">\u{1F4C4} ${r.source} \u00b7 Score: ${r.score}</div>
@@ -306,7 +348,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       item.addEventListener("click", () => {
         searchResults.classList.remove("visible");
         searchInput.value = "";
-        if (item.dataset.docId) openDocument(item.dataset.docId);
+        if (item.dataset.docId)
+          openDocument(
+            item.dataset.docId,
+            item.dataset.sectionSlug || undefined,
+          );
       });
     });
   }

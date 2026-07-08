@@ -265,9 +265,18 @@ const SearchEngine = (() => {
       score: score.toFixed(4),
       source: doc ? doc.path : "",
       section: chunk.section || "",
+      sectionSlug: chunk.section ? slugify(chunk.section) : "",
       date: doc ? doc.date : null,
       decay: decay.toFixed(3),
     };
+  }
+
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   }
 
   function escapeRegex(str) {
