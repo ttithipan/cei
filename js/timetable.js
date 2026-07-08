@@ -332,7 +332,7 @@ const Timetable = (() => {
         c.name.toLowerCase().includes(q);
 
       function row(c, cls) {
-        return `<div class="popup-item${cls ? " " + cls : ""}" data-code="${esc(c.code)}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`;
+        return `<div class="popup-item${cls ? " " + cls : ""}" data-code="${esc(c.code)}" data-kind="${esc(c.kind || "")}"><span class="popup-item-code">${esc(c.code)}</span><span class="popup-item-name">${esc(c.name)}</span><span class="popup-item-meta">${esc(c.room || "")} ${c.start || ""}–${c.end || ""}</span></div>`;
       }
 
       let h = "";
@@ -369,14 +369,17 @@ const Timetable = (() => {
       list.querySelectorAll(".popup-item").forEach((item) => {
         item.addEventListener("click", () => {
           const code = item.dataset.code;
+          const kind = item.dataset.kind || "theory";
           const course = [...allCourses, ...genedCourses].find(
-            (c) => c.code === code,
+            (c) => c.code === code && (c.kind || "theory") === kind,
           );
           if (course) {
             addOrUpdate(day, course.start || start, course.end || end, {
               code: course.code,
               name: course.name,
               room: course.room || "",
+              kind: course.kind || "theory",
+              section: course.section || "",
               source: "regis",
             });
             overlay.remove();
@@ -506,6 +509,37 @@ const Timetable = (() => {
   function pad2(n) {
     return String(n).padStart(2, "0");
   }
+  function parseThaiDate(str) {
+    if (!str) return null;
+    var map = [
+      ["ม.ค.", 0],
+      ["ก.พ.", 1],
+      ["มี.ค.", 2],
+      ["เม.ย.", 3],
+      ["พ.ค.", 4],
+      ["มิ.ย.", 5],
+      ["ก.ค.", 6],
+      ["ส.ค.", 7],
+      ["ก.ย.", 8],
+      ["ต.ค.", 9],
+      ["พ.ย.", 10],
+      ["ธ.ค.", 11],
+      ["มกราคม",0],["กุมภาพันธ์",1],["มีนาคม",2],["เมษายน",3],["พฤษภาคม",4],["มิถุนายน",5],["กรกฎาคม",6],["สิงหาคม",7],["กันยายน",8],["ตุลาคม",9],["พฤศจิกายน",10],["ธันวาคม",11]];
+    for (var i = 0; i < map.length; i++) {
+      var re = new RegExp(
+        "(\\d{1,2})\\s+" + map[i][0].replace(/[.]/g, "\\.") + "\\s+(\\d{4})",
+      );
+      var m = str.match(re);
+      if (m)
+        return new Date(
+          parseInt(m[3], 10) - 543,
+          map[i][1],
+          parseInt(m[1], 10),
+        );
+    }
+    return null;
+  }
+
   function toICSDate(d) {
     return `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}T${pad2(d.getHours())}${pad2(d.getMinutes())}${pad2(d.getSeconds())}`;
   }
@@ -527,8 +561,17 @@ const Timetable = (() => {
     const nm = new Date(now);
     nm.setDate(nm.getDate() + ((8 - nm.getDay()) % 7));
     nm.setHours(0, 0, 0, 0);
-    const se = new Date(nm);
-    se.setMonth(se.getMonth() + 5);
+    // Use academic_period from courses.json, fallback to +5 months
+    let untilDate;
+    const periodEnd = courseData?.academic_period?.end;
+    if (periodEnd) {
+      untilDate = parseThaiDate(periodEnd);
+    }
+    if (!untilDate || isNaN(untilDate.getTime())) {
+      untilDate = new Date(nm);
+      untilDate.setMonth(untilDate.getMonth() + 5);
+    }
+    untilDate.setHours(23, 59, 59, 0);
     for (const c of grid) {
       const [sh, sm] = c.start.split(":").map(Number);
       const [eh, em] = c.end.split(":").map(Number);
@@ -538,7 +581,7 @@ const Timetable = (() => {
       const de = new Date(nm);
       de.setDate(de.getDate() + c.day);
       de.setHours(eh, em, 0);
-      const rrule = `FREQ=WEEKLY;UNTIL=${toICSDate(se).replace(/T.*/, "T235959Z")};BYDAY=${DAYS_SHORT[c.day].substring(0, 2).toUpperCase()}`;
+      const rrule = `FREQ=WEEKLY;UNTIL=${toICSDate(untilDate).replace(/T.*/, "T235959Z")};BYDAY=${DAYS_SHORT[c.day].substring(0, 2).toUpperCase()}`;
       lines.push(
         "BEGIN:VEVENT",
         `UID:${c.code || "x"}_${c.day}_${c.start}@cei`,

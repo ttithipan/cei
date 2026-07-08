@@ -352,11 +352,115 @@ def extract_courses_from_page(page) -> list[dict]:
     return courses
 
 
-def scrape_with_playwright(year: str, semester: str) -> dict:
+def extract_academic_period(page) -> dict | None:
+    """
+    Extract academic period (start/end dates) from the regis page.
+    The dates are often in a header, info bar, or revealed by clicking
+    a calendar/date element. Returns {"start": "...", "end": "..."} or None.
+    """
+    # Thai month abbreviations for parsing
+    month_map = {
+        "ม.ค.": 1,
+        "ก.พ.": 2,
+        "มี.ค.": 3,
+        "เม.ย.": 4,
+        "พ.ค.": 5,
+        "มิ.ย.": 6,
+        "ก.ค.": 7,
+        "ส.ค.": 8,
+        "ก.ย.": 9,
+        "ต.ค.": 10,
+        "พ.ย.": 11,
+        "ธ.ค.": 12,
+        "มกราคม": 1,
+        "กุมภาพันธ์": 2,
+        "มีนาคม": 3,
+        "เมษายน": 4,
+        "พฤษภาคม": 5,
+        "มิถุนายน": 6,
+        "กรกฎาคม": 7,
+        "สิงหาคม": 8,
+        "กันยายน": 9,
+        "ตุลาคม": 10,
+        "พฤศจิกายน": 11,
+        "ธันวาคม": 12,
+        "Jan": 1,
+        "Feb": 2,
+        "Mar": 3,
+        "Apr": 4,
+        "May": 5,
+        "Jun": 6,
+        "Jul": 7,
+        "Aug": 8,
+        "Sep": 9,
+        "Oct": 10,
+        "Nov": 11,
+        "Dec": 12,
+    }
+
+    # Try clicking elements that might reveal the class period
+    click_selectors = [
+        "[class*=calendar]",
+        "[class*=date]",
+        "[class*=period]",
+        "[class*=semester]",
+        "[class*=schedule]",
+        "[class*=info]",
+        ".dropdown-toggle",
+        "button:has-text('สอน')",
+        "button:has-text('ตาราง')",
+    ]
+    for selector in click_selectors:
+        try:
+            el = page.locator(selector).first
+            if el.is_visible():
+                el.click()
+                page.wait_for_timeout(800)
+        except Exception:
+            pass
+
+    # Now look for date range patterns in page text
+    body_text = ""
+    try:
+        body_text = page.locator("body").inner_text()
+    except Exception:
+        pass
+
+    months_pattern = "|".join(re.escape(m) for m in month_map.keys())
+
+    # Pattern: "ว. 1 ม.ค. 2567 - 30 มิ.ย. 2567" (Thai date range with dash)
+    date_range = re.search(
+        rf"(\d{{1,2}}\s+({months_pattern})\s+(\d{{4}}))\s*[-–—]\s*(\d{{1,2}}\s+({months_pattern})\s+(\d{{4}}))",
+        body_text,
+    )
+    if date_range:
+        return {
+            "start": date_range.group(1).strip(),
+            "end": date_range.group(4).strip(),
+        }
+
+    # ISO dates: 2024-08-12 - 2024-12-06
+    iso_range = re.search(
+        r"(\d{{4}}-\d{{2}}-\d{{2}})\s*[-–—to]+\s*(\d{{4}}-\d{{2}}-\d{{2}})", body_text
+    )
+    if iso_range:
+        return {"start": iso_range.group(1), "end": iso_range.group(2)}
+
+    # Debug: log any date-like text found
+    for m in re.finditer(rf"\d{{1,2}}\s+({months_pattern})\s+\d{{4}}", body_text):
+        ctx_start = max(0, m.start() - 40)
+        ctx_end = min(len(body_text), m.end() + 60)
+        print(f"      Date context: ...{body_text[ctx_start:ctx_end]}...")
+
+    return None
+
+
+def scrape_with_playwright(year: str, semester: str) -> tuple[dict, dict | None]:
     """Scrape all year tabs using Playwright."""
     from playwright.sync_api import sync_playwright
 
     years = {}
+    academic_period = None
     debug_dir = Path("data/debug")
     debug_dir.mkdir(parents=True, exist_ok=True)
 
@@ -400,12 +504,26 @@ def scrape_with_playwright(year: str, semester: str) -> dict:
 
                 # Debug: save page text
                 try:
-                    body_text = page.locator("body").inner_text()[:2000]
+                    body_text = page.locator("body").inner_text()[:3000]
                     print(f"      Page text preview: {body_text[:300]}...")
+                    # Save full text for the first tab to help debug date extraction
+                    if class_year == CLASS_YEARS[0]:
+                        (debug_dir / "body_text.txt").write_text(
+                            page.locator("body").inner_text(), encoding="utf-8"
+                        )
                 except Exception:
                     pass
 
                 courses = extract_courses_from_page(page)
+
+                # Capture academic period from first successful tab
+                if academic_period is None:
+                    period = extract_academic_period(page)
+                    if period:
+                        academic_period = period
+                        print(
+                            f"      📅 Academic period: {period['start']} – {period['end']}"
+                        )
 
                 if courses:
                     years[class_year] = {
@@ -437,7 +555,7 @@ def scrape_with_playwright(year: str, semester: str) -> dict:
 
         browser.close()
 
-    return years
+    return years, academic_period
 
 
 def main():
@@ -448,7 +566,7 @@ def main():
         print(f"   (overridden via REGIS_YEAR/REGIS_SEMESTER env vars)")
 
     try:
-        years = scrape_with_playwright(year, semester)
+        years, academic_period = scrape_with_playwright(year, semester)
     except ImportError:
         print("❌ playwright not installed.")
         print("   Install: pip install playwright && playwright install chromium")
@@ -467,6 +585,7 @@ def main():
         "semester": f"{semester}/{year}",
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": REGIS_BASE,
+        "academic_period": academic_period,
         "years": years,
     }
 
