@@ -473,8 +473,8 @@ const Timetable = (() => {
       return;
     }
     function fd(d) {
-      if (d === "-") return "—";
-      if (!d) return '<span class="exam-tba">TBA</span>';
+      if (d === "-") return "None";
+      if (!d) return "TBA";
       const dt = new Date(d + "T00:00:00");
       if (isNaN(dt.getTime())) return d;
       const m = [

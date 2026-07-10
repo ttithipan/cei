@@ -962,12 +962,6 @@ select:focus {
     border-top: 1px dashed var(--border-dashed);
 }
 
-.exam-tba {
-    color: var(--text-dim);
-    font-style: italic;
-    font-size: 0.82em;
-}
-
 .cal-event {
     position: absolute;
     left: 2px;
