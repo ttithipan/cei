@@ -59,35 +59,24 @@ By Stuart Russell and Peter Norvig
 
 ---
 
-## Intelligence Agents
+## Intelligent Agents
 
-Agent is anything that can be viewed as perceiving its environment through sensors and acting upon that environment through effectors.
+An agent is anything that can be viewed as **perceiving** its environment through **sensors** and **acting** upon that environment through **effectors** (actuators).
 
-```
-Agent program
-(effectors)
-```
+> 📄 See [PDF page 7](documents/ai-lec01-intro-agents-20260630.pdf#page=7) — diagram: Agent interacting with environment via sensors and effectors.
 
 ---
 
-## Overview of Agents
+### Rationality
 
-> 📄 See [PDF page 8](documents/ai-lec01-intro-agents-20260630.pdf#page=8)
+We want our agent to be **rational** — one that always does the right thing (most successful). Rationality depends on four things:
 
-```
-Agent
-Program
-```
+1. **Performance measure** — defines what "success" means
+2. **Percept sequence** — everything the agent has perceived so far
+3. **Environment knowledge** — what the agent knows about the world
+4. **Available actions** — what the agent can do
 
----
-
-- We would need our agent to be rational.
-- A rational agent always does the right thing (most successful).
-- Rationality depends on four things:
-  1. Performance measure.
-  2. Everything that the agent has perceived so far (percept sequence).
-  3. What the agent knows about the environment.
-  4. The actions that the agent can perform.
+> 📄 See [PDF page 8](documents/ai-lec01-intro-agents-20260630.pdf#page=8) — overview diagram of agent types.
 
 ---
 
@@ -104,8 +93,6 @@ Keeping in memory its entire percept sequence, and using it to index into a tabl
 | P3, P1, P7, P10, P3, P4, P2, ..., Pk | A1 |
 | P2, P6, P4, P2, P1, P4, P9, ..., Pn | A3 |
 | ... | ... |
-| P1 | P4 |
-| Pj | |
 
 **Example: Checker**
 
@@ -124,15 +111,15 @@ Keeping in memory its entire percept sequence, and using it to index into a tabl
 
 ### 1. Simple Reflex Agents
 
-```
-IF car-in-front-is-braking THEN Initiate-braking
-```
-
-A simple reflex agent acts according to a rule whose condition matches the current percept.
+These agents select actions based solely on the **current percept**, ignoring the rest of the percept history.
 
 ```
-State (defined by percept)
+IF car-in-front-is-braking THEN initiate-braking
 ```
+
+A simple reflex agent acts according to a rule whose condition matches the current percept. The state is defined purely by the current percept.
+
+> 📄 See [PDF page 12](documents/ai-lec01-intro-agents-20260630.pdf#page=12) — simple reflex agent diagram.
 
 ---
 
@@ -140,24 +127,19 @@ State (defined by percept)
 
 ### 2. Model-based Reflex Agents
 
-- Some problems need to handle partial observability from the past (internal state) which cannot see now.
-- For the braking problem, we need the previous frame from the camera, allowing the agent to detect when two red braking lights of the car go on/off simultaneously.
+Some problems need to handle **partial observability** — the agent must maintain an internal state that tracks aspects of the world it cannot currently see.
+
+For the braking problem: the agent needs the previous frame from the camera to detect when two red brake lights go on/off simultaneously — a single frame isn't enough.
 
 ```
-Internal state → Current state
+Percept → Update internal state → Match rule → Act
 ```
 
----
-
-## Agent Program
+> 📄 See [PDF page 13](documents/ai-lec01-intro-agents-20260630.pdf#page=13) — model-based reflex agent diagram.
 
 ### 2. Model-based Reflex Agents (Cont.)
 
-> 📄 See [PDF page 14](documents/ai-lec01-intro-agents-20260630.pdf#page=14)
-
-```
-Model → Current state → Next state → Action
-```
+> 📄 See [PDF page 14](documents/ai-lec01-intro-agents-20260630.pdf#page=14) — how the model updates: Model → Current state → Next state → Action.
 
 ---
 
@@ -165,15 +147,17 @@ Model → Current state → Next state → Action
 
 ### 3. Goal-based Agents
 
-When the agent can do more than one action at the current state, it needs some sort of goal information that describes situations that are desirable.
+When the agent can do more than one action at the current state, it needs some sort of **goal information** that describes situations that are desirable. The agent considers future consequences — "which action brings me closer to my goal?"
+
+> 📄 See [PDF page 15](documents/ai-lec01-intro-agents-20260630.pdf#page=15) — goal-based agent diagram.
 
 ---
 
-## Agent Program
-
 ### 4. Utility-based Agents
 
-A more general performance measure should allow a comparison of different world states according to exactly how happy they would make the agent.
+A more general performance measure should allow a comparison of different world states according to exactly **how happy** they would make the agent. Unlike goals (which are binary: achieved or not), utility gives a continuous measure of preference.
+
+> 📄 See [PDF page 16](documents/ai-lec01-intro-agents-20260630.pdf#page=16) — utility-based agent diagram.
 
 ---
 
