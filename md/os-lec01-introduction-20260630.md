@@ -142,5 +142,5 @@ OS design involves balancing the **five evaluation criteria** listed above: Reli
 
 | Tradeoff | Effect | Why |
 |----------|--------|-----|
-| Preserve legacy API | , Security ↓, Portability ↑, Reliability ↓| Old interfaces keep software running but increase attack surface and bug potential |
+| Preserve legacy API | Security ↓, Portability ↑, Reliability ↓| Old interfaces keep software running but increase attack surface and bug potential |
 | Break an abstraction | Performance ↑, Portability ↓, Reliability ↓ | Direct hardware access speeds things up but ties code to specific hardware and risks crashes |
