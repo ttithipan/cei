@@ -83,3 +83,8 @@ Examples: `microcontroller-lec03-gpio-20260630.pdf`, `ai-lec05-propositional-log
 | TF-IDF tags | Distinctive keywords per chunk |
 
 Plus: comma-separated multi-query with RMS fusion, Levenshtein typo correction, abbreviation expansion (50+ aliases for GPIO, I²C, ADC, etc.)
+
+## Known Issues
+
+- **Mac trackpad overscroll** — elastic scrolling on macOS may briefly reveal the pink page background above the fixed header. The `html` element background is set to match the header color as a workaround, but the effect is not fully eliminated on all browsers.
+- **ICS export** — the UNTIL date depends on final exam data from `courses.json`. If exam dates are missing, the fallback is `today + 5 months` which may overshoot into finals week.
