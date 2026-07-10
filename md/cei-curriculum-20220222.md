@@ -459,6 +459,8 @@ To fulfill this requirement, students are required to select courses from the fo
 | 96643037 | Public Administration and Public Policy in the 21st Century | 3 (3-0-6) |
 | 96644031 | English for Science and Technology | 3 (3-0-6) |
 
+> ⚠️ **2023 Amendment:** Per Faculty Academic Committee Resolution 4/2566 (21 June 2023), students may now enroll in **any** course from the General Education category (revised B.E. 2565) in place of the Faculty Course Requirement. The list above is effectively no longer restrictive. 📄 [View amendment document](documents/cei-gened-amendment-20230615.pdf)
+
 4. GE Elective Course Requirement
 **12 Credits**
 
