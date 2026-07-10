@@ -174,7 +174,7 @@ const SearchEngine = (() => {
   }
 
   // ── Reciprocal Rank Fusion (RRF) ─────────────────────────────────
-  function rrf(rankings, k = 60) {
+  function rrf(rankings, k = 15) {
     const scoreMap = {};
     for (const ranking of rankings) {
       ranking.forEach((item, rank) => {

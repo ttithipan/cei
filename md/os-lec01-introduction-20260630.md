@@ -1,16 +1,23 @@
 # OS Lec01 — Introduction (2026)
 
 > 📄 [View original PDF](documents/os-lec01-introduction-20260630.pdf) — source of truth
+>
+> ⚠️ The original lecture slides are intentionally sparse — the professor expects students to take notes during class. The content below has been supplemented with explanations to make this summary self-contained.
 
 ---
 
-### Introduction
+## Introduction
+
+An operating system (OS) is the fundamental software layer that sits between applications and hardware. It manages the computer's resources — CPU, memory, storage, I/O devices — and provides a stable, consistent interface for programs to run on. Without an OS, every application would need its own hardware drivers, memory manager, and scheduler.
 
 ---
 
 ### First Era
 
 - No OS (before 1956)
+  - Programs were run directly on bare metal — programmers wrote machine code and had complete control of the hardware
+  - Computers like the Colossus (1943, Bletchley Park) were single-purpose, hardwired machines used for code-breaking during WWII
+  - No abstraction layer existed between the program and the hardware
 
 > 📄 See [PDF page 2](documents/os-lec01-introduction-20260630.pdf#page=2) — Frontal view of the reconstructed Colossus at The National Museum of Computing, Bletchley Park (image from Wikipedia)
 
@@ -119,7 +126,9 @@ If you were to evaluate any operating system, what aspects should you assess, an
 - Reliability and Availability
 - Security
 - Portability
-  - AVM, API, HAL
+  - **AVM** (Abstract Virtual Machine): provides a consistent execution environment regardless of the underlying hardware
+  - **API** (Application Programming Interface): the set of functions and protocols that applications use to request OS services
+  - **HAL** (Hardware Abstraction Layer): isolates the OS kernel from hardware-specific details, making the OS portable across different hardware platforms
 - Performance
   - Overhead, efficiency
   - Fairness, response time, throughput
@@ -128,11 +137,13 @@ If you were to evaluate any operating system, what aspects should you assess, an
 
 ---
 
-### Design Tradeoffs
+## Design Tradeoffs
 
-Must balance between the 5s.
+Operating system design involves balancing five competing concerns. No single design excels at all of them — improving one often comes at the cost of another.
 
 Examples:
 
 - Preserves legacy API → Portability ↑, Reliability ↓, Security ↓
+  - *Keeping old interfaces helps existing software run, but increases attack surface and bug potential*
 - Breaking an abstraction → Performance ↑, Portability ↓, Reliability ↓
+  - *Bypassing OS layers (e.g., direct hardware access) speeds things up but ties code to specific hardware and can cause crashes*

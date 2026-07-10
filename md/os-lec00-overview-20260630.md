@@ -1,6 +1,8 @@
 # OS Lec00 — Course Overview (2026)
 
 > 📄 [View original PDF](documents/os-lec00-overview-20260630.pdf) — source of truth
+>
+> ⚠️ The original lecture slides are intentionally sparse — the professor expects students to take notes during class. This summary has been supplemented with additional context.
 
 ---
 
