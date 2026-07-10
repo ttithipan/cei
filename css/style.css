@@ -937,15 +937,15 @@ select:focus {
 }
 
 .cal-day-header {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--btn-text);
     text-align: center;
-    padding: 3px 6px;
-    margin: 3px 4px;
-    border-radius: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    padding: 4px 0;
+    background: var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .cal-hour-line {
