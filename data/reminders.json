@@ -10,53 +10,18 @@
       "course_name": "MICROCONTROLLER INTERFACING"
     },
     {
-      "title": "Lab 3: Search Algorithms",
-      "date": "2026-07-16",
-      "type": "homework",
-      "course_code": "01276342",
-      "course_name": "ARTIFICIAL INTELLIGENCE"
-    },
-    {
-      "title": "Assignment 1: Shell",
-      "date": "2026-07-18",
-      "type": "homework",
-      "course_code": "01276324",
-      "course_name": "OPERATING SYSTEMS"
-    },
-    {
-      "title": "Add/Drop Period Ends",
-      "date": "2026-07-21",
+      "title": "Add/Change Period Ends",
+      "date": "2026-07-17",
       "type": "admin",
       "course_code": "",
       "course_name": ""
-    },
-    {
-      "title": "Project Milestone 1",
-      "date": "2026-07-22",
-      "type": "project",
-      "course_code": "01276314",
-      "course_name": "MICROCONTROLLER INTERFACING"
-    },
-    {
-      "title": "Group Project Proposal",
-      "date": "2026-07-25",
-      "type": "group",
-      "course_code": "01276324",
-      "course_name": "OPERATING SYSTEMS"
     },
     {
       "title": "Withdrawal Deadline",
-      "date": "2026-08-01",
+      "date": "2026-10-02",
       "type": "admin",
       "course_code": "",
       "course_name": ""
-    },
-    {
-      "title": "Midterm Exam",
-      "date": "2026-08-05",
-      "type": "exam",
-      "course_code": "01276342",
-      "course_name": "ARTIFICIAL INTELLIGENCE"
     },
     {
       "title": "Group Work",
