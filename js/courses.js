@@ -49,7 +49,7 @@ const CoursesModule = (() => {
 
   function getEnrolledCodes() {
     try {
-      const raw = localStorage.getItem("cei_cal_v1_y3");
+      const raw = localStorage.getItem("cei_cal_v2_y3");
       if (!raw) return new Set();
       const grid = JSON.parse(raw);
       if (!Array.isArray(grid)) return new Set();

@@ -4,7 +4,7 @@
  */
 
 const Timetable = (() => {
-  const STORAGE_PREFIX = "cei_cal_v1_y";
+  const STORAGE_PREFIX = "cei_cal_v2_y";
   const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const DAYS_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
@@ -93,7 +93,7 @@ const Timetable = (() => {
       }
     }
     grid = merged;
-    saveGrid();
+    // Don't auto-save — only persist when user explicitly adds/removes courses
   }
 
   function timeToPx(timeStr) {
