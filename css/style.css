@@ -383,10 +383,11 @@ a:hover {
     border-left: 3px solid var(--warning);
 }
 .reminder-item.safe {
-    border-left: 3px solid var(--success);
+    border-left: 3px solid var(--primary);
 }
+
 .reminder-item.later {
-    border-left: 3px solid var(--success);
+    border-left: 3px solid var(--primary);
 }
 
 .reminder-left {
@@ -437,7 +438,7 @@ a:hover {
     color: var(--warning);
 }
 .reminder-countdown.safe {
-    color: var(--success);
+    color: var(--primary);
 }
 .reminder-countdown.later {
     color: var(--text-dim);
