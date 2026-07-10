@@ -12,24 +12,25 @@
 }
 
 :root {
-    --bg: #f5f6f8;
-    --surface: #ffffff;
-    --text: #1a1d23;
-    --text-muted: #6b7280;
-    --text-dim: #9ca3af;
-    --primary: #2563eb;
-    --primary-bg: #eff6ff;
-    --danger: #dc2626;
-    --danger-bg: #fef2f2;
-    --warning: #d97706;
-    --warning-bg: #fffbeb;
-    --success: #059669;
-    --success-bg: #ecfdf5;
-    --border: #e5e7eb;
+    --bg: #f4eee4;
+    --surface: #fffcf7;
+    --surface-alt: #f7f2ea;
+    --text: #3d3028;
+    --text-muted: #8b7b68;
+    --text-dim: #b5a894;
+    --primary: #b8854c;
+    --primary-bg: #f7f0e4;
+    --danger: #c8553d;
+    --danger-bg: #fdf0eb;
+    --warning: #c4943d;
+    --warning-bg: #fdf6e8;
+    --success: #6b8c5a;
+    --success-bg: #edf4ea;
+    --border: #e0d7c4;
     --radius: 10px;
     --radius-sm: 6px;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow: 0 1px 3px rgba(60, 50, 40, 0.06);
+    --shadow-md: 0 4px 12px rgba(60, 50, 40, 0.08);
     --max-width: 960px;
 }
 
@@ -263,7 +264,7 @@ a:hover {
     color: var(--text-dim);
 }
 .search-result-item mark {
-    background: #fef08a;
+    background: #f5e6c8;
     color: inherit;
     padding: 0 2px;
     border-radius: 2px;
@@ -520,13 +521,14 @@ a:hover {
 .course-card-missing {
     margin-top: 0.5rem;
     padding: 0.35rem 0.5rem;
-    background: #fefce8;
+    background: #fdf7ed;
     border-radius: var(--radius-sm);
     font-size: 0.7rem;
     color: var(--text-dim);
 }
+
 .course-card-missing code {
-    background: #fef08a;
+    background: #f5e6c8;
     padding: 1px 4px;
     border-radius: 2px;
     font-size: 0.68rem;
@@ -562,8 +564,8 @@ a:hover {
     border-color: var(--primary);
 }
 .btn-primary:hover {
-    background: #1d4ed8;
-    border-color: #1d4ed8;
+    background: #a6784c;
+    border-color: #a6784c;
 }
 .btn-sm {
     padding: 0.3rem 0.6rem;
@@ -703,7 +705,7 @@ select:focus {
     border-bottom: 1px solid var(--border);
 }
 .weekly-table tbody tr:hover {
-    background: #fafbfc;
+    background: var(--surface-alt);
 }
 
 .course-col {
@@ -877,8 +879,8 @@ select:focus {
     font-family: "SF Mono", "Cascadia Code", monospace;
 }
 .modal-body pre {
-    background: #1e293b;
-    color: #e2e8f0;
+    background: #2d251e;
+    color: #e8dfd3;
     padding: 0.85rem 1rem;
     border-radius: var(--radius-sm);
     overflow-x: auto;
@@ -973,7 +975,7 @@ select:focus {
     z-index: 5;
 }
 .cal-event.manual {
-    background: #f0fdf4;
+    background: #edf4ea;
     border-left-color: var(--success);
 }
 .cal-event.manual .cal-event-code {
@@ -1028,11 +1030,12 @@ select:focus {
     opacity: 0.3;
 }
 .cal-event.lab {
-    background: #fdf4ff;
-    border-left-color: #a21caf;
+    background: #f6eef0;
+    border-left-color: #b87a4c;
 }
+
 .cal-event.lab .cal-event-code {
-    color: #a21caf;
+    color: #b87a4c;
 }
 
 /* ── Popup ──────────────────────────────────────────────────── */
