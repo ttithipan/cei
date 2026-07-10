@@ -58,6 +58,7 @@ const SearchEngine = (() => {
     sram: "static random access memory",
     dram: "dynamic random access memory",
     eeprom: "electrically erasable programmable read only memory",
+    dimm: "dual inline memory module",
     // AI
     ai: "artificial intelligence",
     ml: "machine learning",
