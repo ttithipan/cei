@@ -138,11 +138,9 @@ If you were to evaluate any operating system, what aspects should you assess, an
 
 ## Design Tradeoffs
 
-Operating system design involves balancing five competing concerns. No single design excels at all of them — improving one often comes at the cost of another.
+OS design involves balancing the **five evaluation criteria** listed above: Reliability, Security, Portability, Performance, and Adoption. Improving one often hurts others.
 
-Examples:
-
-- Preserves legacy API → Portability ↑, Reliability ↓, Security ↓
-  - *Keeping old interfaces helps existing software run, but increases attack surface and bug potential*
-- Breaking an abstraction → Performance ↑, Portability ↓, Reliability ↓
-  - *Bypassing OS layers (e.g., direct hardware access) speeds things up but ties code to specific hardware and can cause crashes*
+| Tradeoff | Effect | Why |
+|----------|--------|-----|
+| Preserve legacy API | Portability ↑, Reliability ↓, Security ↓ | Old interfaces keep software running but increase attack surface and bug potential |
+| Break an abstraction | Performance ↑, Portability ↓, Reliability ↓ | Direct hardware access speeds things up but ties code to specific hardware and risks crashes |
