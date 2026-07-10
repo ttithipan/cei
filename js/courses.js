@@ -47,6 +47,18 @@ const CoursesModule = (() => {
     return (metaData && metaData[code]) || null;
   }
 
+  function getEnrolledCodes() {
+    try {
+      const raw = localStorage.getItem("cei_cal_v1_y3");
+      if (!raw) return new Set();
+      const grid = JSON.parse(raw);
+      if (!Array.isArray(grid)) return new Set();
+      return new Set(grid.map((c) => c.code).filter(Boolean));
+    } catch {
+      return new Set();
+    }
+  }
+
   function render() {
     const container = document.getElementById("courses-grid");
     if (!container) return;
@@ -62,8 +74,22 @@ const CoursesModule = (() => {
       return;
     }
 
+    // Only show courses enrolled in timetable
+    const enrolled = getEnrolledCodes();
+    const filtered =
+      enrolled.size > 0 ? courses.filter((c) => enrolled.has(c.code)) : courses;
+
+    if (enrolled.size > 0 && !filtered.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <p>No enrolled courses match Year 3 data.</p>
+          <p class="hint">Add courses to the timetable above to see them here.</p>
+        </div>`;
+      return;
+    }
+
     let html = "";
-    for (const c of courses) {
+    for (const c of filtered) {
       const meta = getMeta(c.code);
       const platform = meta?.platform || null;
       const detail = meta?.platform_detail || null;

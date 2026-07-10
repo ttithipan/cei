@@ -153,6 +153,7 @@ const Timetable = (() => {
         renderCalendar();
         renderExamSchedule();
         updateRegisLink();
+        if (typeof CoursesModule !== "undefined") CoursesModule.render();
       }),
     );
   }
@@ -379,6 +380,7 @@ const Timetable = (() => {
             });
             overlay.remove();
             renderCalendar();
+            if (typeof CoursesModule !== "undefined") CoursesModule.render();
           }
         });
       });
@@ -413,6 +415,7 @@ const Timetable = (() => {
       );
       close();
       renderCalendar();
+      if (typeof CoursesModule !== "undefined") CoursesModule.render();
     });
 
     document.getElementById("popup-clear")?.addEventListener("click", () => {
@@ -422,6 +425,7 @@ const Timetable = (() => {
       saveGrid();
       close();
       renderCalendar();
+      if (typeof CoursesModule !== "undefined") CoursesModule.render();
     });
 
     document.addEventListener("keydown", function escH(e) {
