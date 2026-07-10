@@ -60,7 +60,7 @@ const Timetable = (() => {
           c.start &&
           c.end &&
           c.name &&
-          !c.code?.startsWith("9664"), // exclude GenEd, default: CEI major only
+          c.code?.startsWith("01276"), // only CEI major courses
       )
       .map((c) => ({
         code: c.code || "",
