@@ -380,6 +380,7 @@ const Timetable = (() => {
             });
             overlay.remove();
             renderCalendar();
+            renderExamSchedule();
             if (typeof CoursesModule !== "undefined") CoursesModule.render();
           }
         });
@@ -415,6 +416,7 @@ const Timetable = (() => {
       );
       close();
       renderCalendar();
+      renderExamSchedule();
       if (typeof CoursesModule !== "undefined") CoursesModule.render();
     });
 
@@ -425,6 +427,7 @@ const Timetable = (() => {
       saveGrid();
       close();
       renderCalendar();
+      renderExamSchedule();
       if (typeof CoursesModule !== "undefined") CoursesModule.render();
     });
 
@@ -452,13 +455,20 @@ const Timetable = (() => {
       if (container) container.innerHTML = "";
       return;
     }
-    // Deduplicate by course code (split sessions create duplicates)
+    // Only show courses present in the timetable grid
+    const enrolledCodes = new Set(grid.map((c) => c.code).filter(Boolean));
     const seen = new Set();
-    const exams = courseData.years[activeYear].courses.filter((c) => {
-      if (seen.has(c.code)) return false;
-      seen.add(c.code);
-      return true;
-    });
+    // Search all years (GenEd may be in Y1-Y4)
+    const allCourses = [];
+    for (const yd of Object.values(courseData.years || {})) {
+      for (const c of yd.courses || []) {
+        if (enrolledCodes.has(c.code) && !seen.has(c.code)) {
+          seen.add(c.code);
+          allCourses.push(c);
+        }
+      }
+    }
+    const exams = allCourses;
     exams.sort((a, b) => {
       const aHas =
         (a.midterm && a.midterm !== "-") || (a.final && a.final !== "-");
