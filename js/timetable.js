@@ -515,6 +515,16 @@ const Timetable = (() => {
   }
   function parseThaiDate(str) {
     if (!str) return null;
+    // Try ISO format first: "2026-10-26"
+    const isoMatch = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (isoMatch) {
+      return new Date(
+        parseInt(isoMatch[1], 10),
+        parseInt(isoMatch[2], 10) - 1,
+        parseInt(isoMatch[3], 10),
+      );
+    }
+    // Fallback: Thai month names (from regis scraper)
     var map = [
       ["ม.ค.", 0],
       ["ก.พ.", 1],
