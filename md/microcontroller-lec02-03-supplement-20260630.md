@@ -1,6 +1,6 @@
 # Microcontroller Lec02–03 Supplement — STM32F7 Reference (2026)
 
-> Extracted from PDF — `microcontroller-lec02-03-supplement-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec02-03-supplement-20260630.pdf) — source of truth
 > Source: STM32F765xx/767xx/768Ax/769xx datasheet (DS11532 Rev 7) and reference manual (RM0410 Rev 4)
 
 ---

@@ -1,6 +1,6 @@
 # Microcontroller Lec02 — Computer Organization & Cortex-M Architecture (2026)
 
-> Extracted from PDF — `microcontroller-lec02-cortex-arch-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec02-cortex-arch-20260630.pdf) — source of truth
 
 ---
 

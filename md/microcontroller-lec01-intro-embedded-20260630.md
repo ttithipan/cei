@@ -1,6 +1,6 @@
 # Microcontroller Lec01 — Introduction to Embedded Systems (2026)
 
-> Extracted from PDF — `microcontroller-lec01-intro-embedded-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec01-intro-embedded-20260630.pdf) — source of truth
 
 ---
 

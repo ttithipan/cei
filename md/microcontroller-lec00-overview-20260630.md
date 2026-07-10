@@ -1,6 +1,6 @@
 # Microcontroller Lec00 — Course Overview (2026)
 
-> Extracted from PDF — `microcontroller-lec00-overview-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec00-overview-20260630.pdf) — source of truth
 
 ---
 

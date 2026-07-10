@@ -1,6 +1,6 @@
 # Microcontroller Lec04 — Embedded C (2026)
 
-> Extracted from PDF — `microcontroller-lec04-embedded-c-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec04-embedded-c-20260630.pdf) — source of truth
 
 ---
 

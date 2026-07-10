@@ -1,6 +1,6 @@
 # Microcontroller Lec03 — General Purpose Input/Output (GPIO) (2026)
 
-> Extracted from PDF — `microcontroller-lec03-gpio-20260630.pdf`
+> 📄 [View original PDF](documents/microcontroller-lec03-gpio-20260630.pdf) — source of truth
 
 ---
 
