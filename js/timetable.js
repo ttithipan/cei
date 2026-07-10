@@ -1,6 +1,6 @@
 /**
  * CEI Timetable — Google Calendar-style week view
- * 7-day columns, continuous time axis, absolute-positioned events
+ * Weekday columns (Mon–Fri), continuous time axis, absolute-positioned events
  */
 
 const Timetable = (() => {
