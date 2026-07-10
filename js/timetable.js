@@ -55,7 +55,12 @@ const Timetable = (() => {
     const raw = courseData.years[activeYear].courses
       .filter(
         (c) =>
-          c.day !== null && c.day !== undefined && c.start && c.end && c.name,
+          c.day !== null &&
+          c.day !== undefined &&
+          c.start &&
+          c.end &&
+          c.name &&
+          !c.code?.startsWith("9664"), // exclude GenEd courses
       )
       .map((c) => ({
         code: c.code || "",
