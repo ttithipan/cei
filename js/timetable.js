@@ -577,11 +577,30 @@ const Timetable = (() => {
     const nm = new Date(now);
     nm.setDate(nm.getDate() + ((8 - nm.getDay()) % 7));
     nm.setHours(0, 0, 0, 0);
-    // Use academic_period from courses.json, fallback to +5 months
-    let untilDate;
+    // Find earliest final exam date from enrolled courses, fallback to +5 months
+    let untilDate = null;
     const periodEnd = courseData?.academic_period?.end;
     if (periodEnd) {
       untilDate = parseThaiDate(periodEnd);
+    }
+    // Try to detect from exam dates: stop 1 week before the first final exam
+    if (!untilDate || isNaN(untilDate.getTime())) {
+      const enrolledCodes = new Set(grid.map((c) => c.code).filter(Boolean));
+      let earliestFinal = null;
+      for (const yd of Object.values(courseData?.years || {})) {
+        for (const c of yd.courses || []) {
+          if (enrolledCodes.has(c.code) && c.final) {
+            const d = parseThaiDate(c.final);
+            if (d && (!earliestFinal || d < earliestFinal)) {
+              earliestFinal = d;
+            }
+          }
+        }
+      }
+      if (earliestFinal) {
+        untilDate = new Date(earliestFinal);
+        untilDate.setDate(untilDate.getDate() - 7); // stop 1 week before
+      }
     }
     if (!untilDate || isNaN(untilDate.getTime())) {
       untilDate = new Date(nm);
