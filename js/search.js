@@ -7,21 +7,6 @@ const SearchEngine = (() => {
   let index = null; // The loaded search index
   let ready = false;
 
-  // ── Time decay ──────────────────────────────────────────────────
-  // Half-life in days: after this many days, relevance halves.
-  // Default 365 = 1 year. Set to Infinity to disable decay.
-  const DECAY_HALF_LIFE_DAYS = 365;
-
-  function computeDecay(dateStr) {
-    if (!dateStr || !isFinite(DECAY_HALF_LIFE_DAYS)) return 1.0;
-    const docDate = new Date(dateStr);
-    const now = new Date();
-    const ageDays = (now - docDate) / (1000 * 60 * 60 * 24);
-    if (ageDays <= 0) return 1.0;
-    // Exponential decay: score * 0.5^(age / halfLife)
-    return Math.pow(0.5, ageDays / DECAY_HALF_LIFE_DAYS);
-  }
-
   // ── BM25 Implementation ──────────────────────────────────────────
   const BM25_K1 = 1.5;
   const BM25_B = 0.75;
@@ -159,6 +144,20 @@ const SearchEngine = (() => {
   async function search(query, topK = 15) {
     if (!isReady()) return [];
 
+    // Multi-query: split by comma, fuse with geometric mean
+    const subQueries = query
+      .split(",")
+      .map((q) => q.trim())
+      .filter((q) => q.length > 0);
+    if (subQueries.length > 1) {
+      return searchMulti(subQueries, topK);
+    }
+
+    return searchSingle(query, topK);
+  }
+
+  // ── Single Query ──────────────────────────────────────────────────
+  async function searchSingle(query, topK = 15) {
     const queryTokens = tokenize(query);
     if (queryTokens.length === 0) return [];
 
@@ -177,37 +176,120 @@ const SearchEngine = (() => {
         console.warn("Embedding search failed, falling back to BM25 only:", e);
       }
     } else {
-      // No embedding model — just use BM25 with decay
+      // No embedding model — just use BM25, sort by score then recency
       const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
       const docMap = new Map((index.documents || []).map((d) => [d.id, d]));
       return bm25Results
         .slice(0, topK)
         .map((r) => {
           const chunk = chunkMap.get(r.id);
-          const doc = docMap.get(chunk?.doc_id);
-          const decay = computeDecay(doc?.date);
-          const finalScore = r.score * decay;
-          return formatResult(r.id, finalScore, chunk, queryTokens, decay);
+          return formatResult(r.id, r.score, chunk, queryTokens);
         })
-        .sort((a, b) => b.score - a.score);
+        .sort(sortByScoreThenDate);
     }
 
     // 3. Ensemble with RRF
     const fused = rrf([bm25Results, embeddingResults]);
 
-    // Build results with decay
+    // Build results — sort by RRF score then recency (newer first)
     const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
-    const docMap = new Map((index.documents || []).map((d) => [d.id, d]));
     return fused
       .slice(0, topK)
       .map((r) => {
         const chunk = chunkMap.get(r.id);
-        const doc = docMap.get(chunk?.doc_id);
-        const decay = computeDecay(doc?.date);
-        const finalScore = r.score * decay;
-        return formatResult(r.id, finalScore, chunk, queryTokens, decay);
+        return formatResult(r.id, r.score, chunk, queryTokens);
       })
-      .sort((a, b) => b.score - a.score);
+      .sort(sortByScoreThenDate);
+  }
+
+  // ── Multi-Query ───────────────────────────────────────────────────
+  async function searchMulti(subQueries, topK = 15) {
+    // Run each sub-query independently, get raw RRF score maps
+    const allScores = await Promise.all(subQueries.map((q) => getRRFScores(q)));
+
+    // Combine using geometric mean — penalises chunks missing any sub-query
+    const combined = {};
+    const allChunkIds = new Set();
+    for (const scores of allScores) {
+      for (const id of Object.keys(scores)) allChunkIds.add(id);
+    }
+
+    for (const id of allChunkIds) {
+      const values = allScores.map((s) => s[id] || 1e-9); // tiny floor avoids zero
+      const geoMean = Math.pow(
+        values.reduce((p, v) => p * v, 1),
+        1 / values.length,
+      );
+      combined[id] = geoMean;
+    }
+
+    // Sort by combined score, take topK
+    const ranked = Object.entries(combined)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topK);
+
+    // Format results (use first sub-query tokens for highlighting)
+    const firstQueryTokens = tokenize(subQueries[0]);
+    const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
+    return ranked.map(([id, score]) => {
+      const chunk = chunkMap.get(id);
+      return formatResult(id, score, chunk, firstQueryTokens);
+    });
+  }
+
+  // ── Get RRF scores for a single query (without formatting) ────────
+  async function getRRFScores(query) {
+    const queryTokens = tokenize(query);
+    if (queryTokens.length === 0) return {};
+
+    const bm25Results = index.bm25.score(queryTokens);
+
+    let embeddingResults = [];
+    if (index.query_embedding_fn) {
+      try {
+        const queryEmb = await embedQuery(query);
+        if (queryEmb) {
+          embeddingResults = embeddingSearch(queryEmb, index.chunks);
+        }
+      } catch (e) {
+        // Fall back to BM25 only
+      }
+    }
+
+    if (embeddingResults.length > 0) {
+      return rrfToMap(rrf([bm25Results, embeddingResults]));
+    }
+    // No embeddings — convert BM25 to score map directly
+    return bm25ToMap(bm25Results);
+  }
+
+  function rrfToMap(fused) {
+    const map = {};
+    for (const { id, score } of fused) {
+      map[id] = score;
+    }
+    return map;
+  }
+
+  function bm25ToMap(results) {
+    // Normalize BM25 scores to [0, 1] range for consistent fusion
+    const map = {};
+    const maxScore =
+      results.length > 0 ? Math.max(...results.map((r) => r.score)) : 1;
+    for (const { id, score } of results) {
+      map[id] = maxScore > 0 ? score / maxScore : 0;
+    }
+    return map;
+  }
+
+  function sortByScoreThenDate(a, b) {
+    // Primary: score (descending)
+    const scoreDiff = parseFloat(b.score) - parseFloat(a.score);
+    if (Math.abs(scoreDiff) > 0.0001) return scoreDiff;
+    // Secondary: date (descending, newer first)
+    const da = a.date ? new Date(a.date) : new Date(0);
+    const db = b.date ? new Date(b.date) : new Date(0);
+    return db - da;
   }
 
   // ── Client-side query embedding (using Transformers.js if available) ──
@@ -243,7 +325,7 @@ const SearchEngine = (() => {
     return avg;
   }
 
-  function formatResult(id, score, chunk, queryTokens, decay = 1.0) {
+  function formatResult(id, score, chunk, queryTokens) {
     // Highlight query terms in snippet
     let snippet = chunk.content.substring(0, 300);
     for (const term of queryTokens) {
@@ -267,7 +349,6 @@ const SearchEngine = (() => {
       section: chunk.section || "",
       sectionSlug: chunk.section ? slugify(chunk.section) : "",
       date: doc ? doc.date : null,
-      decay: decay.toFixed(3),
     };
   }
 
