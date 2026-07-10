@@ -14,7 +14,7 @@
 :root {
     --bg: #f8dfe1;
     --surface: #fdf5f6;
-    --surface-alt: #eef7de;
+    --surface-alt: #f5ebec;
     --text: #614b49;
     --text-muted: #8a7876;
     --text-dim: #b0a3a1;
@@ -32,7 +32,7 @@
     --mark-bg: #c8e491;
     --code-bg: #3d2f2e;
     --code-text: #f0dfe0;
-    --lab-bg: #eef7de;
+    --lab-bg: #f5e8ea;
     --btn-text: #ffffff;
     --radius: 10px;
     --radius-sm: 6px;
