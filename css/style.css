@@ -32,7 +32,6 @@
     --mark-bg: #c8e491;
     --code-bg: #3d2f2e;
     --code-text: #f0dfe0;
-    --lab-bg: #faedcd;
     --btn-text: #ffffff;
     --radius: 10px;
     --radius-sm: 6px;
@@ -1036,11 +1035,6 @@ select:focus {
     border-top: 1px dashed var(--text-dim);
     opacity: 0.3;
 }
-.cal-event.lab {
-    background: var(--lab-bg);
-    border-left-color: var(--primary);
-}
-
 .cal-event.lab .cal-event-code {
     color: var(--primary);
 }
