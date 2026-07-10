@@ -711,7 +711,7 @@ select:focus {
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--border);
 }
-.weekly-table tbody tr:hover {
+#weekly-timetable .weekly-table tbody tr:hover {
     background: var(--surface-alt);
 }
 
