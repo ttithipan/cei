@@ -676,20 +676,6 @@ select:focus {
     border-color: var(--primary);
 }
 
-.gened-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    margin-left: 0.5rem;
-    user-select: none;
-}
-.gened-toggle input {
-    accent-color: var(--primary);
-}
-
 /* ── Timetable Hint ──────────────────────────────────────────── */
 .timetable-hint {
     text-align: center;
