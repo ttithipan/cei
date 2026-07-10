@@ -6,53 +6,80 @@ Central resources site for **Computer Engineering International (CEI)** at King 
 
 ## Features
 
-- **📅 Interactive Timetable** — Google Calendar-style weekly view with course selection, manual entries, and ICS export
-- **📚 Curriculum Browser** — Full 2022 curriculum document with search across all sections
-- **🔍 Semantic Search** — BM25 + embedding-based search across curriculum and resources
-- **📝 Exam Schedule** — Midterm and final exam dates per course
+- **📅 Interactive Timetable** — Mon–Fri week view, course search + manual entries, ICS export, year tabs
+- **⏰ Reminders** — Homework, exams, projects with countdown timers
+- **📚 Course Cards** — Auto-filter to show only timetable-enrolled courses, with platform badges
+- **🔍 Semantic Search** — BM25 + embeddings + title match + TF-IDF tag fusion with RRF, alias expansion, and typo correction
+- **📄 Lecture Notes** — PDF-extracted markdown for Microcontroller, AI, OS, plus curriculum docs
+- **🎨 Milk Matcha Theme** — Sakura pink + warm cream palette
 
-## Running Locally
+## Project Structure
 
-```bash
-# Serve static files (any HTTP server works)
-python3 -m http.server 8080
-# → http://localhost:8080
+```
+├── index.html              # Static SPA
+├── css/style.css           # All styles, CSS variables for theming
+├── js/
+│   ├── app.js              # Main app, view switching, search UI
+│   ├── search.js           # Search engine (BM25, embeddings, RRF, typo, aliases)
+│   ├── timetable.js        # Calendar grid, popup, ICS export
+│   ├── courses.js          # Course cards with platform info
+│   └── reminders.js        # Deadline tracking
+├── md/                     # Extracted lecture notes (markdown)
+├── documents/              # Original PDFs
+├── data/
+│   ├── courses.json        # Timetable scraped from regis
+│   ├── course_meta.json    # Platform info per course
+│   ├── search_index.json   # Pre-computed search embeddings + tags
+│   └── reminders.json      # Generated deadline data
+├── ingest/                 # Drop PDFs + reminders.json here for pipeline
+└── scripts/
+    ├── ingest.py           # Full pipeline: sync meta, generate reminders, convert PDFs
+    ├── pdf_to_md.py        # PDF → markdown extraction
+    ├── build_index.py      # Chunk markdown, extract TF-IDF tags, build embeddings
+    └── fetch_regis.py      # Scrape KMITL regis for timetable data (Playwright)
 ```
 
-No build step — pure static HTML/CSS/JS.
-
-## Scripts
-
-| Script | Purpose |
-|---|---|
-| `scripts/fetch_regis.py` | Scrapes KMITL regis site for timetable data using Playwright |
-| `scripts/build_index.py` | Builds search index from markdown files using sentence-transformers |
-
-### Fetching timetable data
+## Quick Start
 
 ```bash
+# Serve locally
+python3 -m http.server 8080
+
+# Ingest new PDFs (rename to convention first, then run)
+python scripts/ingest.py --docs-only
+
+# Rebuild search after changing markdown
+python scripts/build_index.py
+
+# Fetch fresh timetable
 pip install playwright && playwright install chromium
 python scripts/fetch_regis.py
-# Output: data/courses.json
 ```
 
-Runs automatically via GitHub Actions every Monday.
+## Adding Content
 
-### Building search index
+1. **Add lecture PDFs:** Drop files into `ingest/`, rename to `{subject}-lec{NN}-{slug}-YYYYMMDD.pdf`, run `python scripts/ingest.py --docs-only`. Review the auto-generated `.md` in `md/`, fix formatting, then run `python scripts/build_index.py`.
 
-```bash
-pip install -r requirements.txt
-python scripts/build_index.py
-# Output: data/search_index.json
+2. **Add reminders:** Edit `ingest/reminders.json`, run `python scripts/ingest.py`.
+
+3. **Add platform info:** Edit `data/course_meta.json` with platform, detail, and notes per course code.
+
+## File Naming Convention
+
 ```
+{subject}-lec{NN}-{slug}-{YYYYMMDD}.pdf
+```
+Examples: `microcontroller-lec03-gpio-20260630.pdf`, `ai-lec05-propositional-logic-20260630.pdf`, `os-lec01-introduction-20260630.pdf`
 
-## Data
+## Search Architecture
 
-- `data/courses.json` — timetable scraped from regis (auto-updated weekly)
-- `data/search_index.json` — pre-computed search embeddings (rebuild after md changes)
-- `md/` — curriculum markdown files
+4-signal RRF fusion (k=15):
 
-## Known Issues
+| Signal | What it catches |
+|--------|----------------|
+| BM25 | Exact keyword frequency × IDF |
+| Embeddings | Semantic similarity (384-dim cosine) |
+| Title match | Query tokens in chunk title/section |
+| TF-IDF tags | Distinctive keywords per chunk |
 
-- **ICS export may extend into exam period**: The RRULE `UNTIL` depends on `academic_period.end` from `courses.json`. If the regis scraper fails to extract the class period, the fallback is `today + 5 months` which may overshoot into finals. Fix pending: the scraper needs a reliable selector for the academic calendar date range on the regis page.
-- **Timetable lab courses**: Theory + lab sections sharing the same course code were not distinguishable in popup selection (fixed — now matches by `code` + `kind`).
+Plus: comma-separated multi-query with RMS fusion, Levenshtein typo correction, abbreviation expansion (50+ aliases for GPIO, I²C, ADC, etc.)
