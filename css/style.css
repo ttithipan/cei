@@ -19,6 +19,7 @@
     --text-muted: #8b7b68;
     --text-dim: #b5a894;
     --primary: #b8854c;
+    --primary-hover: #a6784c;
     --primary-bg: #f7f0e4;
     --danger: #c8553d;
     --danger-bg: #fdf0eb;
@@ -27,6 +28,13 @@
     --success: #6b8c5a;
     --success-bg: #edf4ea;
     --border: #e0d7c4;
+    --border-dashed: #ddd2bf;
+    --mark-bg: #f5e6c8;
+    --highlight-bg: #fdf7ed;
+    --code-bg: #2d251e;
+    --code-text: #e8dfd3;
+    --lab-bg: #f6eef0;
+    --btn-text: #ffffff;
     --radius: 10px;
     --radius-sm: 6px;
     --shadow: 0 1px 3px rgba(60, 50, 40, 0.06);
@@ -264,7 +272,7 @@ a:hover {
     color: var(--text-dim);
 }
 .search-result-item mark {
-    background: #f5e6c8;
+    background: var(--mark-bg);
     color: inherit;
     padding: 0 2px;
     border-radius: 2px;
@@ -521,14 +529,14 @@ a:hover {
 .course-card-missing {
     margin-top: 0.5rem;
     padding: 0.35rem 0.5rem;
-    background: #fdf7ed;
+    background: var(--highlight-bg);
     border-radius: var(--radius-sm);
     font-size: 0.7rem;
     color: var(--text-dim);
 }
 
 .course-card-missing code {
-    background: #f5e6c8;
+    background: var(--mark-bg);
     padding: 1px 4px;
     border-radius: 2px;
     font-size: 0.68rem;
@@ -560,12 +568,12 @@ a:hover {
 }
 .btn-primary {
     background: var(--primary);
-    color: #fff;
+    color: var(--btn-text);
     border-color: var(--primary);
 }
 .btn-primary:hover {
-    background: #a6784c;
-    border-color: #a6784c;
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
 }
 .btn-sm {
     padding: 0.3rem 0.6rem;
@@ -665,7 +673,7 @@ select:focus {
 }
 .year-tab.active {
     background: var(--primary);
-    color: #fff;
+    color: var(--btn-text);
     border-color: var(--primary);
 }
 
@@ -879,8 +887,8 @@ select:focus {
     font-family: "SF Mono", "Cascadia Code", monospace;
 }
 .modal-body pre {
-    background: #2d251e;
-    color: #e8dfd3;
+    background: var(--code-bg);
+    color: var(--code-text);
     padding: 0.85rem 1rem;
     border-radius: var(--radius-sm);
     overflow-x: auto;
@@ -953,7 +961,7 @@ select:focus {
     position: absolute;
     left: 0;
     right: 0;
-    border-top: 1px dashed #eee;
+    border-top: 1px dashed var(--border-dashed);
 }
 
 .cal-event {
@@ -975,7 +983,7 @@ select:focus {
     z-index: 5;
 }
 .cal-event.manual {
-    background: #edf4ea;
+    background: var(--success-bg);
     border-left-color: var(--success);
 }
 .cal-event.manual .cal-event-code {
@@ -1030,12 +1038,12 @@ select:focus {
     opacity: 0.3;
 }
 .cal-event.lab {
-    background: #f6eef0;
-    border-left-color: #b87a4c;
+    background: var(--lab-bg);
+    border-left-color: var(--primary);
 }
 
 .cal-event.lab .cal-event-code {
-    color: #b87a4c;
+    color: var(--primary);
 }
 
 /* ── Popup ──────────────────────────────────────────────────── */
