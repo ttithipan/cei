@@ -16,7 +16,8 @@ const Timetable = (() => {
   // ── State ───────────────────────────────────────────────────────
   let courseData = null;
   let activeYear = "3";
-  let grid = []; // flat list of {code,name,room,start,end,day,source}
+  let grid = [];
+  let showGenEd = false; // flat list of {code,name,room,start,end,day,source}
 
   // ── Load courses.json ───────────────────────────────────────────
   async function loadCourseData() {
@@ -55,12 +56,13 @@ const Timetable = (() => {
     const raw = courseData.years[activeYear].courses
       .filter(
         (c) =>
-          c.day !== null &&
-          c.day !== undefined &&
-          c.start &&
-          c.end &&
-          c.name &&
-          !c.code?.startsWith("9664"), // exclude GenEd courses
+          (c.day !== null &&
+            c.day !== undefined &&
+            c.start &&
+            c.end &&
+            c.name &&
+            !c.code?.startsWith("9664")) ||
+          showGenEd, // exclude GenEd unless toggled
       )
       .map((c) => ({
         code: c.code || "",
@@ -161,6 +163,44 @@ const Timetable = (() => {
         if (typeof CoursesModule !== "undefined") CoursesModule.render();
       }),
     );
+  }
+
+  function toggleGenEd() {
+    showGenEd = !showGenEd;
+    if (showGenEd) {
+      addGenEdToGrid();
+    } else {
+      grid = grid.filter((c) => !c.code?.startsWith("9664"));
+    }
+    renderCalendar();
+  }
+
+  function addGenEdToGrid() {
+    if (!courseData?.years) return;
+    const existing = new Set(grid.map((c) => `${c.code}|${c.day}|${c.start}`));
+    for (const y of Object.values(courseData.years)) {
+      for (const c of y.courses || []) {
+        if (!c.code?.startsWith("9664")) continue;
+        if (c.day == null || !c.start || !c.end || !c.name) continue;
+        const key = `${c.code}|${c.day}|${c.start}`;
+        if (existing.has(key)) continue;
+        grid.push({
+          code: c.code,
+          name: c.name,
+          room: c.room || "",
+          start: c.start,
+          end: c.end,
+          day: c.day,
+          section: c.section || "",
+          kind: c.kind || "theory",
+          source: "regis",
+        });
+      }
+    }
+  }
+
+  function isShowGenEd() {
+    return showGenEd;
   }
 
   // ── Render: Google Calendar Grid ────────────────────────────────
@@ -679,5 +719,5 @@ const Timetable = (() => {
     updateRegisLink();
   }
 
-  return { init };
+  return { init, toggleGenEd, isShowGenEd };
 })();
