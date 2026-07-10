@@ -141,6 +141,12 @@ const SearchEngine = (() => {
   function correctQueryTokens(tokens) {
     if (!index || !index.bm25) return tokens;
     const vocab = Object.keys(index.bm25.df);
+    // Supplement vocab with alias terms as fallback
+    for (const v of Object.values(ALIASES)) {
+      for (const w of v.split(/\s+/)) {
+        if (w.length > 2 && !vocab.includes(w)) vocab.push(w);
+      }
+    }
     return tokens.map((t) => {
       if (index.bm25.df[t]) return t; // already in vocabulary
       if (ALIASES[t.toLowerCase()]) return t; // is a known alias, keep as-is
