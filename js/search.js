@@ -19,6 +19,76 @@ const SearchEngine = (() => {
       .filter((t) => t.length > 1);
   }
 
+  // ── Alias / Abbreviation Expansion ───────────────────────────────
+  const ALIASES = {
+    // Hardware & protocols
+    gpio: "general purpose input output",
+    "i o": "input output interface",
+    io: "input output",
+    io: "input output",
+    i2c: "inter integrated circuit twi",
+    spi: "serial peripheral interface",
+    uart: "universal asynchronous receiver transmitter serial",
+    usart: "universal synchronous asynchronous receiver transmitter serial",
+    adc: "analog to digital converter",
+    dac: "digital to analog converter",
+    pwm: "pulse width modulation",
+    lcd: "liquid crystal display",
+    led: "light emitting diode",
+    // Microcontroller / CPU
+    mcu: "microcontroller unit microcontroller",
+    cpu: "central processing unit processor",
+    alu: "arithmetic logic unit",
+    fpu: "floating point unit",
+    mmu: "memory management unit",
+    mpu: "memory protection unit",
+    nvic: "nested vectored interrupt controller",
+    arm: "advanced risc machine cortex",
+    risc: "reduced instruction set computer",
+    cisc: "complex instruction set computer",
+    // Software
+    hal: "hardware abstraction layer",
+    rtos: "real time operating system",
+    fsm: "finite state machine",
+    ide: "integrated development environment",
+    sdk: "software development kit",
+    // Memory
+    ram: "random access memory sram dram",
+    rom: "read only memory eeprom flash",
+    sram: "static random access memory",
+    dram: "dynamic random access memory",
+    eeprom: "electrically erasable programmable read only memory",
+    // AI
+    ai: "artificial intelligence",
+    ml: "machine learning",
+    ann: "artificial neural network",
+    nn: "neural network",
+    ga: "genetic algorithm",
+    dl: "deep learning",
+    nlp: "natural language processing",
+    rl: "reinforcement learning",
+    // General
+    db: "database",
+    os: "operating system",
+    api: "application programming interface",
+    pcb: "printed circuit board",
+    ic: "integrated circuit",
+    sdram: "synchronous dynamic random access memory",
+  };
+
+  function expandQuery(query) {
+    // Normalize: replace / with space so "i/o" matches alias "i o"
+    const normalized = query.toLowerCase().replace(/\//g, " ");
+    let expanded = query;
+    for (const [alias, expansion] of Object.entries(ALIASES)) {
+      const re = new RegExp(`\\b${escapeRegex(alias)}\\b`, "gi");
+      if (re.test(normalized)) {
+        expanded += " " + expansion;
+      }
+    }
+    return expanded;
+  }
+
   class BM25 {
     constructor(chunks) {
       this.N = chunks.length;
@@ -144,7 +214,10 @@ const SearchEngine = (() => {
   async function search(query, topK = 15) {
     if (!isReady()) return [];
 
-    // Multi-query: split by comma, fuse with geometric mean
+    // Expand aliases before splitting
+    query = expandQuery(query);
+
+    // Multi-query: split by comma, fuse with RMS
     const subQueries = query
       .split(",")
       .map((q) => q.trim())
