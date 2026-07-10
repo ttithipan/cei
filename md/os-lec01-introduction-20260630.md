@@ -1,7 +1,6 @@
 # OS Lec01 — Introduction (2026)
 
-> 📄 [View original PDF](documents/os-lec01-introduction-20260630.pdf) — source of truth
->
+> 📄 [View original PDF](documents/os-lec01-introduction-20260630.pdf) — source of truth  
 > ⚠️ The original lecture slides are intentionally sparse — the professor expects students to take notes during class. The content below has been supplemented with explanations to make this summary self-contained.
 
 ---

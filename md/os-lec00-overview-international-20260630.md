@@ -1,7 +1,6 @@
 # OS Lec00 — Course Overview (International) (2026)
 
-> 📄 [View original PDF](documents/os-lec00-overview-international-20260630.pdf) — source of truth
->
+> 📄 [View original PDF](documents/os-lec00-overview-international-20260630.pdf) — source of truth  
 > ⚠️ The original lecture slides are intentionally sparse — the professor expects students to take notes during class. This summary has been supplemented with additional context.
 
 Operating Systems
@@ -11,8 +10,7 @@ Operating Systems
 
 ### Administration
 
-- **CMS:** GoEDU
-- <https://goedu.kmitl.ac.th>
+- **CMS:** [GoEDU](https://goedu.kmitl.ac.th)
 - **Instructor**
   - Mr. Watjanapong Kasemsiri
   - Email: watjanapong.ka@kmitl.ac.th
