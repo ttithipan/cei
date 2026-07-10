@@ -25,7 +25,6 @@ const SearchEngine = (() => {
     gpio: "general purpose input output",
     "i o": "input output interface",
     io: "input output",
-    io: "input output",
     i2c: "inter integrated circuit twi",
     spi: "serial peripheral interface",
     uart: "universal asynchronous receiver transmitter serial",
@@ -92,6 +91,66 @@ const SearchEngine = (() => {
       }
     }
     return expanded;
+  }
+
+  // ── Typo Correction ──────────────────────────────────────────────
+  function levenshtein(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    const prev = Array(b.length + 1).fill(0);
+    const curr = Array(b.length + 1).fill(0);
+    for (let j = 0; j <= b.length; j++) prev[j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      curr[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+      }
+      const tmp = prev;
+      prev.length = 0;
+      for (let j = 0; j <= b.length; j++) prev[j] = curr[j];
+      curr.length = 0;
+    }
+    return prev[b.length];
+  }
+
+  function correctToken(token, vocab) {
+    if (token.length < 3) return null; // too short to reliably correct
+    const maxDist = token.length <= 4 ? 1 : 2;
+    let best = null;
+    let bestDist = maxDist + 1;
+    const first = token[0];
+
+    for (const word of vocab) {
+      // Quick filter: same first letter, similar length
+      if (word[0] !== first) continue;
+      if (Math.abs(word.length - token.length) > 2) continue;
+      const dist = levenshtein(token, word);
+      if (
+        dist < bestDist ||
+        (dist === bestDist && best && word.length < best.length)
+      ) {
+        bestDist = dist;
+        best = word;
+      }
+      if (bestDist === 0) break; // exact match found
+    }
+    return bestDist <= maxDist ? best : null;
+  }
+
+  function correctQueryTokens(tokens) {
+    if (!index || !index.bm25) return tokens;
+    const vocab = Object.keys(index.bm25.df);
+    return tokens.map((t) => {
+      if (index.bm25.df[t]) return t; // already in vocabulary
+      if (ALIASES[t.toLowerCase()]) return t; // is a known alias, keep as-is
+      const corrected = correctToken(t, vocab);
+      if (corrected && corrected !== t) {
+        console.log(`Typo: "${t}" → "${corrected}"`);
+        return corrected;
+      }
+      return t;
+    });
   }
 
   class BM25 {
@@ -257,8 +316,11 @@ const SearchEngine = (() => {
 
   // ── Single Query ──────────────────────────────────────────────────
   async function searchSingle(query, topK = 15) {
-    const queryTokens = tokenize(query);
+    let queryTokens = tokenize(query);
     if (queryTokens.length === 0) return [];
+
+    // Typo correction on tokens not found in vocabulary
+    queryTokens = correctQueryTokens(queryTokens);
 
     // 1. BM25 keyword ranking
     const bm25Results = index.bm25.score(queryTokens);
@@ -341,8 +403,10 @@ const SearchEngine = (() => {
 
   // ── Get RRF scores for a single query (without formatting) ────────
   async function getRRFScores(query) {
-    const queryTokens = tokenize(query);
+    let queryTokens = tokenize(query);
     if (queryTokens.length === 0) return {};
+
+    queryTokens = correctQueryTokens(queryTokens);
 
     const bm25Results = index.bm25.score(queryTokens);
 
