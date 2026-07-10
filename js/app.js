@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .map(
         (r) => `
       <div class="search-result-item" data-doc-id="${r.docId}" data-section-slug="${r.sectionSlug || ""}">
-        <div class="result-title">${r.title} ${r.section ? "\u2014 " + r.section : ""}${r.decay < 0.99 ? ` <span class="decay-badge" title="Relevance decayed due to age">\u{1F4C5} ${r.date || "older"}</span>` : ""}</div>
+        <div class="result-title">${r.title} ${r.section ? "\u2014 " + r.section : ""}${r.date ? ` <span class="result-date">\u{1F4C5} ${r.date}</span>` : ""}</div>
         <div class="result-snippet">${r.snippet}</div>
         <div class="result-source">\u{1F4C4} ${r.source} \u00b7 Score: ${r.score}</div>
       </div>
