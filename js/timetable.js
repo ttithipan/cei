@@ -455,17 +455,26 @@ const Timetable = (() => {
     // Deduplicate by course code (split sessions create duplicates)
     const seen = new Set();
     const exams = courseData.years[activeYear].courses.filter((c) => {
-      if (!c.midterm && !c.final) return false;
       if (seen.has(c.code)) return false;
       seen.add(c.code);
       return true;
+    });
+    exams.sort((a, b) => {
+      const aHas =
+        (a.midterm && a.midterm !== "-") || (a.final && a.final !== "-");
+      const bHas =
+        (b.midterm && b.midterm !== "-") || (b.final && b.final !== "-");
+      if (aHas && !bHas) return -1;
+      if (!aHas && bHas) return 1;
+      return 0;
     });
     if (!exams.length) {
       container.innerHTML = '<p class="empty-hint">No exam dates.</p>';
       return;
     }
     function fd(d) {
-      if (!d) return "—";
+      if (d === "-") return "—";
+      if (!d) return '<span class="exam-tba">TBA</span>';
       const dt = new Date(d + "T00:00:00");
       if (isNaN(dt.getTime())) return d;
       const m = [
