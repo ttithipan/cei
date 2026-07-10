@@ -12,33 +12,32 @@
 }
 
 :root {
-    --bg: #f8f6f0;
-    --surface: #ffffff;
-    --surface-alt: #f4f2eb;
-    --text: #2d3028;
-    --text-muted: #7a8070;
-    --text-dim: #a8ad9e;
-    --primary: #7a9b5b;
-    --primary-hover: #6b8c4e;
-    --primary-bg: #f2f6ec;
-    --danger: #c06050;
-    --danger-bg: #fdf0ec;
+    --bg: #f8dfe1;
+    --surface: #fdf5f6;
+    --surface-alt: #eef7de;
+    --text: #614b49;
+    --text-muted: #8a7876;
+    --text-dim: #b0a3a1;
+    --primary: #ea9ba2;
+    --primary-hover: #d87a83;
+    --primary-bg: #fdf0f1;
+    --danger: #d4686a;
+    --danger-bg: #fdf0f1;
     --warning: #c4983d;
     --warning-bg: #fdf6e8;
-    --success: #5b8c4a;
-    --success-bg: #eef4e8;
-    --border: #e2e6d8;
-    --border-dashed: #d8dcc8;
-    --mark-bg: #e8f0d8;
-    --highlight-bg: #f4f8ee;
-    --code-bg: #272e22;
-    --code-text: #d8e0cc;
-    --lab-bg: #f0f4ec;
+    --success: #adc18a;
+    --success-bg: #eef7de;
+    --border: #efe0e2;
+    --border-dashed: #e2cccf;
+    --mark-bg: #c8e491;
+    --code-bg: #3d2f2e;
+    --code-text: #f0dfe0;
+    --lab-bg: #eef7de;
     --btn-text: #ffffff;
     --radius: 10px;
     --radius-sm: 6px;
-    --shadow: 0 1px 3px rgba(45, 48, 40, 0.06);
-    --shadow-md: 0 4px 12px rgba(45, 48, 40, 0.08);
+    --shadow: 0 1px 3px rgba(97, 75, 73, 0.06);
+    --shadow-md: 0 4px 12px rgba(97, 75, 73, 0.08);
     --max-width: 960px;
 }
 
@@ -529,7 +528,7 @@ a:hover {
 .course-card-missing {
     margin-top: 0.5rem;
     padding: 0.35rem 0.5rem;
-    background: var(--highlight-bg);
+    background: var(--primary-bg);
     border-radius: var(--radius-sm);
     font-size: 0.7rem;
     color: var(--text-dim);
