@@ -3,102 +3,141 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>CEI Resources — KMITL Computer Engineering</title>
+        <title>CEI3 — KMITL Computer Engineering</title>
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
-        <header class="site-header">
-            <h1 class="site-title">🎓 CEI Resources</h1>
-            <p class="site-subtitle">
-                Computer Engineering International — KMITL
-            </p>
-            <div class="search-bar" id="search-bar">
-                <input
-                    type="text"
-                    id="search-input"
-                    placeholder="Search documents semantically..."
-                    autocomplete="off"
-                />
-                <div class="search-results" id="search-results"></div>
+        <!-- Burger Menu Drawer -->
+        <div class="burger-overlay" id="burger-overlay"></div>
+        <nav class="burger-drawer" id="burger-drawer">
+            <div class="burger-header">
+                <span class="burger-title">🎓 CEI3</span>
+                <button class="burger-close" id="burger-close">&times;</button>
             </div>
-        </header>
-
-        <nav class="tabs">
-            <button class="tab active" data-tab="timetable">
-                📅 Timetable
-            </button>
-            <button class="tab" data-tab="documents">📄 Documents</button>
+            <a href="#" class="burger-link active" data-nav="home">🏠 Home</a>
+            <a href="#" class="burger-link" data-nav="documents"
+                >📄 Documents</a
+            >
         </nav>
 
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="header-title">🎓 CEI3</h1>
+            </div>
+            <div class="header-center">
+                <div class="search-bar" id="search-bar">
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search documents…"
+                        autocomplete="off"
+                    />
+                    <div class="search-results" id="search-results"></div>
+                </div>
+            </div>
+            <button class="burger-btn" id="burger-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
         <main>
-            <!-- Timetable Tab -->
-            <section class="tab-content active" id="tab-timetable">
-                <!-- Regis bar + controls -->
-                <div class="regis-bar">
-                    <div class="regis-fields">
-                        <label
-                            >Year (พ.ศ.)
-                            <input
-                                type="number"
-                                id="regis-year"
-                                value="2569"
-                                min="2560"
-                                max="2575"
-                                class="field-sm"
-                        /></label>
-                        <label
-                            >Semester
-                            <select id="regis-semester" class="field-sm">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">Summer</option>
-                            </select></label
+            <!-- View: Home -->
+            <div id="view-home" class="view">
+                <!-- ⏰ Reminders -->
+                <section class="page-section" id="reminders-section">
+                    <h2 class="section-heading">⏰ Reminders</h2>
+                    <div id="reminders-list"></div>
+                </section>
+
+                <!-- 📅 Timetable -->
+                <section class="page-section" id="timetable-section">
+                    <h2 class="section-heading timetable-heading">
+                        Weekly Timetable
+                    </h2>
+
+                    <!-- Regis bar + controls -->
+                    <div class="regis-bar">
+                        <div class="regis-fields">
+                            <label
+                                >Year (พ.ศ.)
+                                <input
+                                    type="number"
+                                    id="regis-year"
+                                    value="2569"
+                                    min="2560"
+                                    max="2575"
+                                    class="field-sm"
+                            /></label>
+                            <label
+                                >Semester
+                                <select id="regis-semester" class="field-sm">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">Summer</option>
+                                </select></label
+                            >
+                        </div>
+                        <div
+                            style="
+                                display: flex;
+                                gap: 0.5rem;
+                                align-items: center;
+                            "
                         >
+                            <span class="data-source" id="data-source"></span>
+                            <a
+                                class="regis-link"
+                                id="regis-link"
+                                href="#"
+                                target="_blank"
+                                rel="noopener"
+                                >↗ Open Regis</a
+                            >
+                            <button
+                                class="btn btn-sm"
+                                id="btn-export-ics"
+                                title="Export to calendar (.ics)"
+                            >
+                                📅 .ics
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- Year tabs -->
+                    <div class="year-tabs" id="year-tabs"></div>
+
+                    <!-- Timetable grid -->
                     <div
-                        style="display: flex; gap: 0.5rem; align-items: center"
-                    >
-                        <span class="data-source" id="data-source"></span>
-                        <a
-                            class="regis-link"
-                            id="regis-link"
-                            href="#"
-                            target="_blank"
-                            rel="noopener"
-                            >↗ Open Regis</a
-                        >
-                        <button
-                            class="btn btn-sm"
-                            id="btn-export-ics"
-                            title="Export to calendar (.ics)"
-                        >
-                            📅 .ics
-                        </button>
+                        class="weekly-table-wrapper"
+                        id="weekly-timetable"
+                    ></div>
+
+                    <!-- Exam Schedule -->
+                    <h3 class="section-heading exam-heading">Exam Schedule</h3>
+                    <div class="weekly-table-wrapper" id="exam-schedule"></div>
+
+                    <p class="timetable-hint" id="timetable-hint"></p>
+                </section>
+
+                <!-- 📚 Courses -->
+                <section class="page-section" id="courses-section">
+                    <h2 class="section-heading">📚 Courses</h2>
+                    <div id="courses-grid" class="courses-grid"></div>
+                </section>
+            </div>
+
+            <!-- View: Documents -->
+            <div id="view-documents" class="view hidden">
+                <section class="page-section">
+                    <h2 class="section-heading">📄 Documents</h2>
+                    <div class="doc-list" id="doc-list">
+                        <!-- Populated by JS -->
                     </div>
-                </div>
-
-                <!-- Year tabs -->
-                <div class="year-tabs" id="year-tabs"></div>
-
-                <!-- Weekly Timetable -->
-                <h2 class="section-heading timetable-heading">
-                    Weekly Timetable
-                </h2>
-                <div class="weekly-table-wrapper" id="weekly-timetable"></div>
-
-                <!-- Exam Schedule -->
-                <h2 class="section-heading exam-heading">Exam Schedule</h2>
-                <div class="weekly-table-wrapper" id="exam-schedule"></div>
-
-                <p class="timetable-hint" id="timetable-hint"></p>
-            </section>
-
-            <!-- Documents Tab -->
-            <section class="tab-content" id="tab-documents">
-                <div class="doc-list" id="doc-list">
-                    <!-- Populated by JS -->
-                </div>
-            </section>
+                </section>
+            </div>
         </main>
 
         <footer class="site-footer">
@@ -114,6 +153,8 @@
         </footer>
 
         <script src="js/search.js"></script>
+        <script src="js/reminders.js"></script>
+        <script src="js/courses.js"></script>
         <script src="js/timetable.js"></script>
         <script src="js/app.js"></script>
     </body>

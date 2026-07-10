@@ -14,5 +14,6 @@ include:
 
 exclude:
   - scripts
+  - ingest
   - requirements.txt
   - README.md

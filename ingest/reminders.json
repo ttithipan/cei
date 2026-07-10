@@ -1,0 +1,54 @@
+{
+  "_howto": {
+    "purpose": "Reminders — generates data/reminders.json. Edit then run: python scripts/ingest.py",
+    "types": ["homework", "group", "exam", "quiz", "project", "admin"],
+    "date_format": "YYYY-MM-DD",
+    "note": "course_code is optional — omit for general reminders (admin deadlines, holidays, etc.)"
+  },
+  "reminders": [
+    {
+      "course_code": "01276314",
+      "title": "Lab 1",
+      "date": "2026-07-15",
+      "type": "homework"
+    },
+    {
+      "course_code": "01276342",
+      "title": "Lab 3: Search Algorithms",
+      "date": "2026-07-16",
+      "type": "homework"
+    },
+    {
+      "course_code": "01276324",
+      "title": "Assignment 1: Shell",
+      "date": "2026-07-18",
+      "type": "homework"
+    },
+    { "title": "Add/Drop Period Ends", "date": "2026-07-21", "type": "admin" },
+    {
+      "course_code": "01276314",
+      "title": "Project Milestone 1",
+      "date": "2026-07-22",
+      "type": "project"
+    },
+    {
+      "course_code": "01276324",
+      "title": "Group Project Proposal",
+      "date": "2026-07-25",
+      "type": "group"
+    },
+    { "title": "Withdrawal Deadline", "date": "2026-08-01", "type": "admin" },
+    {
+      "course_code": "01276342",
+      "title": "Midterm Exam",
+      "date": "2026-08-05",
+      "type": "exam"
+    },
+    {
+      "course_code": "01276342",
+      "title": "Group Work",
+      "date": "2026-10-13",
+      "type": "group"
+    }
+  ]
+}

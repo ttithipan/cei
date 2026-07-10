@@ -1,0 +1,308 @@
+{
+  "_howto": {
+    "purpose": "Static course-to-platform mapping. Fill once per semester.",
+    "platform_options": [
+      "goedu",
+      "Line Group",
+      "Microsoft Teams",
+      "Discord",
+      "Zoom",
+      "Google Classroom",
+      "Other"
+    ]
+  },
+  "01276314": {
+    "platform": "Microsoft Teams",
+    "platform_detail": "CEIP Microcontroller 2026",
+    "notes": null,
+    "_name": "MICROCONTROLLER INTERFACING"
+  },
+  "01276324": {
+    "platform": "goedu",
+    "platform_detail": "OPERATING SYSTEMS [Section 901][69-1-01276324-901]",
+    "notes": null,
+    "_name": "OPERATING SYSTEMS"
+  },
+  "01276342": {
+    "platform": "Line Group",
+    "platform_detail": "CEI3 AI 2569",
+    "notes": null,
+    "_name": "ARTIFICIAL INTELLIGENCE"
+  },
+  "01276521": {
+    "platform": "Microsoft Teams",
+    "platform_detail": "System Administration 2026s1",
+    "notes": null,
+    "_name": "PRACTICE OF SYSTEM ADMINISTRATION"
+  },
+  "01276545": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "USER EXPERIENCE AND USER INTERFACE DESIGN"
+  },
+  "01276551": {
+    "platform": "Google Classroom",
+    "platform_detail": "CEi-DA-2026-S1",
+    "notes": null,
+    "_name": "INTRODUCTION TO DATA ANALYTICS"
+  },
+  "01006710": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "INTRODUCTION TO CALCULUS"
+  },
+  "01006716": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "LINEAR ALGEBRA"
+  },
+  "01006723": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "GENERAL PHYSICS 1"
+  },
+  "01006724": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "GENERAL PHYSICS LABORATORY 1"
+  },
+  "01276111": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CIRCUITS AND ELECTRONICS"
+  },
+  "01276121": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "COMPUTER PROGRAMMING"
+  },
+  "01276206": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "PROBABILITY AND RANDOM VARIABLES"
+  },
+  "01276209": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DISCRETE MATHEMATICS"
+  },
+  "01276222": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DATA STRUCTURE AND ALGORITHMS"
+  },
+  "01276223": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "COMPUTER NETWORKS"
+  },
+  "01276241": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DATABASE SYSTEMS"
+  },
+  "01276714": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "HIGH PERFORMANCE COMPUTING"
+  },
+  "01276991": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CAPSTONE DESIGN PROJECT 1"
+  },
+  "04186098": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "HAPPY PETS HAPPY PARENTS"
+  },
+  "14026421": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "SELECTED TOPIC IN INDUSTRIAL BUSINESS 1"
+  },
+  "90592004": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CONTEMPORARY CULTURE"
+  },
+  "96641007": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DIGITAL CITIZEN"
+  },
+  "96642011": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CRITICAL THINKING"
+  },
+  "96642017": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "INNOVATION UNBOXED"
+  },
+  "96642031": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "PROFESSIONAL ETHICS AND LAWS"
+  },
+  "96642051": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "BIOTECHNOLOGY FOR BETTER LIVING"
+  },
+  "96642083": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "FILM APPRECIATION"
+  },
+  "96642091": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "ASIAN STUDY"
+  },
+  "96642102": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "YOUTUBER"
+  },
+  "96642138": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "MEDITATION FOR LIFE DEVELOPMENT"
+  },
+  "96642142": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "PSYCHOLOGY IN COMMUNICATION"
+  },
+  "96642143": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DESIGNING YOUR LIFE"
+  },
+  "96642162": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "READY TO WORK"
+  },
+  "96643014": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "GENERAL BUSINESS"
+  },
+  "96643022": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "SOCIAL ENTREPRENEURS"
+  },
+  "96643026": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "INVESTMENT PLANNING"
+  },
+  "96643029": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "DIGITAL ECONOMY"
+  },
+  "96643037": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "PUBLIC ADMINISTRATION AND PUBLIC POLICY IN THE 21st CENTURY"
+  },
+  "96644004": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "ACADEMIC LISTENING AND SPEAKING"
+  },
+  "96644013": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "ENGLISH FOR COMMUNICATIVE WRITING"
+  },
+  "96644030": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "ENGLISH FOR PUBLIC RELATIONS"
+  },
+  "96644037": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CROSS CULTURAL COMMUNICATION"
+  },
+  "96644041": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "ENGLISH FROM ENTERTAINMENT MEDIA"
+  },
+  "96644043": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "PUBLIC SPEAKING"
+  },
+  "96644044": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "BEST SPEECH"
+  },
+  "96644053": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "FUNDAMENTAL CHINESE FOR LISTENING AND SPEAKING"
+  },
+  "96644057": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "CHINESE FOR COMMUNICATION"
+  },
+  "96644063": {
+    "platform": null,
+    "platform_detail": null,
+    "notes": null,
+    "_name": "JAPANESE FOR TRAVEL"
+  }
+}
