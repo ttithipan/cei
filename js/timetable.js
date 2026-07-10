@@ -187,7 +187,7 @@ const Timetable = (() => {
       const day = di + 1; // data uses 1=Mon … 5=Fri
       html += `<div class="cal-col" data-day="${day}">`;
       // Day name header
-      html += `<div class="cal-day-header">${DAYS[di]}</div>`;
+      html += `<div class="cal-day-header">${DAYS_SHORT[di]}</div>`;
       // Hour lines
       for (let h = START_HOUR; h <= END_HOUR; h++) {
         html += `<div class="cal-hour-line" style="top:${(h - START_HOUR) * HOUR_HEIGHT}px"></div>`;
