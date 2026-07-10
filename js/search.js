@@ -183,6 +183,27 @@ const SearchEngine = (() => {
       .sort((a, b) => b.score - a.score);
   }
 
+  // ── Title / Section Match Ranking ────────────────────────────────
+  function titleRanking(queryTokens) {
+    const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
+    const scored = [];
+    for (const chunk of index.chunks) {
+      const haystack = (
+        (chunk.title || "") +
+        " " +
+        (chunk.section || "")
+      ).toLowerCase();
+      let hits = 0;
+      for (const token of queryTokens) {
+        if (haystack.includes(token)) hits++;
+      }
+      if (hits > 0) {
+        scored.push({ id: chunk.id, score: hits });
+      }
+    }
+    return scored.sort((a, b) => b.score - a.score);
+  }
+
   // ── Load Index ───────────────────────────────────────────────────
   async function load() {
     if (ready) return;
@@ -262,8 +283,12 @@ const SearchEngine = (() => {
         .sort(sortByScoreThenDate);
     }
 
-    // 3. Ensemble with RRF
-    const fused = rrf([bm25Results, embeddingResults]);
+    // 3. Ensemble with RRF (BM25 + embeddings + title match)
+    const fused = rrf([
+      bm25Results,
+      embeddingResults,
+      titleRanking(queryTokens),
+    ]);
 
     // Build results — sort by RRF score then recency (newer first)
     const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
@@ -330,10 +355,12 @@ const SearchEngine = (() => {
     }
 
     if (embeddingResults.length > 0) {
-      return rrfToMap(rrf([bm25Results, embeddingResults]));
+      return rrfToMap(
+        rrf([bm25Results, embeddingResults, titleRanking(queryTokens)]),
+      );
     }
-    // No embeddings — convert BM25 to score map directly
-    return bm25ToMap(bm25Results);
+    // No embeddings — fuse BM25 + title match
+    return rrfToMap(rrf([bm25Results, titleRanking(queryTokens)]));
   }
 
   function rrfToMap(fused) {
