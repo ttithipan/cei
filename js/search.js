@@ -273,6 +273,25 @@ const SearchEngine = (() => {
     return scored.sort((a, b) => b.score - a.score);
   }
 
+  // ── Tag Match Ranking ────────────────────────────────────────────
+  function tagRanking(queryTokens) {
+    const scored = [];
+    for (const chunk of index.chunks) {
+      const tags = chunk.tags || [];
+      if (!tags.length) continue;
+      let hits = 0;
+      for (const token of queryTokens) {
+        for (const tag of tags) {
+          if (tag.includes(token) || token.includes(tag)) hits++;
+        }
+      }
+      if (hits > 0) {
+        scored.push({ id: chunk.id, score: hits });
+      }
+    }
+    return scored.sort((a, b) => b.score - a.score);
+  }
+
   // ── Load Index ───────────────────────────────────────────────────
   async function load() {
     if (ready) return;
@@ -360,6 +379,7 @@ const SearchEngine = (() => {
       bm25Results,
       embeddingResults,
       titleRanking(queryTokens),
+      tagRanking(queryTokens),
     ]);
 
     // Build results — sort by RRF score then recency (newer first)
@@ -430,11 +450,18 @@ const SearchEngine = (() => {
 
     if (embeddingResults.length > 0) {
       return rrfToMap(
-        rrf([bm25Results, embeddingResults, titleRanking(queryTokens)]),
+        rrf([
+          bm25Results,
+          embeddingResults,
+          titleRanking(queryTokens),
+          tagRanking(queryTokens),
+        ]),
       );
     }
     // No embeddings — fuse BM25 + title match
-    return rrfToMap(rrf([bm25Results, titleRanking(queryTokens)]));
+    return rrfToMap(
+      rrf([bm25Results, titleRanking(queryTokens), tagRanking(queryTokens)]),
+    );
   }
 
   function rrfToMap(fused) {

@@ -12,6 +12,7 @@ Usage:
 """
 
 import json
+import math
 import os
 import re
 import sys
@@ -26,6 +27,122 @@ DATA_DIR = ROOT / "data"
 CHUNK_MIN_CHARS = 80  # Minimum chars for a chunk to be indexed
 CHUNK_MAX_CHARS = 1500  # Soft max — split long chunks
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"  # Small, fast, good quality (384-dim)
+TAGS_PER_CHUNK = 8  # Number of keywords to extract per chunk
+
+# Common English stop words — filtered out of tags
+STOP_WORDS = {
+    "a",
+    "an",
+    "the",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "have",
+    "has",
+    "had",
+    "do",
+    "does",
+    "did",
+    "will",
+    "would",
+    "could",
+    "should",
+    "may",
+    "might",
+    "can",
+    "shall",
+    "to",
+    "of",
+    "in",
+    "for",
+    "on",
+    "with",
+    "at",
+    "by",
+    "from",
+    "as",
+    "into",
+    "through",
+    "during",
+    "before",
+    "after",
+    "above",
+    "below",
+    "between",
+    "under",
+    "and",
+    "but",
+    "or",
+    "not",
+    "no",
+    "if",
+    "then",
+    "else",
+    "when",
+    "where",
+    "which",
+    "who",
+    "whom",
+    "this",
+    "that",
+    "these",
+    "those",
+    "it",
+    "its",
+    "he",
+    "she",
+    "they",
+    "we",
+    "you",
+    "all",
+    "each",
+    "every",
+    "both",
+    "few",
+    "more",
+    "most",
+    "other",
+    "some",
+    "such",
+    "only",
+    "own",
+    "same",
+    "so",
+    "than",
+    "too",
+    "very",
+    "just",
+    "about",
+    "also",
+    "here",
+    "there",
+    "using",
+    "used",
+    "use",
+    "one",
+    "two",
+    "see",
+    "example",
+    "note",
+    "page",
+    "slide",
+    "pdf",
+    "figure",
+    "following",
+    "way",
+    "like",
+    "well",
+    "much",
+    "many",
+    "however",
+    "therefore",
+    "since",
+    "while",
+}
 
 
 # ── Tokenizer ───────────────────────────────────────────────────────
@@ -127,6 +244,47 @@ def split_long(text: str, max_chars: int) -> list[str]:
     return [c for c in chunks if len(c) >= CHUNK_MIN_CHARS]
 
 
+# ── Keyword/Tag Extraction ──────────────────────────────────────────
+def extract_tags(
+    text: str, all_chunks: list[dict], n: int = TAGS_PER_CHUNK
+) -> list[str]:
+    """Extract the most distinctive keywords from a chunk using TF-IDF.
+
+    Words that appear frequently in this chunk but rarely across all chunks
+    get high scores. Stop words and short tokens are filtered.
+    """
+    tokens = tokenize(text)
+    if not tokens:
+        return []
+
+    tf = {}
+    for t in tokens:
+        if t in STOP_WORDS or len(t) < 3:
+            continue
+        tf[t] = tf.get(t, 0) + 1
+
+    if not tf:
+        return []
+
+    # Document frequency across all chunks
+    df = {}
+    for chunk in all_chunks:
+        seen = set()
+        for t in chunk.get("tokens", []):
+            if t in tf and t not in seen:
+                df[t] = df.get(t, 0) + 1
+                seen.add(t)
+
+    N = max(len(all_chunks), 1)
+    scores = {}
+    for word, freq in tf.items():
+        idf = math.log((N + 1) / (df.get(word, 0) + 1))
+        scores[word] = freq * idf
+
+    ranked = sorted(scores.items(), key=lambda x: -x[1])
+    return [word for word, _ in ranked[:n]]
+
+
 # ── Extract vocabulary for token embeddings ─────────────────────────
 def build_vocabulary(chunks: list[dict], max_vocab: int = 2000) -> dict[str, int]:
     """Collect most frequent tokens across all chunks."""
@@ -219,6 +377,11 @@ def main():
             )
 
     print(f"   Created {len(all_chunks)} chunks from {len(documents)} document(s)")
+
+    # ── Extract tags (TF-IDF keywords per chunk) ─────────────────────
+    print(f"   Extracting keywords...")
+    for chunk in all_chunks:
+        chunk["tags"] = extract_tags(chunk["content"], all_chunks)
 
     # ── Generate embeddings ─────────────────────────────────────────
     print(f"\n🧠 Loading embedding model: {EMBEDDING_MODEL}")
