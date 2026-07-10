@@ -75,6 +75,10 @@ const SearchEngine = (() => {
     pcb: "printed circuit board",
     ic: "integrated circuit",
     sdram: "synchronous dynamic random access memory",
+    // CEI / KMITL
+    cei: "computer engineering international program",
+    ceip: "computer engineering international program",
+    kmitl: "king mongkut institute of technology ladkrabang",
   };
 
   function expandQuery(query) {
