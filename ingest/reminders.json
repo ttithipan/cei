@@ -6,5 +6,23 @@
     "note": "course_code is optional — omit for general reminders (admin deadlines, holidays, etc.)"
   },
   "reminders": [
+    {
+      "course_code": "01276314",
+      "title": "Lab 1",
+      "date": "2026-07-15",
+      "type": "homework"
+    },
+    {
+      "title": "Add/Change Period Ends",
+      "date": "2026-07-17",
+      "type": "admin"
+    },
+    { "title": "Withdrawal Deadline", "date": "2026-10-02", "type": "admin" },
+    {
+      "course_code": "01276342",
+      "title": "Group Work",
+      "date": "2026-10-13",
+      "type": "group"
+    }
   ]
 }

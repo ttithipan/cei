@@ -151,7 +151,18 @@ def generate_reminders(dry_run: bool = False):
 
     reminders_raw = input_data.get("reminders", [])
     if not reminders_raw:
-        log("No reminders in ingest/reminders.json", "warn")
+        log("No reminders in ingest/reminders.json — clearing output", "warn")
+        output = {
+            "generated": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            "count": 0,
+            "reminders": [],
+        }
+        if dry_run:
+            return True
+        REMINDERS_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+        with open(REMINDERS_OUTPUT, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+        log("Wrote empty reminders.json", "ok")
         return True
 
     # Cross-reference course names
