@@ -5,16 +5,8 @@
 
 const Timetable = (() => {
   const STORAGE_PREFIX = "cei_cal_v1_y";
-  const DAYS = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const DAYS_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
   const HOUR_HEIGHT = 64; // px per hour
   const START_HOUR = 7; // 7:00
@@ -186,7 +178,10 @@ const Timetable = (() => {
 
     // Day columns
     for (let di = 0; di < DAYS.length; di++) {
-      html += `<div class="cal-col" data-day="${di}">`;
+      const day = di + 1; // data uses 1=Mon … 5=Fri
+      html += `<div class="cal-col" data-day="${day}">`;
+      // Day name header
+      html += `<div class="cal-day-header">${DAYS[di]}</div>`;
       // Hour lines
       for (let h = START_HOUR; h <= END_HOUR; h++) {
         html += `<div class="cal-hour-line" style="top:${(h - START_HOUR) * HOUR_HEIGHT}px"></div>`;
@@ -196,15 +191,15 @@ const Timetable = (() => {
         html += `<div class="cal-half-line" style="top:${(h - START_HOUR) * HOUR_HEIGHT + HOUR_HEIGHT / 2}px"></div>`;
       }
       // Events for this day
-      const dayCourses = grid.filter((c) => c.day === di);
+      const dayCourses = grid.filter((c) => c.day === day);
       for (const c of dayCourses) {
         const top = timeToPx(c.start);
         const height = Math.max(durationPx(c.start, c.end), 20);
-        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}${c.hasBreak ? " has-break" : ""}${c.kind === "lab" ? " lab" : ""}" style="top:${top}px;height:${height}px" data-day="${di}" data-start="${c.start}" data-end="${c.end}">
+        html += `<div class="cal-event${c.source === "manual" ? " manual" : ""}${c.hasBreak ? " has-break" : ""}${c.kind === "lab" ? " lab" : ""}" style="top:${top}px;height:${height}px" data-day="${day}" data-start="${c.start}" data-end="${c.end}">
           <div class="cal-event-code">${esc(c.code)}${c.hasBreak ? " ⏸" : ""}${c.kind === "lab" ? " 🔬" : ""}</div>
           <div class="cal-event-name">${esc(c.name)}</div>
           ${c.room ? `<div class="cal-event-room">${esc(c.room)}</div>` : ""}
-          <button class="cal-event-pen" data-day="${di}" data-start="${c.start}" title="Edit">✏️</button>
+          <button class="cal-event-pen" data-day="${day}" data-start="${c.start}" title="Edit">✏️</button>
         </div>`;
       }
       html += "</div>";
@@ -288,7 +283,7 @@ const Timetable = (() => {
     let html = `<div class="popup-overlay visible" id="cell-popup-overlay">
       <div class="popup-card">
         <div class="popup-header">
-          <span>${DAYS[day]} ${start}–${end}</span>
+          <span>${DAYS[day - 1]} ${start}–${end}</span>
           <button class="popup-close">&times;</button>
         </div>
         <div class="popup-body">
@@ -593,7 +588,7 @@ const Timetable = (() => {
       const de = new Date(nm);
       de.setDate(de.getDate() + c.day);
       de.setHours(eh, em, 0);
-      const rrule = `FREQ=WEEKLY;UNTIL=${toICSDate(untilDate).replace(/T.*/, "T235959Z")};BYDAY=${DAYS_SHORT[c.day].substring(0, 2).toUpperCase()}`;
+      const rrule = `FREQ=WEEKLY;UNTIL=${toICSDate(untilDate).replace(/T.*/, "T235959Z")};BYDAY=${DAYS_SHORT[c.day - 1].substring(0, 2).toUpperCase()}`;
       lines.push(
         "BEGIN:VEVENT",
         `UID:${c.code || "x"}_${c.day}_${c.start}@cei`,

@@ -269,12 +269,9 @@ a:hover {
     border-radius: 2px;
 }
 
-.decay-badge {
+.result-date {
     font-size: 0.68rem;
-    background: var(--bg);
-    color: var(--text-muted);
-    padding: 1px 6px;
-    border-radius: 4px;
+    color: var(--text-dim);
     margin-left: 4px;
 }
 
@@ -929,6 +926,19 @@ select:focus {
 }
 .cal-col:last-child {
     border-right: none;
+}
+
+.cal-day-header {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-alt);
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .cal-hour-line {
