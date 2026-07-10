@@ -207,7 +207,7 @@ const SearchEngine = (() => {
     // Run each sub-query independently, get raw RRF score maps
     const allScores = await Promise.all(subQueries.map((q) => getRRFScores(q)));
 
-    // Combine using geometric mean — penalises chunks missing any sub-query
+    // Combine using RMS (root mean square) — dominated by peak matches
     const combined = {};
     const allChunkIds = new Set();
     for (const scores of allScores) {
@@ -215,12 +215,11 @@ const SearchEngine = (() => {
     }
 
     for (const id of allChunkIds) {
-      const values = allScores.map((s) => s[id] || 1e-9); // tiny floor avoids zero
-      const geoMean = Math.pow(
-        values.reduce((p, v) => p * v, 1),
-        1 / values.length,
+      const values = allScores.map((s) => s[id] || 0);
+      const rms = Math.sqrt(
+        values.reduce((sum, v) => sum + v * v, 0) / values.length,
       );
-      combined[id] = geoMean;
+      combined[id] = rms;
     }
 
     // Sort by combined score, take topK
