@@ -27,7 +27,7 @@ An operating system (OS) is the fundamental software layer that sits between app
 
 [The concepts of OS started in 1956 at GM research lab.]
 
-Image from: <https://www.christies.com/stories/gen-one-paul-allen-history-of-technology-ef080682a70e4a97a53864b475333b12>
+[Christie's — Gen One: Paul Allen History of Technology](https://www.christies.com/stories/gen-one-paul-allen-history-of-technology-ef080682a70e4a97a53864b475333b12)
 
 In this picture:
 
