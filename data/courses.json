@@ -1,6 +1,6 @@
 {
   "semester": "1/2569",
-  "generated": "2026-07-10T03:24:06Z",
+  "generated": "2026-07-13T10:21:09Z",
   "source": "https://regis.reg.kmitl.ac.th",
   "academic_period": null,
   "years": {
@@ -21,10 +21,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642017",
@@ -40,10 +37,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642031",
@@ -59,10 +53,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642051",
@@ -78,10 +69,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642083",
@@ -97,10 +85,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -116,10 +101,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -135,10 +117,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -154,10 +133,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -173,10 +149,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -192,10 +165,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -211,10 +181,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -230,10 +197,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -249,10 +213,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -268,10 +229,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -287,10 +245,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642162",
@@ -305,11 +260,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96642162",
@@ -324,11 +276,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643014",
@@ -344,10 +293,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643014",
@@ -363,10 +309,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643022",
@@ -382,10 +325,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643026",
@@ -400,11 +340,8 @@
           "teacher": "ดร. ศักดิภัทร์ กฤษณจินดา, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "-",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643029",
@@ -420,10 +357,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643037",
@@ -439,10 +373,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644013",
@@ -458,10 +389,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644030",
@@ -477,10 +405,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644037",
@@ -496,10 +421,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644041",
@@ -515,10 +437,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644043",
@@ -534,10 +453,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -553,10 +469,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -572,10 +485,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644053",
@@ -591,10 +501,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644057",
@@ -610,10 +517,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644063",
@@ -629,10 +533,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96641007",
@@ -648,10 +549,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96641007",
@@ -667,10 +565,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96641007",
@@ -686,10 +581,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96641007",
@@ -705,10 +597,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -724,10 +613,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -743,10 +629,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643014",
@@ -762,10 +645,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644004",
@@ -781,10 +661,7 @@
           "credit": "0(4-0-8)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644004",
@@ -800,10 +677,7 @@
           "credit": "0(4-0-8)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01006710",
@@ -819,10 +693,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-19",
-          "final": "2026-10-28",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-28"
         },
         {
           "code": "01006710",
@@ -838,10 +709,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-19",
-          "final": "2026-10-28",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-28"
         },
         {
           "code": "01006723",
@@ -857,10 +725,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-21",
-          "final": "2026-10-30",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-30"
         },
         {
           "code": "01006723",
@@ -876,10 +741,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-21",
-          "final": "2026-10-30",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-30"
         },
         {
           "code": "01006724",
@@ -895,10 +757,7 @@
           "credit": "1(0-3-2)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276111",
@@ -914,10 +773,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": "2026-08-17",
-          "final": "2026-10-26",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-26"
         },
         {
           "code": "01276111",
@@ -933,10 +789,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276121",
@@ -952,10 +805,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": "2026-08-20",
-          "final": "2026-10-29",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-29"
         },
         {
           "code": "01276121",
@@ -971,10 +821,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         }
       ]
     },
@@ -995,10 +842,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642017",
@@ -1014,10 +858,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642031",
@@ -1033,10 +874,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642051",
@@ -1052,10 +890,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642083",
@@ -1071,10 +906,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -1090,10 +922,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -1109,10 +938,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -1128,10 +954,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -1147,10 +970,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -1166,10 +986,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -1185,10 +1002,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -1204,10 +1018,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -1223,10 +1034,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -1242,10 +1050,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -1261,10 +1066,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642162",
@@ -1279,11 +1081,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96642162",
@@ -1298,11 +1097,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643014",
@@ -1318,10 +1114,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643014",
@@ -1337,10 +1130,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643022",
@@ -1356,10 +1146,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643026",
@@ -1374,11 +1161,8 @@
           "teacher": "ดร. ศักดิภัทร์ กฤษณจินดา, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "-",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643029",
@@ -1394,10 +1178,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643037",
@@ -1413,10 +1194,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644013",
@@ -1432,10 +1210,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644030",
@@ -1451,10 +1226,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644037",
@@ -1470,10 +1242,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644041",
@@ -1489,10 +1258,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644043",
@@ -1508,10 +1274,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -1527,10 +1290,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -1546,10 +1306,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644053",
@@ -1565,10 +1322,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644057",
@@ -1584,10 +1338,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644063",
@@ -1603,10 +1354,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01006716",
@@ -1622,10 +1370,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-19",
-          "final": "2026-10-28",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-28"
         },
         {
           "code": "01006716",
@@ -1641,10 +1386,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-19",
-          "final": "2026-10-28",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-28"
         },
         {
           "code": "01276206",
@@ -1660,10 +1402,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-18",
-          "final": "2026-10-27",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-27"
         },
         {
           "code": "01276209",
@@ -1679,10 +1418,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-21",
-          "final": "2026-10-30",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-30"
         },
         {
           "code": "01276222",
@@ -1698,10 +1434,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": "2026-08-17",
-          "final": "2026-11-02",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-11-02"
         },
         {
           "code": "01276222",
@@ -1717,10 +1450,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276223",
@@ -1736,10 +1466,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": "2026-08-22",
-          "final": "2026-11-04",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-11-04"
         },
         {
           "code": "01276223",
@@ -1755,10 +1482,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276241",
@@ -1774,10 +1498,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-20",
-          "final": "2026-11-06",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-11-06"
         },
         {
           "code": "04186098",
@@ -1793,10 +1514,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "04186098",
@@ -1812,10 +1530,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         }
       ]
     },
@@ -1836,10 +1551,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642017",
@@ -1855,10 +1567,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642031",
@@ -1874,10 +1583,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642051",
@@ -1893,10 +1599,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642083",
@@ -1912,10 +1615,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -1931,10 +1631,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -1950,10 +1647,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -1969,10 +1663,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -1988,10 +1679,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -2007,10 +1695,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -2026,10 +1711,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -2045,10 +1727,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -2064,10 +1743,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -2083,10 +1759,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -2102,10 +1775,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642162",
@@ -2120,11 +1790,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96642162",
@@ -2139,11 +1806,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643014",
@@ -2159,10 +1823,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643014",
@@ -2178,10 +1839,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643022",
@@ -2197,10 +1855,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643026",
@@ -2215,11 +1870,8 @@
           "teacher": "ดร. ศักดิภัทร์ กฤษณจินดา, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "-",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643029",
@@ -2235,10 +1887,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643037",
@@ -2254,10 +1903,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644013",
@@ -2273,10 +1919,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644030",
@@ -2292,10 +1935,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644037",
@@ -2311,10 +1951,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644041",
@@ -2330,10 +1967,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644043",
@@ -2349,10 +1983,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -2368,10 +1999,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -2387,10 +2015,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644053",
@@ -2406,10 +2031,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644057",
@@ -2425,10 +2047,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644063",
@@ -2444,10 +2063,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276314",
@@ -2463,10 +2079,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": "2026-08-20",
-          "final": "2026-11-04",
-          "platform": "Microsoft Teams",
-          "platform_detail": null,
-          "notes": "Check General channel for slides"
+          "final": "2026-11-04"
         },
         {
           "code": "01276314",
@@ -2482,10 +2095,7 @@
           "credit": "4(3-3-8)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": "Microsoft Teams",
-          "platform_detail": null,
-          "notes": "Check General channel for slides"
+          "final": null
         },
         {
           "code": "01276324",
@@ -2501,10 +2111,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-17",
-          "final": "2026-10-28",
-          "platform": "University System",
-          "platform_detail": "CEI3 OS 2026",
-          "notes": null
+          "final": "2026-10-28"
         },
         {
           "code": "01276342",
@@ -2519,11 +2126,8 @@
           "teacher": "รศ. ดร. เกียรติกูล เจียรนัยธนะกิจ",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": "-",
-          "final": "2026-10-26",
-          "platform": "Line Group",
-          "platform_detail": "CEI3 AI 2569",
-          "notes": null
+          "midterm": null,
+          "final": "2026-10-26"
         },
         {
           "code": "01276521",
@@ -2538,11 +2142,8 @@
           "teacher": "ดร. ปริญญา เอกปริญญา",
           "credit": "3(3-0-6)",
           "tag": null,
-          "midterm": "-",
-          "final": "2026-10-30",
-          "platform": "Line Group",
-          "platform_detail": "CEI3 SysAdmin",
-          "notes": null
+          "midterm": null,
+          "final": "2026-10-30"
         },
         {
           "code": "01276545",
@@ -2558,10 +2159,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": "Other",
-          "platform_detail": "Check with TA",
-          "notes": null
+          "final": null
         },
         {
           "code": "01276551",
@@ -2577,10 +2175,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": "2026-11-02",
-          "platform": "Microsoft Teams",
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-11-02"
         },
         {
           "code": "04186098",
@@ -2596,10 +2191,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "04186098",
@@ -2615,10 +2207,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         }
       ]
     },
@@ -2639,10 +2228,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642017",
@@ -2658,10 +2244,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642031",
@@ -2677,10 +2260,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642051",
@@ -2696,10 +2276,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642083",
@@ -2715,10 +2292,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -2734,10 +2308,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642091",
@@ -2753,10 +2324,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -2772,10 +2340,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642102",
@@ -2791,10 +2356,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -2810,10 +2372,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642138",
@@ -2829,10 +2388,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -2848,10 +2404,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642142",
@@ -2867,10 +2420,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -2886,10 +2436,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642143",
@@ -2905,10 +2452,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96642162",
@@ -2923,11 +2467,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96642162",
@@ -2942,11 +2483,8 @@
           "teacher": "อ. กรองทิพย์ จั่นแย้ม, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "2026-08-06",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643014",
@@ -2962,10 +2500,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643014",
@@ -2981,10 +2516,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643022",
@@ -3000,10 +2532,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643026",
@@ -3018,11 +2547,8 @@
           "teacher": "ดร. ศักดิภัทร์ กฤษณจินดา, รศ. ดร. รวิภัทร ลาภเจริญสุข",
           "credit": "3(3-0-6)",
           "tag": "GenEd",
-          "midterm": "-",
-          "final": "2026-10-22",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "midterm": null,
+          "final": null
         },
         {
           "code": "96643029",
@@ -3038,10 +2564,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96643037",
@@ -3057,10 +2580,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644013",
@@ -3076,10 +2596,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644030",
@@ -3095,10 +2612,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644037",
@@ -3114,10 +2628,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644041",
@@ -3133,10 +2644,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644043",
@@ -3152,10 +2660,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -3171,10 +2676,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644044",
@@ -3190,10 +2692,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644053",
@@ -3209,10 +2708,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644057",
@@ -3228,10 +2724,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "96644063",
@@ -3247,10 +2740,7 @@
           "credit": "3(3-0-6)",
           "tag": "GenEd",
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276714",
@@ -3266,10 +2756,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": "2026-08-17",
-          "final": "2026-10-26",
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": "2026-10-26"
         },
         {
           "code": "01276991",
@@ -3285,10 +2772,7 @@
           "credit": "3(0-9-5)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276991",
@@ -3304,10 +2788,7 @@
           "credit": "3(0-9-5)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "01276991",
@@ -3323,10 +2804,7 @@
           "credit": "3(0-9-5)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "14026421",
@@ -3342,10 +2820,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "14026421",
@@ -3361,10 +2836,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         },
         {
           "code": "90592004",
@@ -3380,10 +2852,7 @@
           "credit": "3(3-0-6)",
           "tag": null,
           "midterm": null,
-          "final": null,
-          "platform": null,
-          "platform_detail": null,
-          "notes": null
+          "final": null
         }
       ]
     }
