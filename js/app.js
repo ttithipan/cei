@@ -372,4 +372,51 @@ document.addEventListener("DOMContentLoaded", async () => {
   searchReady.then(() => {
     if (SearchEngine.isReady()) buildDocList();
   });
+
+  // ── Redirect from 404.html ─────────────────────────────────────
+  const redirect = sessionStorage.getItem("redirect");
+  if (redirect) {
+    sessionStorage.removeItem("redirect");
+    const path = redirect.replace(/^\/cei\//, "");
+    // If it's an md/ or documents/ path, try to open the document
+    if (path.startsWith("md/") || path.startsWith("documents/")) {
+      searchReady.then(() => {
+        const docs = SearchEngine.getDocuments();
+        const match = docs.find((d) => d.path === path);
+        if (match) {
+          openDocument(match.id);
+        } else if (path.startsWith("md/") && path.endsWith(".md")) {
+          // Direct fetch fallback for non-indexed .md files
+          const overlay = document.createElement("div");
+          overlay.className = "modal-overlay visible";
+          overlay.innerHTML = `
+            <div class="modal">
+              <div class="modal-header">
+                <h2>${escapeHtml(path)}</h2>
+                <button class="modal-close">&times;</button>
+              </div>
+              <div class="modal-body" id="modal-body">
+                <p style="color:var(--text-muted)">Loading...</p>
+              </div>
+            </div>`;
+          document.body.appendChild(overlay);
+          fetch(path)
+            .then((r) => r.text())
+            .then((md) => {
+              document.getElementById("modal-body").innerHTML =
+                renderMarkdown(md);
+            })
+            .catch(() => {
+              document.getElementById("modal-body").innerHTML =
+                '<p style="color:var(--text-muted)">Document not found.</p>';
+            });
+          const close = () => overlay.remove();
+          overlay.querySelector(".modal-close").addEventListener("click", close);
+          overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) close();
+          });
+        }
+      });
+    }
+  }
 });
