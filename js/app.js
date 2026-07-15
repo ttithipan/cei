@@ -24,6 +24,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("burger-close")
     ?.addEventListener("click", closeBurger);
 
+  // ── Clear Cache ─────────────────────────────────────────────────
+  document.getElementById("btn-clear-cache")?.addEventListener("click", async () => {
+    const btn = document.getElementById("btn-clear-cache");
+    btn.textContent = "⏳ Clearing…";
+    btn.disabled = true;
+    try {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k)));
+      if ("serviceWorker" in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((r) => r.unregister()));
+      }
+      localStorage.clear();
+      sessionStorage.clear();
+      btn.textContent = "✅ Cleared!";
+      setTimeout(() => location.reload(), 500);
+    } catch {
+      btn.textContent = "❌ Failed";
+      btn.disabled = false;
+    }
+  });
+
   // ── View Switching ────────────────────────────────────────────────
   const views = {
     home: document.getElementById("view-home"),
