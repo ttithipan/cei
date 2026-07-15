@@ -18,8 +18,8 @@ const RemindersModule = (() => {
   function getCountdown(dateStr) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    const due = new Date(dateStr + "T23:59:59");
-    const diff = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+    const due = new Date(dateStr + "T00:00:00");
+    const diff = Math.round((due - now) / (1000 * 60 * 60 * 24));
 
     if (diff < -7) return null; // skip: more than a week past due
     if (diff < 0)
