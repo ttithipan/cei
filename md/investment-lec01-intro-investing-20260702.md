@@ -186,13 +186,13 @@ The goal of investing is to build **passive income streams** so you're not depen
 A common framework for prioritising your money:
 
 ```
-         ┌──────────┐
-         │  GROWTH   │  ← Invest for wealth (stocks, mutual funds, real estate)
-         ├──────────┤
-         │PROTECTION │  ← Insurance (health, life) + emergency fund (6–12 months)
-         ├──────────┤
-         │  SAFETY   │  ← Cash reserves, bank deposits, money market
-         └──────────┘
+┌──────────┐
+│  GROWTH  │  ← Invest for wealth (stocks, mutual funds, real estate)
+├──────────┤
+│PROTECTION│  ← Insurance (health, life) + emergency fund (6–12 months)
+├──────────┤
+│  SAFETY  │  ← Cash reserves, bank deposits, money market
+└──────────┘
 ```
 
 1. **Safety layer:** Build cash reserves first (3–6 months of expenses in liquid savings)

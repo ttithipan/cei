@@ -32,15 +32,15 @@ Investment Planning (96643026)
 ### Money Management Guidelines
 
 ```
-   ┌─────────────────────────────────────┐
-   │  Long-term investment                │  ← can be more risky (bonus)
-   │  for quality of life                 │
-   ├─────────────────────────────────────┤
-   │  Minimum savings: retirement money   │
-   ├─────────────────────────────────────┤
-   │  6–12 months savings                 │  ← emergency fund
-   │  + health/life insurance             │
-   └─────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│  Long-term investment               │  ← can be more risky (bonus)
+│  for quality of life                │
+├─────────────────────────────────────┤
+│  Minimum savings: retirement money  │
+├─────────────────────────────────────┤
+│  6–12 months savings                │  ← emergency fund
+│  + health/life insurance            │
+└─────────────────────────────────────┘
 ```
 
 **Income > Expenses** → Emergency Reserves → Difference (invest)

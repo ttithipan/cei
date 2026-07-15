@@ -24,7 +24,7 @@ The system administrator seeks to ensure that the uptime, performance, resources
 - With availability of public cloud services, system administrators are no longer needed?
 - With availability of public cloud services, system administration are no longer needed?
 
-> **I want to work in the field of \_\_\_\_\_\_\_\_ (Software development, Cyber security, etc…) so I DO NOT need to care about system administration!?**
+> **I want to work in the field of ____________ (Software development, Cyber security, etc…) so I DO NOT need to care about system administration!?**
 
 ---
 
