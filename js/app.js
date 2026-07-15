@@ -338,14 +338,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ── Init ─────────────────────────────────────────────────────────
-  await SearchEngine.load();
-  await Promise.all([RemindersModule.load(), CoursesModule.load()]);
+  // Search index is 28MB — load in background, don't block the page
+  const searchReady = SearchEngine.load();
 
-  // Render home components
+  // Render essentials immediately (reminders + timetable)
+  await Promise.all([RemindersModule.load(), Timetable.init()]);
   RemindersModule.render();
-  await Timetable.init();
-  CoursesModule.render();
 
-  // Render documents list
-  buildDocList();
+  // Background: courses then documents (populate as data arrives)
+  CoursesModule.load().then(() => CoursesModule.render());
+  searchReady.then(() => {
+    if (SearchEngine.isReady()) buildDocList();
+  });
 });
