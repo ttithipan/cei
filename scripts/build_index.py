@@ -21,7 +21,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MD_DIR = ROOT / "md"
+DOCS_DIR = ROOT / "documents"
 DATA_DIR = ROOT / "data"
+LLMS_TXT = ROOT / "llms.txt"
+BASE_URL = "https://ttithipan.github.io/cei"
 
 # ── Configuration ───────────────────────────────────────────────────
 CHUNK_MIN_CHARS = 80  # Minimum chars for a chunk to be indexed
@@ -301,6 +304,29 @@ def build_vocabulary(chunks: list[dict], max_vocab: int = 2000) -> dict[str, int
     return {token: idx for idx, (token, _) in enumerate(sorted_tokens)}
 
 
+# ── Generate llms.txt ────────────────────────────────────────────────
+def generate_llms_txt(documents: list[dict]):
+    """Write llms.txt — AI-agent-friendly document index."""
+    lines = [
+        "# CEI3 — Document Index for AI Agents",
+        f"# Base URL: {BASE_URL}",
+        "",
+        "## Markdown Notes",
+    ]
+    for doc in documents:
+        lines.append(f"- [{doc['title']}](/{doc['path']})")
+
+    lines.append("")
+    lines.append("## PDF Sources")
+    if DOCS_DIR.exists():
+        for pdf in sorted(DOCS_DIR.glob("*.pdf")):
+            rel = str(pdf.relative_to(ROOT))
+            lines.append(f"- [{pdf.name}](/{rel})")
+
+    LLMS_TXT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"   llms.txt → {LLMS_TXT}")
+
+
 # ── Main Build ──────────────────────────────────────────────────────
 def extract_date_from_filename(filename: str) -> str | None:
     """Try to extract a date from a filename like 2024-01-15-topic.md or topic-20260706.md."""
@@ -461,6 +487,9 @@ def main():
     print(f"   Documents: {len(documents)}")
     print(f"   Chunks: {len(all_chunks)}")
     print(f"   Embedding model: {EMBEDDING_MODEL if model else 'None (keyword-only)'}")
+
+    # ── Generate llms.txt ─────────────────────────────────────────
+    generate_llms_txt(documents)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 # CEI3 — Document Index for AI Agents
-# Base URL: https://ttithipan.github.io/cei/
+# Base URL: https://ttithipan.github.io/cei
 
 ## Markdown Notes
 - [AI Lec01 — Intro Agents (2026)](/md/ai-lec01-intro-agents-20260630.md)
