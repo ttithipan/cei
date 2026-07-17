@@ -394,6 +394,7 @@ flowchart TD
         direction TB
         PC["PC: (Program Counter)"]
         SP["SP: (Stack Pointer)"]
+        PC ~~~ SP
     end
     subgraph Process["Process Memory"]
         direction TB
@@ -405,6 +406,7 @@ flowchart TD
         CS["code segment"]
         INST["instruction"]
         BOTTOM["0x000..."]
+        TOP ~~~ STACK ~~~ GAP ~~~ HEAP ~~~ SD ~~~ CS ~~~ INST ~~~ BOTTOM
     end
     PC --> INST
     SP --> STACK
