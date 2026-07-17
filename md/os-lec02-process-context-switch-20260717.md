@@ -388,7 +388,7 @@ The arrows show the critical connections:
 - **SP → stack**: the Stack Pointer tells the CPU where the current top of the call stack is (for pushing/popping function frames).
 
 ```mermaid
-flowchart LR
+flowchart TD
     EC["Execution<br/>Context"] --> CPU
     subgraph CPU
         direction TB
