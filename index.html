@@ -164,7 +164,17 @@
             import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
             mermaid.initialize({
                 startOnLoad: false,
-                theme: "default",
+                theme: "dark",
+                themeVariables: {
+                    darkMode: true,
+                    background: "transparent",
+                    primaryColor: "#f0dfe0",
+                    primaryTextColor: "#f0dfe0",
+                    primaryBorderColor: "#ea9ba2",
+                    lineColor: "#c8b8b6",
+                    secondaryColor: "#4a3b3a",
+                    tertiaryColor: "#3d2f2e",
+                },
                 logLevel: "debug",
             });
             window.mermaidRun = async (el) => {
