@@ -388,14 +388,16 @@ The arrows show the critical connections:
 - **SP → stack**: the Stack Pointer tells the CPU where the current top of the call stack is (for pushing/popping function frames).
 
 ```mermaid
-flowchart TD
+flowchart LR
     EC["Execution<br/>Context"] --> CPU
+
     subgraph CPU
         direction TB
         PC["PC: (Program Counter)"]
         SP["SP: (Stack Pointer)"]
         PC ~~~ SP
     end
+
     subgraph Process["Process Memory"]
         direction TB
         TOP["0xFFF..."]
@@ -406,10 +408,13 @@ flowchart TD
         CS["code segment"]
         INST["instruction"]
         BOTTOM["0x000..."]
-        TOP ~~~ STACK ~~~ GAP ~~~ HEAP ~~~ SD ~~~ CS ~~~ INST ~~~ BOTTOM
+        TOP --- STACK --- GAP --- HEAP --- SD --- CS --- INST --- BOTTOM
     end
-    PC --> INST
-    SP --> STACK
+
+    PC ---> INST
+    SP ---> STACK
+
+    linkStyle 1,2,3,4,5,6,7 stroke-width:0px;
 ```
 
 > 📄 See [PDF page 26](documents/os-lec02-process-context-switch-20260717.pdf#page=26) — execution context diagram.
