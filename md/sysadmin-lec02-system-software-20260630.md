@@ -174,7 +174,7 @@ A specialized software layer that enables multiple isolated **virtual machines (
 - Examples: VirtualBox, VMware Workstation.
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph "Type 1 (Bare-Metal / Native)"
         direction TB
         OS1["OS"] & OS2["OS"] & OS3["OS"] --> HV1["HYPERVISOR"]

@@ -388,7 +388,7 @@ The arrows show the critical connections:
 - **SP → stack**: the Stack Pointer tells the CPU where the current top of the call stack is (for pushing/popping function frames).
 
 ```mermaid
-graph LR
+flowchart LR
     EC["Execution<br/>Context"] --> CPU
     subgraph CPU
         direction TB
@@ -438,8 +438,7 @@ flowchart LR
     CPU -->|"2. switch to kernel mode"| K
     K -->|"3. service"| DEV
     DEV -->|"4. done"| K
-    K -->|"5. restore context
-    return to user mode"| UP
+    K -->|"5. restore context<br/>return to user mode"| UP
 ```
 
 > 📄 See [PDF page 28](documents/os-lec02-process-context-switch-20260717.pdf#page=28) — interrupt flow diagram.
@@ -468,12 +467,10 @@ flowchart LR
 (HW, I/O, disk, etc.)"]
 
     UP -->|"1. call (e.g. read, write)"| SL
-    SL -->|"2. trap / syscall
-    switch to kernel mode"| K
+    SL -->|"2. trap / syscall<br/>switch to kernel mode"| K
     K -->|"3. validate & access"| RES
     RES -->|"4. result"| K
-    K -->|"5. return
-    switch to user mode"| SL
+    K -->|"5. return<br/>switch to user mode"| SL
     SL -->|"6. return"| UP
 ```
 
