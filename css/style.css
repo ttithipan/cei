@@ -821,7 +821,7 @@ select:focus {
     background: var(--surface);
     border-radius: var(--radius);
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
@@ -854,6 +854,7 @@ select:focus {
 .modal-body {
     padding: 1.25rem;
     overflow-y: auto;
+    overflow-x: auto;
     font-size: 0.9rem;
 }
 .modal-body h1,
@@ -911,6 +912,13 @@ select:focus {
     border-radius: 3px;
     font-size: 0.82em;
     font-family: "SF Mono", "Cascadia Code", monospace;
+}
+.modal-body .mermaid {
+    min-width: max-content;
+}
+.modal-body .mermaid svg {
+    max-width: none;
+    height: auto;
 }
 .modal-body pre {
     background: var(--code-bg);
