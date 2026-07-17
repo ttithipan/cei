@@ -230,7 +230,7 @@ const SearchEngine = (() => {
   async function load() {
     if (ready) return;
     try {
-      const resp = await fetch("data/search_index.json");
+      const resp = await fetch("data/search_index.json?v=2");
       if (!resp.ok) {
         console.warn(
           "Search index not found — run python scripts/build_index.py",
