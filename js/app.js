@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       })
       .then((md) => {
         document.getElementById("modal-body").innerHTML = renderMarkdown(md);
+        window.mermaidRun?.(document.getElementById("modal-body"));
         if (sectionSlug) {
           requestAnimationFrame(() => {
             const el = document.getElementById(sectionSlug);
@@ -251,6 +252,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ── Simple Markdown Renderer ─────────────────────────────────────
   function renderMarkdown(md) {
     let html = md;
+    html = html.replace(
+      /```mermaid\n([\s\S]*?)```/g,
+      (_, code) => `<pre class="mermaid">${code.trim()}</pre>`,
+    );
     html = html.replace(
       /```(\w*)\n([\s\S]*?)```/g,
       (_, lang, code) =>
@@ -405,6 +410,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             .then((md) => {
               document.getElementById("modal-body").innerHTML =
                 renderMarkdown(md);
+              window.mermaidRun?.(document.getElementById("modal-body"));
             })
             .catch(() => {
               document.getElementById("modal-body").innerHTML =
