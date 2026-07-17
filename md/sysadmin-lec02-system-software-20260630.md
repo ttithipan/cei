@@ -173,22 +173,19 @@ A specialized software layer that enables multiple isolated **virtual machines (
 - Type-2 hypervisors abstract guest operating systems from the host operating system, effectively creating an isolated system that can be interacted with by the host.
 - Examples: VirtualBox, VMware Workstation.
 
-```
-  Type 1 (Bare-Metal / Native)          Type 2 (Hosted)
-
-  ┌──────┐ ┌──────┐ ┌──────┐           ┌──────┐ ┌──────┐ ┌──────┐
-  │  OS  │ │  OS  │ │  OS  │           │  OS  │ │  OS  │ │  OS  │
-  └──┬───┘ └──┬───┘ └──┬───┘           └──┬───┘ └──┬───┘ └──┬───┘
-     └────────┼────────┘                  └────────┼────────┘
-         ┌────┴─────┐                         ┌────┴─────┐
-         │HYPERVISOR│                         │HYPERVISOR│
-         └────┬─────┘                         └────┬─────┘
-         ┌────┴─────┐                         ┌────┴─────┐
-         │ HARDWARE │                         │ HOST OS  │
-         └──────────┘                         └────┬─────┘
-                                              ┌────┴─────┐
-                                              │ HARDWARE │
-                                              └──────────┘
+```mermaid
+graph TD
+    subgraph "Type 1 (Bare-Metal / Native)"
+        direction TB
+        OS1["OS"] & OS2["OS"] & OS3["OS"] --> HV1["HYPERVISOR"]
+        HV1 --> HW1["HARDWARE"]
+    end
+    subgraph "Type 2 (Hosted)"
+        direction TB
+        OS4["OS"] & OS5["OS"] & OS6["OS"] --> HV2["HYPERVISOR"]
+        HV2 --> HOST["HOST OS"]
+        HOST --> HW2["HARDWARE"]
+    end
 ```
 
 > 📄 See [PDF page 30](documents/sysadmin-lec02-system-software-20260630.pdf#page=30) — Type 1 vs Type 2 hypervisor diagram.

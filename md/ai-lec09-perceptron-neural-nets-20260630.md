@@ -32,11 +32,11 @@ King Mongkut’s Institute of Technology Ladkrabang
 
 ### Perceptron at an Early Stage
 
-```
-x1 ──→ w1 ──┐
-x2 ──→ w2 ──┤
-x3 ──→ w3 ──┘
-              Yi = Neuron_i
+```mermaid
+graph LR
+    x1["x1"] --> w1["w1"] --> Yi["Yi = Neuron_i"]
+    x2["x2"] --> w2["w2"] --> Yi
+    x3["x3"] --> w3["w3"] --> Yi
 ```
 
 Perceptron consists of a single neuron with adjustable weights and a hard limit activation function.

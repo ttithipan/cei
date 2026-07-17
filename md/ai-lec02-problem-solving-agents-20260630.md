@@ -90,16 +90,15 @@ Start
 
 ### The partial search tree of 8-puzzle problem
 
-```
-    up
-   /
-left — down
-   \
-    up
-   /
-left — down
-   \
-    left
+```mermaid
+graph TD
+    root["start"] --> up["up"]
+    root --> left["left"]
+    root --> down["down"]
+    down --> up2["up"]
+    down --> left2["left"]
+    down --> down2["down"]
+    down2 --> left3["left"]
 ```
 
 ---
@@ -182,32 +181,37 @@ The boat is on the right bank
 
 ### Partial search tree:
 
-```
-                    Start <0,0,0>
-                    /    |    \
-               (1) /  (2)|     \ (5)
-                  /      |      \
-            <1,0,1>  <2,0,1>  <1,1,1>
-            /    \      |        |
-       (1) /   (1) \   (2)      (3)
-          /        \    |        |
-    <0,0,0>    <1,0,0> <0,0,0> <1,0,0>
+```mermaid
+graph TD
+    Start["Start <0,0,0>"]
+    Start -->|"(1)"| A["<1,0,1>"]
+    Start -->|"(2)"| B["<2,0,1>"]
+    Start -->|"(5)"| C["<1,1,1>"]
+    A -->|"(1)"| A1["<0,0,0>"]
+    A -->|"(1)"| A2["<1,0,0>"]
+    B -->|"(2)"| B1["<0,0,0>"]
+    C -->|"(3)"| C1["<1,0,0>"]
 ```
 
 ---
 
 ### Find the shortest sequence of actions that leads from the start state to the goal state.
 
-```
-<0,0,0>  ──(5)──▶  <1,1,1>  ──(3)──▶  <1,0,0>  ──(2)──▶  <3,0,1>
-                                                                    │
-                                                                    │ (1)
-                                                                    ▼
-<3,3,1>  ◀──(2)──  <1,3,0>  ◀──(1)──  <2,3,1>  ◀──(4)──  <2,0,0>
-    │                                       │
-    │ (1)                                   │ (5)
-    ▼                                       ▼
-<0,3,0>  ──(2)──▶  <2,2,1>  ◀──(4)──  <1,1,0>  ◀──(1)──  <1,3,1>
+```mermaid
+graph LR
+    A["<0,0,0>"] -->|"(5)"| B["<1,1,1>"]
+    B -->|"(3)"| C["<1,0,0>"]
+    C -->|"(2)"| D["<3,0,1>"]
+    D -->|"(1)"| E["<2,0,0>"]
+    E -->|"(4)"| F["<2,3,1>"]
+    F -->|"(1)"| G["<1,3,0>"]
+    G -->|"(2)"| H["<3,3,1>"]
+    F -->|"(5)"| I["<1,1,0>"]
+    I -->|"(4)"| J["<2,2,1>"]
+    J -->|"(2)"| K["<0,3,0>"]
+    H -->|"(1)"| K
+    E -->|"(1)"| L["<1,3,1>"]
+    L -->|"(1)"| I
 ```
 
 ---
@@ -273,10 +277,12 @@ Complexity is expressed in terms of three quantities:
 
 ---
 
-```
-     b
-    /|\
-   b b b     ← depth d
+```mermaid
+graph TD
+    root["b"]
+    root --> b1["b"]
+    root --> b2["b"]
+    root --> b3["b"]
 ```
 
 **What is the time complexity of visiting all nodes in the tree?** (Worst-case scenario)
@@ -289,24 +295,24 @@ It is equivalent to the total number of nodes: b⁰ + b¹ + b² + b³ + … + b�
 
 ---
 
-```
-     b
-    / \
-   b   b     ← depth d
-  / \
- b   b
+```mermaid
+graph TD
+    root["b"]
+    root --> b1["b"]
+    root --> b2["b"]
+    b1 --> b3["b"]
+    b1 --> b4["b"]
 ```
 
 **What is the space complexity of storing all nodes in the tree?** (Worst-case scenario)
 
 ---
 
-```
-     b
-    /
-   b         ← depth d
-  /
- b
+```mermaid
+graph TD
+    root["b"]
+    root --> b1["b"]
+    b1 --> b2["b"]
 ```
 
 **What is the space complexity of storing all nodes in the tree?** (Worst-case scenario)
@@ -315,12 +321,11 @@ Similar scenario
 
 ---
 
-```
-     b
-    /
-   b         ← depth d
-  /
- b
+```mermaid
+graph TD
+    root["b"]
+    root --> b1["b"]
+    b1 --> b2["b"]
 ```
 
 **What is the space complexity of storing all nodes in the tree?** (Worst-case scenario)

@@ -201,9 +201,16 @@ where parameters x and y vary between -3 and 3.
 
 The first step is to represent the problem variables as a chromosome — parameters x and y as a concatenated binary string:
 
-```
-    x                 y
-1 0 0 0 1 0 1 0  0 0 1 1 1 0 1 1
+```mermaid
+graph LR
+    subgraph x["x (8 bits)"]
+        direction LR
+        b1["1"] --- b2["0"] --- b3["0"] --- b4["0"] --- b5["1"] --- b6["0"] --- b7["1"] --- b8["0"]
+    end
+    subgraph y["y (8 bits)"]
+        direction LR
+        c1["0"] --- c2["0"] --- c3["1"] --- c4["1"] --- c5["1"] --- c6["0"] --- c7["1"] --- c8["1"]
+    end
 ```
 
 ---

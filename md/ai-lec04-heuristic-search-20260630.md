@@ -101,13 +101,14 @@ f(n) = estimated cost of the cheapest solution through n.
 
    A heuristic h(n) is consistent if, for every node n and every successor n' of n, the estimated cost of reaching the goal from n is no greater than the step cost of getting to n' plus h(n').
 
+```mermaid
+graph TD
+    n["n"] -->|"h(n)"| Goal["Goal"]
+    n -->|"step_cost"| nprime["n'"]
+    nprime -->|"h(n')"| Goal
 ```
-     n --[h(n)]--> Goal
-    /              ^
-step_cost          |
-  /                |
-n' ----[h(n')]---->
-```
+
+> ⚠️ Consistency condition: **h(n) ≤ step_cost(from n to n') + h(n')**
 
 Actual cost = 140 + 80 + 97 + 101 = 418
 
@@ -279,15 +280,15 @@ MINIMAX(root) = max( min(3, 12, 8), min(2, 4, 6), min(14, 5, 2) )
 
 ### Alpha–Beta Pruning
 
-```
-          MAX
-         /    \
-    MIN          MIN
-   /   \        /   \
-  3    12      8    ...
-  ↑            ↑
-Pruned      Pruned
-(≤2)        (≤2)
+```mermaid
+graph TD
+    MAX["MAX"]
+    MAX -->|"a"| MIN1["MIN"]
+    MAX -->|"b"| MIN2["MIN"]
+    MIN1 -->|"3"| L1["3"]
+    MIN1 -.->|"pruned"| L2["12"]
+    MIN2 -->|"8"| L3["8"]
+    MIN2 -.->|"pruned"| L4["..."]
 ```
 
 ---

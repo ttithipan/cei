@@ -131,8 +131,9 @@ Some problems need to handle **partial observability** — the agent must mainta
 
 For the braking problem: the agent needs the previous frame from the camera to detect when two red brake lights go on/off simultaneously — a single frame isn't enough.
 
-```
-Percept → Update internal state → Match rule → Act
+```mermaid
+flowchart LR
+    P["Percept"] --> U["Update internal state"] --> M["Match rule"] --> A["Act"]
 ```
 
 > 📄 See [PDF page 13](documents/ai-lec01-intro-agents-20260630.pdf#page=13) — model-based reflex agent diagram.
@@ -179,14 +180,20 @@ An environment might be **partially observable** because of noisy and inaccurate
 
 If the next state of the environment is completely determined by the current state and the action executed by the agent, then we say the environment is **deterministic**; otherwise, it is **stochastic**.
 
-```
-Deterministic:
-Current state → Action 1 → State A
-Current state → Action 2 → State B
-
-Non-deterministic:
-Current state → Action 1 → State A
-Current state → Action 1 → State B
+```mermaid
+flowchart TD
+    subgraph DET["Deterministic"]
+        direction TB
+        CS1["Current state"]
+        CS1 -->|"Action 1"| SA["State A"]
+        CS1 -->|"Action 2"| SB["State B"]
+    end
+    subgraph NON["Non-deterministic"]
+        direction TB
+        CS2["Current state"]
+        CS2 -->|"Action 1"| SC["State A"]
+        CS2 -->|"Action 1"| SD["State B"]
+    end
 ```
 
 The radio station: the listener is not aware of the next song.

@@ -31,16 +31,13 @@ Investment Planning (96643026)
 
 ### Money Management Guidelines
 
-```
-┌─────────────────────────────────────┐
-│  Long-term investment               │  ← can be more risky (bonus)
-│  for quality of life                │
-├─────────────────────────────────────┤
-│  Minimum savings: retirement money  │
-├─────────────────────────────────────┤
-│  6–12 months savings                │  ← emergency fund
-│  + health/life insurance            │
-└─────────────────────────────────────┘
+```mermaid
+graph BT
+    EMERGENCY["6–12 months savings<br/>+ health/life insurance<br/>(emergency fund)"]
+    RETIRE["Minimum savings:<br/>retirement money"]
+    LT["Long-term investment<br/>for quality of life<br/>(can be more risky, bonus)"]
+    EMERGENCY --> RETIRE
+    RETIRE --> LT
 ```
 
 **Income > Expenses** → Emergency Reserves → Difference (invest)

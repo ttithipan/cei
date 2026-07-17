@@ -59,17 +59,23 @@ void main(void) {
 
 ## STM32L100RC Memory Map
 
-```
-0xE00F FFFF ┌─────────────────────────┐
-0xE000 0000 │ Cortex-M3 CPU registers  │  NVIC, SysTick Timer, etc.
-            ├─────────────────────────┤
-0x4002 67FF │ Peripheral registers     │  Timers, ADCs, UARTs, etc.
-0x4000 0000 ├─────────────────────────┤
-0x0803 FFFF │ 256 KB Flash memory      │  Program code & constant data
-0x0800 0000 │ ← Reset & interrupt vectors in 1st words
-            ├─────────────────────────┤
-0x2000 3FFF │ 16 KB RAM                │  Variable & stack storage
-0x2000 0000 └─────────────────────────┘
+```mermaid
+graph TD
+    subgraph "0xE00F FFFF - 0xE000 0000"
+        CPU["Cortex-M3 CPU registers<br/>NVIC, SysTick Timer, etc."]
+    end
+    subgraph "0x4002 67FF - 0x4000 0000"
+        PERIPH["Peripheral registers<br/>Timers, ADCs, UARTs, etc."]
+    end
+    subgraph "0x0803 FFFF - 0x0800 0000"
+        FLASH["256 KB Flash memory<br/>Program code & constant data<br/>Reset & interrupt vectors in 1st words"]
+    end
+    subgraph "0x2000 3FFF - 0x2000 0000"
+        RAM["16 KB RAM<br/>Variable & stack storage"]
+    end
+    CPU --> PERIPH
+    PERIPH --> FLASH
+    FLASH --> RAM
 ```
 
 ---
@@ -365,10 +371,13 @@ GPIOB->ODR |= 0x10;            // Set only bit 4 to 1
 GPIOB->ODR &= ~0x10;           // Reset only bit 4 to 0
 ```
 
-```
-GPIOB bits:  h g f e d c b a
-             │ │ │ │ │ │ │ │
-Switch ──────┘ │ │ │ │ │ │ │   (connected to PB4)
+```mermaid
+graph LR
+    subgraph "GPIOB bits"
+        direction LR
+        h["h"] --- g["g"] --- f["f"] --- e["e"] --- d["d"] --- c["c"] --- b["b"] --- a["a"]
+    end
+    Switch["Switch"] --> e
 ```
 
 ---

@@ -42,10 +42,11 @@ A1,1⁶ ∧ EastA⁶ ∧ ¬W2,1 ⇒ TurnLeft⁶
 - First-order logic can express the properties of entire collections of objects rather than having to enumerate the objects by name.
 - Similar to other logics, First-order logic comprises syntax and semantics.
 
-```
-First-order Logic
-├── Syntax (sentence)
-└── Semantic (meaning)
+```mermaid
+graph TD
+    FOL["First-order Logic"]
+    FOL --> Syntax["Syntax (sentence)"]
+    FOL --> Semantics["Semantic (meaning)"]
 ```
 
 ---

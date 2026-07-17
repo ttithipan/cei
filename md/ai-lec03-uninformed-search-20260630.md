@@ -71,17 +71,14 @@ Path_Cost(S->R->P->B) = 278
 
 Example: Start from S to goal G.
 
-```
-        S
-       /|\
-      1 5 15
-     /  |   \
-    A   B    C
-        |    |
-        5    5
-        |    |
-        G    G
-       11    10
+```mermaid
+graph TD
+    S["S"]
+    S -->|"1"| A["A"]
+    S -->|"5"| B["B"]
+    S -->|"15"| C["C"]
+    B -->|"5"| G1["G (11)"]
+    C -->|"5"| G2["G (10)"]
 ```
 
 Frontier: 11 > 5, 10 < 15
@@ -106,9 +103,9 @@ Where:
 - C* is the optimal path cost,
 - Every action costs at least ∈. If ∈ is small, the complexity will be high.
 
-```
-Start ---∈---∈---∈---∈---∈--- Goal
-                C*
+```mermaid
+graph LR
+    Start["Start"] --> n1["∈"] --> n2["∈"] --> n3["∈"] --> n4["∈"] --> n5["∈"] --> Goal["Goal"]
 ```
 
 ---
@@ -136,21 +133,22 @@ Where:
 - b is branching factor,
 - d is the max. depth of solution.
 
-```
-    A
-   / \
-  B   C
- / \ / \
-A  D C  A
-|  | |  |
-B  A A  B
-|  | |  |
-C  B C  C
-|  | |  |
-... ... ...
-Infinite loop
-
-Start ---> Goal
+```mermaid
+graph TD
+    A["A"] --> B["B"]
+    A --> C["C"]
+    B --> A2["A"]
+    B --> D["D"]
+    C --> A3["A"]
+    C --> C2["C"]
+    A2 --> B2["B"]
+    A3 --> B3["B"]
+    B2 --> C3["C"]
+    B3 --> C4["C"]
+    C3 --> INF["... (infinite loop)"]
+    C4 --> INF2["... (infinite loop)"]
+    C2 --- INF3["... (infinite loop)"]
+    D --- INF4["... (infinite loop)"]
 ```
 
 ---
@@ -159,18 +157,17 @@ Start ---> Goal
 
 Incompleteness of DFS can be alleviated by a predetermined depth limit. The depth limit solves the infinite-path problem. DLS usually uses when we know the maximum solution depth of the problem.
 
-```
-    A
-   / \
-  B   C
- /     \
-A       A
-|       |
-B       D
-|       |
-C       B
-|       |
-C (cutoff at depth limit l)
+```mermaid
+graph TD
+    A["A"] --> B["B"]
+    A --> C["C"]
+    B --> A2["A"]
+    C --> A3["A"]
+    C --> D["D"]
+    A2 --> B2["B"]
+    A3 --> CUT1["C (cutoff)"]
+    B2 --> CUT2["C (cutoff)"]
+    D --> CUT3["C (cutoff)"]
 ```
 
 Depth limit = 4 (Too small limit)
@@ -194,21 +191,20 @@ Depth limit = 4 (Too small limit)
 
 IDS iterates through the depth-limited search by gradually increasing the limit—first 0, then 1, then 2, and so on—until a goal is found.
 
+```mermaid
+graph TD
+    A["A"] --> B["B"]
+    A --> C["C"]
+    B --> A2["A"]
+    C --> A3["A"]
+    C --> D["D"]
+    A2 --> B2["B"]
+    A3 --> CUT1["C (cutoff)"]
+    B2 --> CUT2["C (cutoff)"]
+    D --> CUT3["C (cutoff)"]
 ```
-    A
-   / \
-  B   C
- /     \
-A       A
-|       |
-B       D
-|       |
-C       B
-|       |
-C (cutoff at depth limit l)
 
 Limit can be varied.
-```
 
 IDS combines the benefits of DFS and BFS. Like DFS, its memory requirements are modest: O(bd). Like BFS, it is complete when the branching factor is finite and optimal when the path cost is a nondecreasing function of the depth of the node.
 
@@ -258,9 +254,9 @@ Idea: Run two simultaneous searches—one forward from the initial state and the
 
 For each search on both sides, we can use either breadth-first search or iterative deepening search to reduce the space complexity.
 
-```
-Start ---- d/2 ----(meet)---- d/2 ---- Goal
-              Depth d
+```mermaid
+graph LR
+    Start["Start"] --> D1["d/2"] --> Meet["(meet)"] --> D2["d/2"] --> Goal["Goal"]
 ```
 
 Bidirectional Search Simulation: <https://www.youtube.com/watch?v=YtPT99c5OXc>
@@ -274,9 +270,9 @@ Bidirectional Search Simulation: <https://www.youtube.com/watch?v=YtPT99c5OXc>
 | Time complexity | O(b^(d/2)) |
 | Space complexity | O(b^(d/2)) BFS, O(bd/2) IDS |
 
-```
-Start ---- d/2 ----(meet)---- d/2 ---- Goal
-              Depth d
+```mermaid
+graph LR
+    Start["Start"] --> D1["d/2"] --> Meet["(meet)"] --> D2["d/2"] --> Goal["Goal"]
 ```
 
 ---
