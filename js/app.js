@@ -320,8 +320,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       /\[([^\]]+)\]\(([^)]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener">$1</a>',
     );
-    html = html.replace(/^(?!<[a-z]|<\/|$)(.+)$/gm, "<p>$1</p>");
+
+    // Protect code blocks from paragraph wrapping
+    const protectedBlocks = [];
+    html = html.replace(/<pre[\s\S]*?<\/pre>/g, (match) => {
+      protectedBlocks.push(match);
+      return `%%BLOCK_${protectedBlocks.length - 1}%%`;
+    });
+    // Also protect HTML tables, blockquotes, hr, headings, ul
+    html = html.replace(
+      /<(table|blockquote|h[1-6]|ul|ol|hr)[\s\S]*?<\/(table|blockquote|h[1-6]|ul|ol)>|<hr\s*\/?>/g,
+      (match) => {
+        protectedBlocks.push(match);
+        return `%%BLOCK_${protectedBlocks.length - 1}%%`;
+      },
+    );
+
+    html = html.replace(/^(?!<[a-z]|<\/|$|%%)%(.+)$/gm, "<p>$1</p>");
     html = html.replace(/<p>\s*<\/p>/g, "");
+
+    // Restore protected blocks
+    html = html.replace(/%%BLOCK_(\d+)%%/g, (_, i) => protectedBlocks[parseInt(i)]);
     return html;
   }
 
