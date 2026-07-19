@@ -58,29 +58,22 @@ def tokenize(text: str) -> list[str]:
 # ── Alias / Abbreviation Discovery ──────────────────────────────────
 def discover_aliases(md_files: list[Path]) -> dict[str, str]:
     """
-    Scan markdown for abbreviation patterns:
-      - **TERM** (ABBREV)
-      - ABBREV — Full Definition
-      - TERM (ABBREV)
+    Scan markdown for abbreviation patterns.
     Returns { "abbrev_lower": "expansion" }
     """
     aliases = {}
 
-    # Pattern 1: **ABBREV** — Expansion text (bold followed by em-dash + text)
-    # Pattern 2: TERM (ABBREV) in headings or bold
     bold_def = re.compile(r"\*\*(.+?)\*\*\s*[—–-]\s*(.+)")
     paren_def = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,6})\s+\(([A-Z]{2,8})\)")
 
     for md_path in md_files:
         content = md_path.read_text(encoding="utf-8")
-        # Bold definitions
         for match in bold_def.finditer(content):
             term = match.group(1).strip()
             definition = match.group(2).strip().rstrip(".")
             if len(term) <= 12 and len(term) >= 2 and len(definition) > len(term):
                 aliases[term.lower()] = definition.lower()
 
-        # Parenthetical abbreviations: "General Purpose Input/Output (GPIO)"
         for match in paren_def.finditer(content):
             full = match.group(1).strip().lower()
             abbr = match.group(2).strip().lower()
@@ -305,6 +298,7 @@ def main():
     # ── Parse documents and chunk ────────────────────────────────
     documents = []
     all_chunks = []
+    valid_courses = set()
 
     for i, md_path in enumerate(md_files):
         rel_path = str(md_path.relative_to(ROOT))
@@ -324,12 +318,21 @@ def main():
                 md_path.stat().st_mtime, tz=timezone.utc
             ).strftime("%Y-%m-%d")
 
+        # Extract course prefix from filename stem: "os-lec02-..." → "os"
+        stem = md_path.stem
+        course = stem.split("-")[0] if "-" in stem else stem
+        valid_courses.add(course)
+
+        # Path tokens for multi-field weighting (repeated 3× for TF boost)
+        path_tokens = tokenize(stem)
+
         doc_id = f"doc_{i}"
         documents.append({
             "id": doc_id,
             "title": title,
             "path": rel_path,
             "date": doc_date,
+            "course": course,
         })
 
         chunks = chunk_markdown(content, rel_path)
@@ -337,6 +340,8 @@ def main():
             chunk_id = f"{doc_id}_c{j}"
             chunk_text = chunk["text"]
             tokens = tokenize(chunk_text)
+            # Prepend path tokens 3× for ~3× BM25 TF boost on path matches
+            tokens = path_tokens * 3 + tokens
             all_chunks.append({
                 "id": chunk_id,
                 "doc_id": doc_id,
@@ -357,7 +362,8 @@ def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     index = {
-        "version": "2.0",
+        "version": "3.0",
+        "valid_courses": sorted(valid_courses),
         "documents": documents,
         "chunks": all_chunks,
         "aliases": aliases,
@@ -373,6 +379,7 @@ def main():
     print(f"   Documents: {len(documents)}")
     print(f"   Chunks: {len(all_chunks)}")
     print(f"   Aliases: {len(aliases)}")
+    print(f"   Valid courses: {sorted(valid_courses)}")
 
     # ── Generate llms.txt ────────────────────────────────────────
     generate_llms_txt(documents)
