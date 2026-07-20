@@ -41,22 +41,22 @@ A grouping of objects such that objects in a group (cluster) are similar (or rel
 - **Intra-cluster distances** are minimized
 - **Inter-cluster distances** are maximized
 
-> 📄 See [PDF page 9](documents/da-lec08-cluster-analysis-20260718.pdf#page=9) — Intra-cluster vs. inter-cluster distance diagram.
+> 📄 See [PDF page 6](documents/da-lec08-cluster-analysis-20260718.pdf#page=6) — Intra-cluster vs. inter-cluster distance diagram.
 
 ### How Many Clusters?
 
 The notion of a cluster can be ambiguous — the same data can be viewed as 2, 4, or 6 clusters depending on perspective.
 
-> 📄 See [PDF page 10](documents/da-lec08-cluster-analysis-20260718.pdf#page=10) — Diagrams showing the same data with 2, 4, and 6 clusters.
+> 📄 See [PDF page 7](documents/da-lec08-cluster-analysis-20260718.pdf#page=7) — Diagrams showing the same data with 2, 4, and 6 clusters.
 
 ### Types of Clusterings
 
 - **Partitional Clustering**: A division of data objects into subsets (clusters) such that each data object is in exactly one subset.
 - **Hierarchical Clustering**: A set of nested clusters organized as a hierarchical tree.
 
-> 📄 See [PDF page 12](documents/da-lec08-cluster-analysis-20260718.pdf#page=12) — Partitional clustering diagram (original points vs. partitioned result).
+> 📄 See [PDF page 9](documents/da-lec08-cluster-analysis-20260718.pdf#page=9) — Partitional clustering diagram (original points vs. partitioned result).
 
-> 📄 See [PDF page 13](documents/da-lec08-cluster-analysis-20260718.pdf#page=13) — Hierarchical clustering diagram with dendrogram.
+> 📄 See [PDF page 10](documents/da-lec08-cluster-analysis-20260718.pdf#page=10) — Hierarchical clustering diagram with dendrogram.
 
 ### Other Types of Clustering
 
@@ -70,19 +70,19 @@ The notion of a cluster can be ambiguous — the same data can be viewed as 2, 4
 
 A cluster is a set of points such that any point in a cluster is closer (or more similar) to every other point in the cluster than to any point not in the cluster.
 
-> 📄 See [PDF page 15](documents/da-lec08-cluster-analysis-20260718.pdf#page=15) — 3 well-separated clusters diagram.
+> 📄 See [PDF page 12](documents/da-lec08-cluster-analysis-20260718.pdf#page=12) — 3 well-separated clusters diagram.
 
 #### Center-Based Clusters
 
 A cluster is a set of objects such that an object in a cluster is closer (more similar) to the "center" of a cluster than to the center of any other cluster. The center is often a **centroid** (minimizer of distances) or a **medoid** (most representative point).
 
-> 📄 See [PDF page 16](documents/da-lec08-cluster-analysis-20260718.pdf#page=16) — 4 center-based clusters diagram.
+> 📄 See [PDF page 13](documents/da-lec08-cluster-analysis-20260718.pdf#page=13) — 4 center-based clusters diagram.
 
 #### Density-Based Clusters
 
 A cluster is a dense region of points separated by low-density regions from other regions of high density. Used when clusters are irregular or intertwined, and when noise and outliers are present.
 
-> 📄 See [PDF page 17](documents/da-lec08-cluster-analysis-20260718.pdf#page=17) — 6 density-based clusters diagram.
+> 📄 See [PDF page 14](documents/da-lec08-cluster-analysis-20260718.pdf#page=14) — 6 density-based clusters diagram.
 
 ### Clustering Algorithms
 
@@ -123,13 +123,13 @@ is minimized, where cᵢ is the centroid of the points in cluster Cᵢ.
 1. Initial centroids are often chosen **randomly**
 2. Clusters produced vary from one run to another
 
-> 📄 See [PDF page 22](documents/da-lec08-cluster-analysis-20260718.pdf#page=22) — K-means steps visualization.
+> 📄 See [PDF page 20](documents/da-lec08-cluster-analysis-20260718.pdf#page=20) — K-means steps visualization.
 
 ### K-Means: Example Steps (1 Feature)
 
 Data points: 0, 2, 3, 7, 9 with initial centroids A (random) and B (random).
 
-> 📄 See [PDF pages 24–33](documents/da-lec08-cluster-analysis-20260718.pdf#page=24) — K-means step-by-step convergence diagram with 1 feature.
+> 📄 See [PDF pages 21–34](documents/da-lec08-cluster-analysis-20260718.pdf#page=21) — K-means step-by-step convergence diagram with 1 feature.
 
 **Iteration Summary:**
 
@@ -140,19 +140,19 @@ Data points: 0, 2, 3, 7, 9 with initial centroids A (random) and B (random).
 
 ### K-Means: Example (2 Features)
 
-> 📄 See [PDF page 34](documents/da-lec08-cluster-analysis-20260718.pdf#page=34) — K-means example with 2 features diagram.
+> 📄 See [PDF page 35](documents/da-lec08-cluster-analysis-20260718.pdf#page=35) — K-means example with 2 features diagram.
 
 ### K-Means: Example (3 Features)
 
 Iterations 1–6 showing convergence of cluster assignments in 2D projected view.
 
-> 📄 See [PDF pages 36–41](documents/da-lec08-cluster-analysis-20260718.pdf#page=36) — K-means iterations 1–6 with scatter plots.
+> 📄 See [PDF pages 36–38](documents/da-lec08-cluster-analysis-20260718.pdf#page=36) — K-means iterations 1–6 with scatter plots.
 
 ### Importance of Choosing Initial Centroids
 
 Different random initializations can lead to different final clusterings.
 
-> 📄 See [PDF pages 42–44](documents/da-lec08-cluster-analysis-20260718.pdf#page=42) — Two different initial centroid choices (A and B) producing different results.
+> 📄 See [PDF page 39](documents/da-lec08-cluster-analysis-20260718.pdf#page=39) — Two different initial centroid choices (A and B) producing different results.
 
 ### Dealing with Initialization
 
@@ -168,17 +168,17 @@ K-means has problems when clusters have:
 - **Non-globular Shapes**
 - **Outliers**
 
-> 📄 See [PDF page 48](documents/da-lec08-cluster-analysis-20260718.pdf#page=48) — K-means limitation: differing sizes.
+> 📄 See [PDF page 41](documents/da-lec08-cluster-analysis-20260718.pdf#page=41) — K-means limitation: differing sizes.
 
-> 📄 See [PDF page 49](documents/da-lec08-cluster-analysis-20260718.pdf#page=49) — K-means limitation: differing density.
+> 📄 See [PDF page 42](documents/da-lec08-cluster-analysis-20260718.pdf#page=42) — K-means limitation: differing density.
 
-> 📄 See [PDF page 50](documents/da-lec08-cluster-analysis-20260718.pdf#page=50) — K-means limitation: non-globular shapes.
+> 📄 See [PDF page 43](documents/da-lec08-cluster-analysis-20260718.pdf#page=43) — K-means limitation: non-globular shapes.
 
 ### Overcoming Limitations
 
 One solution is to use **many clusters** — find parts of clusters, then put them together.
 
-> 📄 See [PDF pages 51–53](documents/da-lec08-cluster-analysis-20260718.pdf#page=51) — Overcoming K-means limitations with many clusters.
+> 📄 See [PDF pages 44–46](documents/da-lec08-cluster-analysis-20260718.pdf#page=44) — Overcoming K-means limitations with many clusters.
 
 ### Variations
 
@@ -210,14 +210,14 @@ DBSCAN partitions points into dense regions separated by not-so-dense regions.
 - **Border Point**: Has fewer than MinPts within Eps, but is in the neighborhood of a core point
 - **Noise Point**: Not a core point or a border point
 
-> 📄 See [PDF page 62](documents/da-lec08-cluster-analysis-20260718.pdf#page=62) — DBSCAN: Core, Border, and Noise points diagram (original points with Eps=10, MinPts=4).
+> 📄 See [PDF page 53](documents/da-lec08-cluster-analysis-20260718.pdf#page=53) — DBSCAN: Core, Border, and Noise points diagram (original points with Eps=10, MinPts=4).
 
 ### Density-Connected Points
 
 - **Density edge**: An edge between two core points q and p if they are within distance Eps.
 - **Density-connected**: A point p is density-connected to a point q if there is a path of edges from p to q.
 
-> 📄 See [PDF page 64](documents/da-lec08-cluster-analysis-20260718.pdf#page=64) — Density-connected points diagram.
+> 📄 See [PDF page 54](documents/da-lec08-cluster-analysis-20260718.pdf#page=54) — Density-connected points diagram.
 
 ### DBSCAN Algorithm
 
@@ -227,7 +227,7 @@ DBSCAN partitions points into dense regions separated by not-so-dense regions.
    - Create a new cluster with point p and all points density-connected to p
 4. Assign border points to the cluster of the closest core point
 
-> 📄 See [PDF page 65](documents/da-lec08-cluster-analysis-20260718.pdf#page=65) — DBSCAN clustering result diagram.
+> 📄 See [PDF page 56](documents/da-lec08-cluster-analysis-20260718.pdf#page=56) — DBSCAN clustering result diagram.
 
 ### When DBSCAN Works Well
 
@@ -260,13 +260,13 @@ Two matrices are compared:
 
 Compute the correlation between the two matrices (only n(n−1)/2 entries needed since matrices are symmetric). High correlation = points in the same cluster are close to each other.
 
-> 📄 See [PDF page 73](documents/da-lec08-cluster-analysis-20260718.pdf#page=73) — Correlation of ideal similarity and proximity matrices for two datasets (Corr = −0.9235 vs. −0.5810).
+> 📄 See [PDF page 61](documents/da-lec08-cluster-analysis-20260718.pdf#page=61) — Correlation of ideal similarity and proximity matrices for two datasets (Corr = −0.9235 vs. −0.5810).
 
 ### Using Similarity Matrix for Cluster Validation
 
 Order the similarity matrix with respect to cluster labels and inspect visually.
 
-> 📄 See [PDF pages 74–76](documents/da-lec08-cluster-analysis-20260718.pdf#page=74) — Similarity matrix visualizations for K-means and DBSCAN clusterings.
+> 📄 See [PDF pages 62–64](documents/da-lec08-cluster-analysis-20260718.pdf#page=62) — Similarity matrix visualizations for K-means and DBSCAN clusterings.
 
 ---
 
@@ -296,13 +296,13 @@ Usually data can be described with fewer dimensions without losing much meaning.
 
 ### SVD (Singular Value Decomposition)
 
-> 📄 See [PDF page 82](documents/da-lec08-cluster-analysis-20260718.pdf#page=82) — SVD matrix decomposition diagram.
+> 📄 See [PDF page 69](documents/da-lec08-cluster-analysis-20260718.pdf#page=69) — SVD matrix decomposition diagram.
 
 Ref: https://dsc-spidal.github.io/harp/docs/harpdaal/svd/
 
 ### Dimensionality Reduction of the Iris Dataset
 
-> 📄 See [PDF page 84](documents/da-lec08-cluster-analysis-20260718.pdf#page=84) — Plot of dimensionality reduction applied to the Iris Dataset.
+> 📄 See [PDF page 71](documents/da-lec08-cluster-analysis-20260718.pdf#page=71) — Plot of dimensionality reduction applied to the Iris Dataset.
 
 ### Python (PCA)
 

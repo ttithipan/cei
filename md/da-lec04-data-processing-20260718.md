@@ -23,13 +23,13 @@ King Mongkut's Institute of Technology Ladkrabang
 
 ---
 
-> 📄 See [PDF page 5](documents/da-lec04-data-processing-20260718.pdf#page=5) — the Data Science Process flowchart highlighting the "Data is Processed" stage.
+> 📄 See [PDF page 3](documents/da-lec04-data-processing-20260718.pdf#page=3) — the Data Science Process flowchart highlighting the "Data is Processed" stage.
 
 ---
 
 ## Data Processing
 
-> 📄 See [PDF page 7](documents/da-lec04-data-processing-20260718.pdf#page=7) — "Is Data Beautiful?" — illustration of messy real-world data.
+> 📄 See [PDF page 5](documents/da-lec04-data-processing-20260718.pdf#page=5) — "Is Data Beautiful?" — illustration of messy real-world data.
 
 Ref:
 - Brett Romero, "Doing Data Science: A Kaggle Walkthrough – Cleaning Data"
@@ -55,7 +55,7 @@ Ref:
 
 ---
 
-> 📄 See [PDF page 9](documents/da-lec04-data-processing-20260718.pdf#page=9) — chart: "Spending the most time doing…" — data preparation dominates the data science workflow.
+> 📄 See [PDF page 7](documents/da-lec04-data-processing-20260718.pdf#page=7) — chart: "Spending the most time doing…" — data preparation dominates the data science workflow.
 
 Ref:
 - (image) https://www.forbes.com/sites/gilpress/2016/03/23/data-preparation-most-time-consuming-least-enjoyable-data-science-task-survey-says/
@@ -170,7 +170,7 @@ Ref:
 
 ### Use Interquartile Range to Remove Noisy Data
 
-> 📄 See [PDF page 15](documents/da-lec04-data-processing-20260718.pdf#page=15) — box plot diagram showing interquartile range calculation.
+> 📄 See [PDF page 16](documents/da-lec04-data-processing-20260718.pdf#page=16) — box plot diagram showing interquartile range calculation.
 
 **Steps:**
 
@@ -185,7 +185,7 @@ Ref:
 - Lower Fence = 11 − 1.5 × 7 = 0.5
 - Upper Fence = 18 + 1.5 × 7 = 28.5
 
-> 📄 See [PDF page 16](documents/da-lec04-data-processing-20260718.pdf#page=16) — annotated box plot with Q1, Q3, lower fence (0.5) and upper fence (28.5) marked.
+> 📄 See [PDF page 17](documents/da-lec04-data-processing-20260718.pdf#page=17) — annotated box plot with Q1, Q3, lower fence (0.5) and upper fence (28.5) marked.
 
 Ref:
 - Chris Clifton, "Instruction to Data Mining"
@@ -228,7 +228,7 @@ Ref:
 
 ### Reshape
 
-> 📄 See [PDF page 19](documents/da-lec04-data-processing-20260718.pdf#page=19) — diagram illustrating data reshaping concepts.
+> 📄 See [PDF page 22](documents/da-lec04-data-processing-20260718.pdf#page=22) — diagram illustrating data reshaping concepts.
 
 Ref:
 - (image) https://www.pinterest.com/pin/413838653229463002/
@@ -237,13 +237,13 @@ Ref:
 
 ### Sparse Matrix
 
-> 📄 See [PDF page 20](documents/da-lec04-data-processing-20260718.pdf#page=20) — transformation from a list of (User, Movie, Rating) triples into a sparse user-movie rating matrix.
+> 📄 See [PDF page 23](documents/da-lec04-data-processing-20260718.pdf#page=23) — transformation from a list of (User, Movie, Rating) triples into a sparse user-movie rating matrix.
 
 ---
 
 ### Document to Vector
 
-> 📄 See [PDF page 21](documents/da-lec04-data-processing-20260718.pdf#page=21) — Doc2Vec transformation diagram.
+> 📄 See [PDF page 24](documents/da-lec04-data-processing-20260718.pdf#page=24) — Doc2Vec transformation diagram.
 
 Ref:
 - (image) https://lmu-pms.github.io/irom-blog/posts/Doc2Vec.html
@@ -252,7 +252,7 @@ Ref:
 
 ### Adjacency Matrix
 
-> 📄 See [PDF page 22](documents/da-lec04-data-processing-20260718.pdf#page=22) — graph to adjacency matrix transformation.
+> 📄 See [PDF page 25](documents/da-lec04-data-processing-20260718.pdf#page=25) — graph to adjacency matrix transformation.
 
 Ref:
 - (image) https://www.quora.com/How-can-I-find-the-correct-adjacency-matrix-given-a-particular-graph
@@ -345,7 +345,7 @@ Logarithm transformation (or log transform) is one of the most commonly used mat
 - In most cases the magnitude order of the data changes within the range of the data. For instance, the difference between ages 15 and 20 is not equal to the ages 65 and 70. Log transform normalizes magnitude differences like that.
 - It also decreases the effect of outliers, due to the normalization of magnitude differences and the model becomes more robust.
 
-> 📄 See [PDF page 29](documents/da-lec04-data-processing-20260718.pdf#page=29) — chart comparing data distribution before and after log transform.
+> 📄 See [PDF page 32](documents/da-lec04-data-processing-20260718.pdf#page=32) — chart comparing data distribution before and after log transform.
 
 Ref:
 - https://towardsdatascience.com/feature-engineering-for-machine-learning-3a5e293a5114
@@ -359,7 +359,7 @@ One-hot encoding is one of the most common encoding methods in machine learning.
 
 This method changes your categorical data, which is challenging to understand for algorithms, to a numerical format and enables you to group your categorical data without losing any information.
 
-> 📄 See [PDF page 30](documents/da-lec04-data-processing-20260718.pdf#page=30) — one-hot encoding example showing users (A, B, C) and their social networks transformed into binary columns (Facebook, Instagram, Twitter).
+> 📄 See [PDF page 34](documents/da-lec04-data-processing-20260718.pdf#page=34) — one-hot encoding example showing users (A, B, C) and their social networks transformed into binary columns (Facebook, Instagram, Twitter).
 
 ```python
 encoded_columns = pd.get_dummies(data['column'])
@@ -524,9 +524,9 @@ Ref:
 
 ### Data Processing Pipeline
 
-> 📄 See [PDF page 35](documents/da-lec04-data-processing-20260718.pdf#page=35) — pipeline diagram showing modules (D1–D5) connected into an analytics system, with data flowing from Module 1 → Module 2 → Module 3 → Module 4.
+> 📄 See [PDF page 48](documents/da-lec04-data-processing-20260718.pdf#page=48) — pipeline diagram showing modules (D1–D5) connected into an analytics system, with data flowing from Module 1 → Module 2 → Module 3 → Module 4.
 
-> 📄 See [PDF page 36](documents/da-lec04-data-processing-20260718.pdf#page=36) — example pipeline: Module 1 → Module 2 (one-hot encoding) → Module 3 → Module 4, producing dx1 and dx2 outputs.
+> 📄 See [PDF page 49](documents/da-lec04-data-processing-20260718.pdf#page=49) — example pipeline: Module 1 → Module 2 (one-hot encoding) → Module 3 → Module 4, producing dx1 and dx2 outputs.
 
 ---
 

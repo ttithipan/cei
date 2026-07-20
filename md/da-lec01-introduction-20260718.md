@@ -80,7 +80,7 @@ Ref:
 
 ### Types of Analytics
 
-> 📄 See [PDF page 13](documents/da-lec01-introduction-20260718.pdf#page=13) — Gartner's four types of analytics capability diagram (Value and Difficulty scale).
+> 📄 See [PDF page 16](documents/da-lec01-introduction-20260718.pdf#page=16) — Gartner's four types of analytics capability diagram (Value and Difficulty scale).
 
 Ref:
 - Four types of analytics capability (Gartner, 2014)
@@ -195,7 +195,7 @@ Ref:
 
 ### When You Have a Question!
 
-> 📄 See [PDF page 19](documents/da-lec01-introduction-20260718.pdf#page=19) — diagram showing the thought process for formulating data questions.
+> 📄 See [PDF page 27](documents/da-lec01-introduction-20260718.pdf#page=27) — diagram showing the thought process for formulating data questions.
 
 Ref:
 - (image) URL
@@ -217,7 +217,7 @@ Consider this medical dataset for flu diagnosis:
 | normal | - | yes | - |
 | normal | yes | yes | ? |
 
-> 📄 See [PDF page 21](documents/da-lec01-introduction-20260718.pdf#page=21) — visual examples illustrating how different attributes (Temperature, Headache, Nausea) relate to the flu diagnosis.
+> 📄 See [PDF page 30](documents/da-lec01-introduction-20260718.pdf#page=30) — visual examples illustrating how different attributes (Temperature, Headache, Nausea) relate to the flu diagnosis.
 
 ---
 
@@ -240,13 +240,13 @@ Ref:
 
 ### Data Science Process
 
-> 📄 See [PDF page 24](documents/da-lec01-introduction-20260718.pdf#page=24) — the complete Data Science Process flowchart: Reality → Raw Data → Collected → Data is Processed → Clean Dataset → Exploratory Data Analysis → Model & Algorithms → Communicate, Visualize, & Report → Data Product → Decision Making.
+> 📄 See [PDF page 33](documents/da-lec01-introduction-20260718.pdf#page=33) — the complete Data Science Process flowchart: Reality → Raw Data → Collected → Data is Processed → Clean Dataset → Exploratory Data Analysis → Model & Algorithms → Communicate, Visualize, & Report → Data Product → Decision Making.
 
 ---
 
 ### Data Science in Action (Examples)
 
-> 📄 See [PDF page 25](documents/da-lec01-introduction-20260718.pdf#page=25) — examples of data science applications: Weather Forecast (Google), Amazon recommendations, YouTube recommendations, Gmail spam filter, Google Maps route planning.
+> 📄 See [PDF page 34](documents/da-lec01-introduction-20260718.pdf#page=34) — examples of data science applications: Weather Forecast (Google), Amazon recommendations, YouTube recommendations, Gmail spam filter, Google Maps route planning.
 
 ---
 
@@ -259,7 +259,7 @@ Ref:
 - **De-Duplicated**
 - **Verify & Enrich** — e.g., update the salary values
 
-> 📄 See [PDF page 27](documents/da-lec01-introduction-20260718.pdf#page=27) — diagram: Raw Data Collected → Machine-Readable Format.
+> 📄 See [PDF page 42](documents/da-lec01-introduction-20260718.pdf#page=42) — diagram: Raw Data Collected → Machine-Readable Format.
 
 ---
 
@@ -273,7 +273,7 @@ Ref:
 
 ### Exploratory Data Analysis
 
-> 📄 See [PDF page 29](documents/da-lec01-introduction-20260718.pdf#page=29) — example charts: Box Plot (ความเร็วในการบอกชื่อสีที่เห็นระหว่างผู้หญิงกับผู้ชาย), Histogram (คะแนนสอบกับจำนวนผู้ที่ได้คะแนน), Scatter Plot (ดูความสัมพันธ์).
+> 📄 See [PDF page 45](documents/da-lec01-introduction-20260718.pdf#page=45) — example charts: Box Plot (ความเร็วในการบอกชื่อสีที่เห็นระหว่างผู้หญิงกับผู้ชาย), Histogram (คะแนนสอบกับจำนวนผู้ที่ได้คะแนน), Scatter Plot (ดูความสัมพันธ์).
 
 ---
 
@@ -285,13 +285,13 @@ Ref:
   - Model: Decision Tree with structure
   - Algorithm: A process to build an accurate decision tree
 
-> 📄 See [PDF page 31](documents/da-lec01-introduction-20260718.pdf#page=31) — overview diagram of models and algorithms: Supervised Learning (Classification & Regression) vs Unsupervised Learning (Clustering & Association Rule), including Decision Tree, Naïve Bayes, Linear Regression, SVM, K-Means, Apriori, Community Structure, Neural Network.
+> 📄 See [PDF page 47](documents/da-lec01-introduction-20260718.pdf#page=47) — overview diagram of models and algorithms: Supervised Learning (Classification & Regression) vs Unsupervised Learning (Clustering & Association Rule), including Decision Tree, Naïve Bayes, Linear Regression, SVM, K-Means, Apriori, Community Structure, Neural Network.
 
 ---
 
 ### Communicate, Visualize, & Report
 
-> 📄 See [PDF page 32](documents/da-lec01-introduction-20260718.pdf#page=32) — slide on data communication and visualization.
+> 📄 See [PDF page 48](documents/da-lec01-introduction-20260718.pdf#page=48) — slide on data communication and visualization.
 
 ---
 
@@ -308,7 +308,7 @@ A product that is mainly produced by data analytics:
 
 ### One Last Thing
 
-> 📄 See [PDF page 34](documents/da-lec01-introduction-20260718.pdf#page=34) — Domain/Business context reminder and closing slide.
+> 📄 See [PDF page 52](documents/da-lec01-introduction-20260718.pdf#page=52) — Domain/Business context reminder and closing slide.
 
 > "The goal is to turn data into information, and information into insight."
 > — Carly Fiorina

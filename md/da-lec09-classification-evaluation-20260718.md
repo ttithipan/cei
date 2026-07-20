@@ -36,7 +36,7 @@ Dataset → X_train / y_train + X_test / y_test → Learning (Model) → Compare
 
 Divide dataset into K folds (e.g., 3 folds: C1, C2, C3). In each round, one fold is the test set and the rest are training. Average result = (e1 + e2 + e3) / 3.
 
-> 📄 See [PDF pages 4–6](documents/da-lec09-classification-evaluation-20260718.pdf#page=4) — Train-Test Split and K-Fold Cross-Validation diagrams.
+> 📄 See [PDF pages 5–6](documents/da-lec09-classification-evaluation-20260718.pdf#page=5) — Train-Test Split and K-Fold Cross-Validation diagrams.
 
 ### Example Classification
 
@@ -108,7 +108,7 @@ Actual: no      FP (false-positive)   TN (true-negative)
 | To detect fire, the fire alarm does not alert under normal situation | TN |
 | To detect thieves, the device alerts when a family member enters | FP |
 
-> 📄 See [PDF pages 14–22](documents/da-lec09-classification-evaluation-20260718.pdf#page=14) — Step-by-step scenario practice (each slide reveals one more answer).
+> 📄 See [PDF pages 18–26](documents/da-lec09-classification-evaluation-20260718.pdf#page=18) — Step-by-step scenario practice (each slide reveals one more answer).
 
 ---
 
@@ -122,7 +122,7 @@ Accuracy = (TP + TN) / (TP + TN + FP + FN)
 
 The following exercises count TP, TN, FP, FN in a confusion matrix and compute accuracy. Refer to the PDF for the actual filled-in matrix cells.
 
-> 📄 See [PDF pages 30–40](documents/da-lec09-classification-evaluation-20260718.pdf#page=30) — Accuracy exercises 1–5 with confusion matrices.
+> 📄 See [PDF pages 45–57](documents/da-lec09-classification-evaluation-20260718.pdf#page=45) — Accuracy exercises 1–5 with confusion matrices.
 
 | Exercise | Calculation | Accuracy |
 |---|---|---|
@@ -138,7 +138,7 @@ Note: Exercises 4 and 5 illustrate how **accuracy can be misleading** with imbal
 
 ## Precision, Recall, F1
 
-> 📄 See [PDF page 42](documents/da-lec09-classification-evaluation-20260718.pdf#page=42) — Precision and Recall Venn diagram.
+> 📄 See [PDF page 60](documents/da-lec09-classification-evaluation-20260718.pdf#page=60) — Precision and Recall Venn diagram.
 
 ```
 Precision = TP / (TP + FP)        ← Of all predicted positives, how many are correct?
@@ -152,17 +152,17 @@ F1 = 2 × (Precision × Recall) / (Precision + Recall)
 
 Not necessarily! If the model only predicts a few positives but gets them all right, recall could be very low.
 
-> 📄 See [PDF pages 45–47](documents/da-lec09-classification-evaluation-20260718.pdf#page=45) — Precision ≈ 1.00 discussion examples.
+> 📄 See [PDF pages 64–67](documents/da-lec09-classification-evaluation-20260718.pdf#page=64) — Precision ≈ 1.00 discussion examples.
 
 ### When Recall ≈ 1.00 — Is It Good?
 
 Not necessarily! If the model predicts everything as positive, recall could be 1.00 but precision would be terrible.
 
-> 📄 See [PDF pages 49–51](documents/da-lec09-classification-evaluation-20260718.pdf#page=49) — Recall ≈ 1.00 discussion examples.
+> 📄 See [PDF pages 68–71](documents/da-lec09-classification-evaluation-20260718.pdf#page=68) — Recall ≈ 1.00 discussion examples.
 
 ### F1 Examples
 
-> 📄 See [PDF pages 53–55](documents/da-lec09-classification-evaluation-20260718.pdf#page=53) — F1 calculation examples.
+> 📄 See [PDF pages 72–75](documents/da-lec09-classification-evaluation-20260718.pdf#page=72) — F1 calculation examples.
 
 **Example 3.1:**
 - Recall = 4 / (4 + 1) = 0.80
@@ -203,7 +203,7 @@ FPR (False Positive Rate) = FP / (FP + TN)
 
 The classifier ranks samples by confidence. At each threshold (round 0 to round 10), more samples are classified as positive, changing the TPR and FPR.
 
-> 📄 See [PDF pages 60–82](documents/da-lec09-classification-evaluation-20260718.pdf#page=60) — ROC curve building: Rounds 0–10 with confusion matrices.
+> 📄 See [PDF pages 81–93](documents/da-lec09-classification-evaluation-20260718.pdf#page=81) — ROC curve building: Rounds 0–10 with confusion matrices.
 
 | Round | TP | FN | FP | TN | TPR | FPR | Point (FPR, TPR) |
 |---|---|---|---|---|---|---|---|
@@ -223,7 +223,7 @@ The classifier ranks samples by confidence. At each threshold (round 0 to round 
 
 ROC (Receiver Operating Characteristic) curve plots **TPR (y-axis)** vs. **FPR (x-axis)**.
 
-> 📄 See [PDF page 85](documents/da-lec09-classification-evaluation-20260718.pdf#page=85) — ROC Curve diagram with TPR vs FPR axes.
+> 📄 See [PDF page 96](documents/da-lec09-classification-evaluation-20260718.pdf#page=96) — ROC Curve diagram with TPR vs FPR axes.
 
 Refs:
 - https://www.projectrhea.org/rhea/index.php/NeymanPearson_Lemma_and_Receiver_Operating_Characteristic_Curve
@@ -241,7 +241,7 @@ AUC summarizes the ROC curve into a single number. An area of **1** represents a
 | 0.6 – 0.7 | Poor (D) |
 | 0.5 – 0.6 | Fail (F) |
 
-> 📄 See [PDF page 88](documents/da-lec09-classification-evaluation-20260718.pdf#page=88) — ROC curves with three AUC levels (excellent, good, worthless) plotted on the same graph.
+> 📄 See [PDF page 100](documents/da-lec09-classification-evaluation-20260718.pdf#page=100) — ROC curves with three AUC levels (excellent, good, worthless) plotted on the same graph.
 
 Example shown: AUC = 0.7 (Fair / C grade).
 
@@ -255,13 +255,13 @@ Refs:
 
 For multi-class problems, the confusion matrix is an N×N grid showing predicted class vs. actual class.
 
-> 📄 See [PDF page 90](documents/da-lec09-classification-evaluation-20260718.pdf#page=90) — Multi-class confusion matrix layout.
+> 📄 See [PDF page 102](documents/da-lec09-classification-evaluation-20260718.pdf#page=102) — Multi-class confusion matrix layout.
 
 ### Heatmap Visualization
 
 Confusion matrices are often displayed as heatmaps for quick interpretation.
 
-> 📄 See [PDF page 91](documents/da-lec09-classification-evaluation-20260718.pdf#page=91) — Heatmap confusion matrix for multi-label classification.
+> 📄 See [PDF page 103](documents/da-lec09-classification-evaluation-20260718.pdf#page=103) — Heatmap confusion matrix for multi-label classification.
 
 Ref: https://www.researchgate.net/figure/Figure-3-Heat-map-confusion-matrix-for-multi-label-exact-deviation-classification-results-using_316316283_fig3
 
@@ -269,7 +269,7 @@ Ref: https://www.researchgate.net/figure/Figure-3-Heat-map-confusion-matrix-for-
 
 Which classifier is better? Compare confusion matrices, ROC curves, and AUC.
 
-> 📄 See [PDF page 92](documents/da-lec09-classification-evaluation-20260718.pdf#page=92) — Classifier comparison diagram.
+> 📄 See [PDF page 104](documents/da-lec09-classification-evaluation-20260718.pdf#page=104) — Classifier comparison diagram.
 
 Ref: http://ieeexplore.ieee.org/document/7279167/
 

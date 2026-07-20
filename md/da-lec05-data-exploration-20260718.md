@@ -20,7 +20,7 @@ King Mongkut's Institute of Technology Ladkrabang
 
 ---
 
-> 📄 See [PDF page 5](documents/da-lec05-data-exploration-20260718.pdf#page=5) — the Data Science Process flowchart highlighting the "Exploratory Data Analysis" stage.
+> 📄 See [PDF page 3](documents/da-lec05-data-exploration-20260718.pdf#page=3) — the Data Science Process flowchart highlighting the "Exploratory Data Analysis" stage.
 
 ---
 
@@ -42,7 +42,7 @@ Ref:
 
 ### Data Table — Iris Dataset
 
-> 📄 See [PDF page 8](documents/da-lec05-data-exploration-20260718.pdf#page=8) — screenshot of the Iris dataset in a tabular data viewer (e.g., RStudio).
+> 📄 See [PDF page 6](documents/da-lec05-data-exploration-20260718.pdf#page=6) — screenshot of the Iris dataset in a tabular data viewer (e.g., RStudio).
 
 Ref:
 - (image) https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer
@@ -51,7 +51,7 @@ Ref:
 
 ### Graph Data Structure
 
-> 📄 See [PDF page 9](documents/da-lec05-data-exploration-20260718.pdf#page=9) — example of graph data structure visualization (nodes and edges).
+> 📄 See [PDF page 8](documents/da-lec05-data-exploration-20260718.pdf#page=8) — example of graph data structure visualization (nodes and edges).
 
 Ref:
 - (image) http://www.bogotobogo.com/python/python_graph_data_structures.php
@@ -143,7 +143,7 @@ Ref:
 | **pandas plot** | `import pandas as pd` | https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html |
 | **seaborn** | `import seaborn as sns` | https://seaborn.pydata.org/ |
 
-> 📄 See [PDF page 20](documents/da-lec05-data-exploration-20260718.pdf#page=20) — matplotlib logo and overview.
+> 📄 See [PDF page 22](documents/da-lec05-data-exploration-20260718.pdf#page=22) — matplotlib logo and overview.
 
 Ref:
 - (image) https://wiki.openhatch.org/wiki/Matplotlib
@@ -175,7 +175,7 @@ Ref:
 
 A plot is a graphical representation of data, which shows the relationship between two variables or the distribution of data.
 
-> 📄 See [PDF page 23](documents/da-lec05-data-exploration-20260718.pdf#page=23) — annotated line plot showing title ("First Plot"), legend ("line one"), x-axis ("range"), y-axis, and grid.
+> 📄 See [PDF page 26](documents/da-lec05-data-exploration-20260718.pdf#page=26) — annotated line plot showing title ("First Plot"), legend ("line one"), x-axis ("range"), y-axis, and grid.
 
 - A line plot shows the random numbers on the y-axis and the range on the x-axis.
 - The background of the plot is called a grid.
@@ -191,7 +191,7 @@ A plot is a graphical representation of data, which shows the relationship betwe
 3. Set the plot parameters
 4. Display the created plot
 
-> 📄 See [PDF page 24](documents/da-lec05-data-exploration-20260718.pdf#page=24) — code example showing these four steps.
+> 📄 See [PDF page 27](documents/da-lec05-data-exploration-20260718.pdf#page=27) — code example showing these four steps.
 
 ---
 
@@ -205,19 +205,19 @@ A plot is a graphical representation of data, which shows the relationship betwe
   - The `label` denotes the legend label and is named as "line one".
   - `linewidth=2`
 
-> 📄 See [PDF page 25](documents/da-lec05-data-exploration-20260718.pdf#page=25) — the resulting plot: green line with "First Plot" title, "range" on x-axis, "line one" legend.
+> 📄 See [PDF page 30](documents/da-lec05-data-exploration-20260718.pdf#page=30) — the resulting plot: green line with "First Plot" title, "range" on x-axis, "line one" legend.
 
 ---
 
 ### Creating a 2-D Plot
 
-> 📄 See [PDF page 26](documents/da-lec05-data-exploration-20260718.pdf#page=26) — code and resulting 2-D plot visualization.
+> 📄 See [PDF page 31](documents/da-lec05-data-exploration-20260718.pdf#page=31) — code and resulting 2-D plot visualization.
 
 ---
 
 ### Multiple Plots
 
-> 📄 See [PDF page 27](documents/da-lec05-data-exploration-20260718.pdf#page=27) — code showing how to create multiple subplots in one figure.
+> 📄 See [PDF page 34](documents/da-lec05-data-exploration-20260718.pdf#page=34) — code showing how to create multiple subplots in one figure.
 
 ---
 
@@ -289,7 +289,7 @@ Ref:
 
 ## Seaborn
 
-> 📄 See [PDF page 32](documents/da-lec05-data-exploration-20260718.pdf#page=32) — Seaborn library logo and overview.
+> 📄 See [PDF page 43](documents/da-lec05-data-exploration-20260718.pdf#page=43) — Seaborn library logo and overview.
 
 Seaborn is a library for making statistical graphics in Python. It is built on top of matplotlib and closely integrated with pandas data structures.
 

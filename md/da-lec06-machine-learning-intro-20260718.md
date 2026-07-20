@@ -43,7 +43,7 @@ Instructor: Rathachai Chawuthai
 
 Data Analytics spans from **Descriptive** (What happened?) through **Diagnostic** (Why did it happen?) to **Predictive** (Based on what we know, what will happen?) and **Prescriptive** (Now that I know, what should I do?) — moving from Decision Support to Decision Automation.
 
-> 📄 See [PDF page 9](documents/da-lec06-machine-learning-intro-20260718.pdf#page=9) — Data Analytics pyramid diagram.
+> 📄 See [PDF page 12](documents/da-lec06-machine-learning-intro-20260718.pdf#page=12) — Data Analytics pyramid diagram.
 
 ---
 
@@ -53,21 +53,21 @@ Data Analytics spans from **Descriptive** (What happened?) through **Diagnostic*
 
 The six phases: Business Understanding → Data Understanding → Data Preparation → Modeling → Evaluation → Deployment.
 
-> 📄 See [PDF page 11](documents/da-lec06-machine-learning-intro-20260718.pdf#page=11) — CRISP-DM cycle diagram.
+> 📄 See [PDF page 13](documents/da-lec06-machine-learning-intro-20260718.pdf#page=13) — CRISP-DM cycle diagram.
 
 ### Data Science Process
 
 Data Collection → Data Processing → Clean Dataset → Data Exploration → Model & Algorithm → Communicating Result → Data Product / Decision Making.
 
-> 📄 See [PDF page 12](documents/da-lec06-machine-learning-intro-20260718.pdf#page=12) — Data Science Process flow diagram.
+> 📄 See [PDF page 14](documents/da-lec06-machine-learning-intro-20260718.pdf#page=14) — Data Science Process flow diagram.
 
 ---
 
 ## AI Techniques Overview
 
-> 📄 See [PDF page 14](documents/da-lec06-machine-learning-intro-20260718.pdf#page=14) — History of AI timeline.
+> 📄 See [PDF page 16](documents/da-lec06-machine-learning-intro-20260718.pdf#page=16) — History of AI timeline.
 
-> 📄 See [PDF page 15](documents/da-lec06-machine-learning-intro-20260718.pdf#page=15) — AI, Machine Learning, and Deep Learning relationship diagram.
+> 📄 See [PDF page 17](documents/da-lec06-machine-learning-intro-20260718.pdf#page=17) — AI, Machine Learning, and Deep Learning relationship diagram.
 
 ### AI, Machine Learning & Deep Learning
 
@@ -77,7 +77,7 @@ Data Collection → Data Processing → Clean Dataset → Data Exploration → M
 
 Ref: https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/
 
-> 📄 See [PDF page 17](documents/da-lec06-machine-learning-intro-20260718.pdf#page=17) — Machine Learning & Deep Learning comparison diagram.
+> 📄 See [PDF page 19](documents/da-lec06-machine-learning-intro-20260718.pdf#page=19) — Machine Learning & Deep Learning comparison diagram.
 
 ### Types of Data
 
@@ -85,7 +85,7 @@ Ref: https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intell
 - **Ordinal Data** — Data type consisting of numerical scores that exist on an ordinal scale (e.g., small, medium, large, enormous). Examples: ranking, rating, ordering.
 - **Categorical Data** — Types of data which may be divided into groups (e.g., A, B, C). Examples: gender, classification, educational level.
 
-> 📄 See [PDF page 18](documents/da-lec06-machine-learning-intro-20260718.pdf#page=18) — Scale of data diagram.
+> 📄 See [PDF page 20](documents/da-lec06-machine-learning-intro-20260718.pdf#page=20) — Scale of data diagram.
 
 ### AI Techniques Tree
 
@@ -98,7 +98,7 @@ AI techniques are divided into:
     - **Classification**: Logistic Regression, Naïve Bayes, Decision Tree, K-NN, Neural Network, …
   - **Unsupervised**: K-Means, DBSCAN, …
 
-> 📄 See [PDF page 19–20](documents/da-lec06-machine-learning-intro-20260718.pdf#page=19) — AI Techniques tree/flowchart diagram.
+> 📄 See [PDF pages 22–23](documents/da-lec06-machine-learning-intro-20260718.pdf#page=22) — AI Techniques tree/flowchart diagram.
 
 ---
 
@@ -106,7 +106,7 @@ AI techniques are divided into:
 
 A model is a function that maps inputs to outputs.
 
-> 📄 See [PDF page 24](documents/da-lec06-machine-learning-intro-20260718.pdf#page=24) — Linear Regression model: y = mx + c, y = 5x − 7, Gradient Descent diagram.
+> 📄 See [PDF page 25](documents/da-lec06-machine-learning-intro-20260718.pdf#page=25) — Linear Regression model: y = mx + c, y = 5x − 7, Gradient Descent diagram.
 
 ### Model Types (Multiple Choice Examples)
 
@@ -117,7 +117,7 @@ The slides present multiple model families as a multiple-choice question — whi
 - **C**: (not explicitly defined)
 - **D**: Decision Tree (a function that maps vehicle width/height to car/truck)
 
-> 📄 See [PDF pages 25–28](documents/da-lec06-machine-learning-intro-20260718.pdf#page=25) — Model examples and function mapping diagrams.
+> 📄 See [PDF pages 25–27](documents/da-lec06-machine-learning-intro-20260718.pdf#page=25) — Model examples and function mapping diagrams.
 
 ### Function Mapping Examples
 
@@ -149,13 +149,13 @@ Example columns: Facebook, X, Twitter, Medium, Instagram, LinkedIn → label.
 Dataset (input + output) → Model Algorithm → Model
 Then: future input → Model → predicted output
 
-> 📄 See [PDF pages 39–40](documents/da-lec06-machine-learning-intro-20260718.pdf#page=39) — Supervised Learning flow diagrams.
+> 📄 See [PDF pages 37–38](documents/da-lec06-machine-learning-intro-20260718.pdf#page=37) — Supervised Learning flow diagrams.
 
 ### Unsupervised Learning
 
 Dataset (input only, no output labels) → Algorithm
 
-> 📄 See [PDF page 41](documents/da-lec06-machine-learning-intro-20260718.pdf#page=41) — Unsupervised Learning flow diagram.
+> 📄 See [PDF page 39](documents/da-lec06-machine-learning-intro-20260718.pdf#page=39) — Unsupervised Learning flow diagram.
 
 ### Demo Links
 
@@ -213,7 +213,7 @@ RMSE = √((10−8)² + (20−21)² + (30−32)² / 3)
 
 ### Classification Evaluation
 
-> 📄 See [PDF pages 51–53](documents/da-lec06-machine-learning-intro-20260718.pdf#page=51) — Classifier diagram (Human vs. Not Human) and Confusion Matrix.
+> 📄 See [PDF pages 55–57](documents/da-lec06-machine-learning-intro-20260718.pdf#page=55) — Classifier diagram (Human vs. Not Human) and Confusion Matrix.
 
 #### Confusion Matrix
 
@@ -248,7 +248,7 @@ Example: 7 correct out of 10 → Accuracy = 0.7
 
 A dataset has inputs (X, features, independent variables, attributes) and output (y, label, dependent variable, actual y, y_true).
 
-> 📄 See [PDF page 57](documents/da-lec06-machine-learning-intro-20260718.pdf#page=57) — Dataset structure diagram.
+> 📄 See [PDF page 63](documents/da-lec06-machine-learning-intro-20260718.pdf#page=63) — Dataset structure diagram.
 
 ### Machine Learning Steps
 
@@ -256,11 +256,11 @@ A dataset has inputs (X, features, independent variables, attributes) and output
 2. **To Predict**: Dataset (X) → Model → predicted y
 3. **To Evaluate**: Dataset (X) → Model → predicted y → Compare with actual y
 
-> 📄 See [PDF pages 59–61](documents/da-lec06-machine-learning-intro-20260718.pdf#page=59) — Learning, Predict, and Evaluate flow diagrams.
+> 📄 See [PDF pages 65–69](documents/da-lec06-machine-learning-intro-20260718.pdf#page=65) — Learning, Predict, and Evaluate flow diagrams.
 
 ### Train-Test Split
 
-> 📄 See [PDF pages 62–67](documents/da-lec06-machine-learning-intro-20260718.pdf#page=62) — Train-Test Split flow diagrams.
+> 📄 See [PDF pages 70–77](documents/da-lec06-machine-learning-intro-20260718.pdf#page=70) — Train-Test Split flow diagrams.
 
 Steps:
 1. Split dataset into X_train, y_train, X_test, y_test
@@ -270,7 +270,7 @@ Steps:
 
 ### K-Fold Cross-Validation
 
-> 📄 See [PDF pages 68–69](documents/da-lec06-machine-learning-intro-20260718.pdf#page=68) — K-Fold Cross-Validation diagram.
+> 📄 See [PDF pages 78–79](documents/da-lec06-machine-learning-intro-20260718.pdf#page=78) — K-Fold Cross-Validation diagram.
 
 In 3-Fold Cross-Validation, the whole dataset is divided into 3 folds (C1, C2, C3). In each round, one fold serves as the test set while the remaining folds form the training set. The final evaluation is the average of all rounds: (e1 + e2 + e3) / 3.
 
@@ -283,7 +283,7 @@ In 3-Fold Cross-Validation, the whole dataset is divided into 3 folds (C1, C2, C
 4. **To Evaluate**: `{evaluation}(y_test, y_pred)` → value
    - e.g., `mean_squared_error`, `mean_absolute_percentage_error`, `accuracy_score`, `f1_score`, …
 
-> 📄 See [PDF pages 72–76](documents/da-lec06-machine-learning-intro-20260718.pdf#page=72) — Scikit-Learn step-by-step diagrams.
+> 📄 See [PDF pages 85–89](documents/da-lec06-machine-learning-intro-20260718.pdf#page=85) — Scikit-Learn step-by-step diagrams.
 
 ---
 
@@ -296,7 +296,7 @@ In 3-Fold Cross-Validation, the whole dataset is divided into 3 folds (C1, C2, C
 
 Ref: https://scikit-learn.org/
 
-> 📄 See [PDF page 71](documents/da-lec06-machine-learning-intro-20260718.pdf#page=71) — Python Ecosystem for AI diagram (Database → Data Processing → Data Modelling → Presentation).
+> 📄 See [PDF page 81](documents/da-lec06-machine-learning-intro-20260718.pdf#page=81) — Python Ecosystem for AI diagram (Database → Data Processing → Data Modelling → Presentation).
 
 ### Coding: Linear Regression
 
@@ -373,7 +373,7 @@ model.fit(X, y)  # Train on the entire dataset
 
 ### Linear Regression
 
-> 📄 See [PDF pages 80–83](documents/da-lec06-machine-learning-intro-20260718.pdf#page=80) — Linear Regression diagrams showing data points and fitted lines.
+> 📄 See [PDF pages 95–98](documents/da-lec06-machine-learning-intro-20260718.pdf#page=95) — Linear Regression diagrams showing data points and fitted lines.
 
 The goal is to find the line y = mx + c that best fits the data. Multiple candidate lines are compared (e.g., y = 0.5x + 1, y = 0.4x + 6, y = 0.2x + 12).
 
@@ -391,7 +391,7 @@ Use **Pearson Correlation** to select relevant features.
 
 Ref: https://www.mathsisfun.com/data/correlation.html
 
-> 📄 See [PDF page 85](documents/da-lec06-machine-learning-intro-20260718.pdf#page=85) — Correlation diagram.
+> 📄 See [PDF page 100](documents/da-lec06-machine-learning-intro-20260718.pdf#page=100) — Correlation diagram.
 
 ### Colab: Linear Regression
 
@@ -411,11 +411,11 @@ https://colab.research.google.com/drive/1DdhhaIFbgNnJv98WgdBrF8J7nNKwpLHX#scroll
 
 ### Decision Tree
 
-> 📄 See [PDF page 88](documents/da-lec06-machine-learning-intro-20260718.pdf#page=88) — Decision tree example: "Should I go to the cinema?" (Free Ticket? → Interesting Movie? → Close Friend? → Free Time?).
+> 📄 See [PDF page 106](documents/da-lec06-machine-learning-intro-20260718.pdf#page=106) — Decision tree example: "Should I go to the cinema?" (Free Ticket? → Interesting Movie? → Close Friend? → Free Time?).
 
 **Decision tree structure:** Root Node → Branches → Leaf Nodes.
 
-> 📄 See [PDF page 90](documents/da-lec06-machine-learning-intro-20260718.pdf#page=90) — Decision tree table: Case, Temperature, Headache, Nausea → Flu prediction.
+> 📄 See [PDF page 108](documents/da-lec06-machine-learning-intro-20260718.pdf#page=108) — Decision tree table: Case, Temperature, Headache, Nausea → Flu prediction.
 
 ### Iris Dataset
 
@@ -429,7 +429,7 @@ https://colab.research.google.com/drive/1DdhhaIFbgNnJv98WgdBrF8J7nNKwpLHX#scroll
 
 ### Logistic Regression
 
-> 📄 See [PDF page 92](documents/da-lec06-machine-learning-intro-20260718.pdf#page=92) — Logistic Regression sigmoid curve diagram.
+> 📄 See [PDF page 112](documents/da-lec06-machine-learning-intro-20260718.pdf#page=112) — Logistic Regression sigmoid curve diagram.
 
 ```
 y = 1 / (1 + e^(−(β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ)))
@@ -441,7 +441,7 @@ https://colab.research.google.com/drive/1DdhhaIFbgNnJv98WgdBrF8J7nNKwpLHX#scroll
 
 ### Naïve Bayes
 
-> 📄 See [PDF page 94](documents/da-lec06-machine-learning-intro-20260718.pdf#page=94) — Naïve Bayes classification diagram.
+> 📄 See [PDF page 114](documents/da-lec06-machine-learning-intro-20260718.pdf#page=114) — Naïve Bayes classification diagram.
 
 Ref: https://ichi.pro/pt/os-5-principais-algoritmos-de-classificacao-que-voce-realmente-usara-na-vida-204676738787569
 
@@ -451,7 +451,7 @@ https://colab.research.google.com/drive/1DdhhaIFbgNnJv98WgdBrF8J7nNKwpLHX#scroll
 
 ### K-Nearest Neighbors (K-NN)
 
-> 📄 See [PDF pages 96–100](documents/da-lec06-machine-learning-intro-20260718.pdf#page=96) — K-NN diagrams showing classification of a new point with K = 1, K = 2, K = 3.
+> 📄 See [PDF pages 117–122](documents/da-lec06-machine-learning-intro-20260718.pdf#page=117) — K-NN diagrams showing classification of a new point with K = 1, K = 2, K = 3.
 
 - K = 1 → classifies as Triangle
 - K = 2 → ambiguous (tie)
@@ -463,7 +463,7 @@ https://colab.research.google.com/drive/1DdhhaIFbgNnJv98WgdBrF8J7nNKwpLHX?authus
 
 ### Artificial Neural Network (ANN)
 
-> 📄 See [PDF page 102](documents/da-lec06-machine-learning-intro-20260718.pdf#page=102) — Neuron system diagram.
+> 📄 See [PDF page 125](documents/da-lec06-machine-learning-intro-20260718.pdf#page=125) — Neuron system diagram.
 
 **Perceptron / Activation Function:**
 
@@ -472,19 +472,19 @@ h(X) = w₀ + x₁w₁ + x₂w₂
 g(x) = 1 / (1 + e^(−h(X)))    ← Sigmoid (Logistic) Function
 ```
 
-> 📄 See [PDF page 104](documents/da-lec06-machine-learning-intro-20260718.pdf#page=104) — Neural network architecture: input layer → hidden layers → output layer.
+> 📄 See [PDF page 128](documents/da-lec06-machine-learning-intro-20260718.pdf#page=128) — Neural network architecture: input layer → hidden layers → output layer.
 
 #### Feed Forward
 
 Data flows from input through hidden layers to output.
 
-> 📄 See [PDF page 106](documents/da-lec06-machine-learning-intro-20260718.pdf#page=106) — Feed Forward diagram.
+> 📄 See [PDF page 129](documents/da-lec06-machine-learning-intro-20260718.pdf#page=129) — Feed Forward diagram.
 
 #### Backpropagation
 
 Error flows backward to update weights.
 
-> 📄 See [PDF page 107](documents/da-lec06-machine-learning-intro-20260718.pdf#page=107) — Backpropagation diagram.
+> 📄 See [PDF page 130](documents/da-lec06-machine-learning-intro-20260718.pdf#page=130) — Backpropagation diagram.
 
 #### Weight Update (Gradient Descent)
 
@@ -495,7 +495,7 @@ where J(W) = (1/2m) Σ (ŷ⁽ⁱ⁾ − y⁽ⁱ⁾)²
       ŷ⁽ⁱ⁾ = w₀ + w₁x₁⁽ⁱ⁾ + w₂x₂⁽ⁱ⁾
 ```
 
-> 📄 See [PDF pages 108–111](documents/da-lec06-machine-learning-intro-20260718.pdf#page=108) — Chain rule with partial derivatives and weight update diagrams.
+> 📄 See [PDF pages 131–132](documents/da-lec06-machine-learning-intro-20260718.pdf#page=131) — Chain rule with partial derivatives and weight update diagrams.
 
 ### Colab: Artificial Neural Network
 
