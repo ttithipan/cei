@@ -1,7 +1,8 @@
 /**
  * CEI Search Engine
  * BM25 (keyword) + title matching + tag matching + RRF fusion
- * Compact index, no embeddings — loads ~300 KB near-instantly.
+ * Intent Router for course-prefix queries (e.g., "os lec 02").
+ * Compact index, no embeddings — loads fast.
  */
 
 const SearchEngine = (() => {
@@ -31,6 +32,22 @@ const SearchEngine = (() => {
         expanded += " " + expansion;
       }
     }
+
+    // Lecture number normalization: "lec 02" → also add "lec02"
+    // Helps match title tokens like "Lec02"
+    expanded = expanded.replace(/\blec\s*(\d+)\b/gi, (match, num) => {
+      const padded = num.padStart(2, "0");
+      const parts = [match];
+      if (/\s/.test(match)) {
+        parts.push("lec" + num);
+        if (num !== padded) parts.push("lec" + padded);
+      } else {
+        parts.push("lec " + num);
+        if (num !== padded) parts.push("lec" + padded, "lec " + padded);
+      }
+      return parts.join(" ");
+    });
+
     return expanded;
   }
 
@@ -46,10 +63,8 @@ const SearchEngine = (() => {
       for (let j = 1; j <= b.length; j++) {
         const cost = a[i - 1] === b[j - 1] ? 0 : 1;
         curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
-        // Transposed characters: "preceptron" → "perceptron"
         if (
-          i > 1 &&
-          j > 1 &&
+          i > 1 && j > 1 &&
           a[i - 1] === b[j - 2] &&
           a[i - 2] === b[j - 1]
         ) {
@@ -116,6 +131,7 @@ const SearchEngine = (() => {
         chunks.reduce((s, c) => s + c.tokens.length, 0) / Math.max(1, this.N);
       this.docs = chunks.map((c) => ({
         id: c.id,
+        doc_id: c.doc_id,
         tokens: c.tokens,
         tf: buildTF(c.tokens),
         section: c.section,
@@ -133,9 +149,10 @@ const SearchEngine = (() => {
       }
     }
 
-    score(queryTokens) {
+    score(queryTokens, allowedDocs = null) {
       const scores = [];
       for (const doc of this.docs) {
+        if (allowedDocs && !allowedDocs.has(doc.doc_id)) continue;
         let s = 0;
         const dl = doc.tokens.length;
         for (const term of queryTokens) {
@@ -148,17 +165,14 @@ const SearchEngine = (() => {
             f + BM25_K1 * (1 - BM25_B + BM25_B * (dl / this.avgdl));
           s += idf * (numerator / denominator);
         }
-        // Boost: matches in section heading (×1.5) or document title (×2.0)
         if (s > 0) {
-          const haystack =
-            (doc.section || "") + " " + (doc.title || "");
+          const haystack = (doc.section || "") + " " + (doc.title || "");
           const haystackLower = haystack.toLowerCase();
           for (const term of queryTokens) {
             if (haystackLower.includes(term)) {
               s *= doc.section && doc.section.toLowerCase().includes(term)
-                ? 1.5
-                : 2.0;
-              break; // apply once per doc
+                ? 1.5 : 2.0;
+              break;
             }
           }
         }
@@ -175,13 +189,13 @@ const SearchEngine = (() => {
   }
 
   // ── Title Ranking ─────────────────────────────────────────────────
-  function titleRanking(queryTokens) {
+  function titleRanking(queryTokens, allowedDocs = null) {
     if (!index || !index.chunks) return [];
     const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
     const scored = [];
     for (const [id, chunk] of chunkMap) {
-      const haystack =
-        (chunk.section + " " + chunk.title).toLowerCase();
+      if (allowedDocs && !allowedDocs.has(chunk.doc_id)) continue;
+      const haystack = (chunk.section + " " + chunk.title).toLowerCase();
       let hits = 0;
       for (const term of queryTokens) {
         if (haystack.includes(term)) hits++;
@@ -194,10 +208,11 @@ const SearchEngine = (() => {
   }
 
   // ── Tag Ranking ───────────────────────────────────────────────────
-  function tagRanking(queryTokens) {
+  function tagRanking(queryTokens, allowedDocs = null) {
     if (!index || !index.chunks) return [];
     const scored = [];
     for (const chunk of index.chunks) {
+      if (allowedDocs && !allowedDocs.has(chunk.doc_id)) continue;
       const tags = chunk.tags || [];
       let hits = 0;
       for (const term of queryTokens) {
@@ -226,11 +241,43 @@ const SearchEngine = (() => {
       .sort((a, b) => b.score - a.score);
   }
 
+  // ── Intent Router ─────────────────────────────────────────────────
+  // Checks if the first token of the raw query matches a known course
+  // prefix. If so, strips it and returns a set of allowed doc_ids.
+  function routeIntent(rawQuery) {
+    if (!index || !index.valid_courses || index.valid_courses.length === 0) {
+      return { contentQuery: rawQuery, allowedDocs: null };
+    }
+    const rawTokens = tokenize(rawQuery);
+    if (rawTokens.length === 0) return { contentQuery: rawQuery, allowedDocs: null };
+
+    const firstToken = rawTokens[0];
+    if (!index.valid_courses.includes(firstToken)) {
+      return { contentQuery: rawQuery, allowedDocs: null };
+    }
+
+    // Build allowed doc_id set for this course
+    const allowedDocs = new Set();
+    for (const doc of (index.documents || [])) {
+      if (doc.course === firstToken) {
+        allowedDocs.add(doc.id);
+      }
+    }
+    if (allowedDocs.size === 0) return { contentQuery: rawQuery, allowedDocs: null };
+
+    // Strip the course prefix from the query
+    const remaining = rawTokens.slice(1).join(" ");
+    return {
+      contentQuery: remaining || rawQuery,
+      allowedDocs,
+    };
+  }
+
   // ── Load Index ───────────────────────────────────────────────────
   async function load() {
     if (ready) return;
     try {
-      const resp = await fetch("data/search_index.json?v=2");
+      const resp = await fetch("data/search_index.json?v=3");
       if (!resp.ok) {
         console.warn(
           "Search index not found — run python scripts/build_index.py",
@@ -242,7 +289,7 @@ const SearchEngine = (() => {
       index.bm25 = new BM25(index.chunks);
       ready = true;
       console.log(
-        `Search index loaded: ${index.chunks.length} chunks from ${index.documents.length} documents (${index.aliases ? Object.keys(index.aliases).length : 0} aliases)`,
+        `Search index loaded: ${index.chunks.length} chunks from ${index.documents.length} documents (${index.aliases ? Object.keys(index.aliases).length : 0} aliases, ${(index.valid_courses || []).length} courses)`,
       );
     } catch (e) {
       console.warn("Failed to load search index:", e);
@@ -258,7 +305,12 @@ const SearchEngine = (() => {
   async function search(query, topK = 15) {
     if (!isReady()) return [];
 
-    query = expandQuery(query);
+    const rawQuery = query;
+
+    // Intent Router: detect course prefix → pre-filter documents
+    const { contentQuery, allowedDocs } = routeIntent(rawQuery);
+
+    query = expandQuery(contentQuery);
 
     // Multi-query: split by comma, fuse with RMS
     const subQueries = query
@@ -266,25 +318,31 @@ const SearchEngine = (() => {
       .map((q) => q.trim())
       .filter((q) => q.length > 0);
     if (subQueries.length > 1) {
-      return searchMulti(subQueries, topK);
+      return searchMulti(subQueries, rawQuery, topK);
     }
 
-    return searchSingle(query, topK);
+    return searchSingle(query, rawQuery, topK, allowedDocs);
   }
 
-  async function searchSingle(query, topK = 15) {
+  async function searchSingle(query, rawQuery, topK = 15, allowedDocs = null) {
     let queryTokens = tokenize(query);
-    if (queryTokens.length === 0) return [];
+    if (queryTokens.length === 0) {
+      // No content query (e.g., just "os") — return all matching docs by date
+      if (allowedDocs) {
+        return allDocsByDate(allowedDocs, topK);
+      }
+      return [];
+    }
 
     queryTokens = correctQueryTokens(queryTokens);
 
-    const bm25Results = index.bm25.score(queryTokens);
+    const bm25Results = index.bm25.score(queryTokens, allowedDocs);
 
-    // Fuse BM25 + title ranking + tag ranking
+    // Fuse BM25 + title + tag ranking
     const fused = rrf([
       bm25Results,
-      titleRanking(queryTokens),
-      tagRanking(queryTokens),
+      titleRanking(queryTokens, allowedDocs),
+      tagRanking(queryTokens, allowedDocs),
     ]);
 
     const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
@@ -298,8 +356,41 @@ const SearchEngine = (() => {
       .sort(sortByScoreThenDate);
   }
 
-  async function searchMulti(subQueries, topK = 15) {
-    const allScores = await Promise.all(subQueries.map((q) => getRRFScores(q)));
+  // Fallback: when query is just a course prefix, return docs sorted by date
+  function allDocsByDate(allowedDocs, topK) {
+    const docMap = new Map((index.documents || []).map((d) => [d.id, d]));
+    const matching = [];
+    for (const [id, doc] of docMap) {
+      if (allowedDocs.has(id)) {
+        matching.push({
+          id: id + "_c0",
+          chunkId: id + "_c0",
+          docId: id,
+          title: doc.title,
+          snippet: "",
+          score: "1.0000",
+          source: doc.path,
+          section: "",
+          sectionSlug: "",
+          date: doc.date,
+        });
+      }
+    }
+    const chunkMap = new Map(index.chunks.map((c) => [c.id, c]));
+    // Try to get a real chunk for snippet
+    for (const r of matching) {
+      const chunk = chunkMap.get(r.chunkId);
+      if (chunk) {
+        r.snippet = chunk.content.substring(0, 300);
+      }
+    }
+    return matching.sort(sortByScoreThenDate).slice(0, topK);
+  }
+
+  async function searchMulti(subQueries, rawQuery, topK = 15) {
+    const allScores = await Promise.all(
+      subQueries.map((q) => getRRFScores(q, rawQuery))
+    );
     const combined = {};
     const allChunkIds = new Set();
     for (const scores of allScores) {
@@ -324,13 +415,17 @@ const SearchEngine = (() => {
     });
   }
 
-  async function getRRFScores(query) {
+  async function getRRFScores(query, rawQuery) {
     let queryTokens = tokenize(query);
     if (queryTokens.length === 0) return {};
     queryTokens = correctQueryTokens(queryTokens);
     const bm25Results = index.bm25.score(queryTokens);
     return rrfToMap(
-      rrf([bm25Results, titleRanking(queryTokens), tagRanking(queryTokens)]),
+      rrf([
+        bm25Results,
+        titleRanking(queryTokens),
+        tagRanking(queryTokens),
+      ]),
     );
   }
 
@@ -349,7 +444,7 @@ const SearchEngine = (() => {
   }
 
   function formatResult(id, score, chunk, queryTokens, docMap) {
-    let snippet = chunk.content.substring(0, 300);
+    let snippet = chunk.content ? chunk.content.substring(0, 300) : "";
     for (const term of queryTokens) {
       const re = new RegExp(`(${escapeRegex(term)})`, "gi");
       snippet = snippet.replace(re, "<mark>$1</mark>");
