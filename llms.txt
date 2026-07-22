@@ -55,6 +55,9 @@
 - [Sysadmin Lec01 — Introduction to System Administration (2026)](/md/sysadmin-lec01-intro-sysadmin-20260630.md)
 - [Sysadmin Lec02 — System Installation & System Software (2026)](/md/sysadmin-lec02-system-software-20260630.md)
 - [Sysadmin Lec03 — Linux CLI Fundamentals (2026)](/md/sysadmin-lec03-linux-cli-20260630.md)
+- [Sysadmin — Lec04: Text Editing with nano (2026)](/md/sysadmin-lec04-nano-text-editing-20260722.md)
+- [Sysadmin — Lec05: Text Editing with vi (2026)](/md/sysadmin-lec05-vi-text-editing-20260722.md)
+- [Sysadmin — Lec06: Text Search with grep (2026)](/md/sysadmin-lec06-grep-text-search-20260722.md)
 
 ## PDF Sources
 - [ai-lec01-intro-agents-20260630.pdf](/documents/ai-lec01-intro-agents-20260630.pdf)
@@ -132,3 +135,6 @@
 - [sysadmin-lec01-intro-sysadmin-20260630.pdf](/documents/sysadmin-lec01-intro-sysadmin-20260630.pdf)
 - [sysadmin-lec02-system-software-20260630.pdf](/documents/sysadmin-lec02-system-software-20260630.pdf)
 - [sysadmin-lec03-linux-cli-20260630.pdf](/documents/sysadmin-lec03-linux-cli-20260630.pdf)
+- [sysadmin-lec04-nano-text-editing-20260722.pdf](/documents/sysadmin-lec04-nano-text-editing-20260722.pdf)
+- [sysadmin-lec05-vi-text-editing-20260722.pdf](/documents/sysadmin-lec05-vi-text-editing-20260722.pdf)
+- [sysadmin-lec06-grep-text-search-20260722.pdf](/documents/sysadmin-lec06-grep-text-search-20260722.pdf)
