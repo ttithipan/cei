@@ -304,5 +304,113 @@
     "platform_detail": null,
     "notes": null,
     "_name": "JAPANESE FOR TRAVEL"
+  },
+  "01276112": {
+    "_name": "DIGITAL SYSTEM FUNDAMENTALS",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276131": {
+    "_name": "OBJECT-ORIENTED PROGRAMMING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276207": {
+    "_name": "INTRODUCTION TO STATISTICS",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276213": {
+    "_name": "COMPUTER ARCHITECTURE AND ORGANIZATION",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276232": {
+    "_name": "SOFTWARE DEVELOPMENT PROCESS",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276233": {
+    "_name": "WEB PROGRAMMING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276325": {
+    "_name": "INFORMATION AND COMPUTER SECURITY",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276326": {
+    "_name": "THEORY OF COMPUTATION",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276343": {
+    "_name": "MACHINE LEARNING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276390": {
+    "_name": "COMPUTER ENGINEERING PROJECT PREPARATION",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276535": {
+    "_name": "ADVANCED DATABASE SYSTEMS",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276554": {
+    "_name": "DEEP LEARNING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276722": {
+    "_name": "INTRODUCTION TO CLOUD COMPUTING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276755": {
+    "_name": "NATURAL LANGUAGE PROCESSING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276764": {
+    "_name": "AUGMENTED REALITY",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "01276992": {
+    "_name": "CAPSTONE DESIGN PROJECT 2",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "96642999": {
+    "_name": "CHARM SCHOOL",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
+  },
+  "96644005": {
+    "_name": "ACADEMIC READING AND WRITING",
+    "platform": null,
+    "platform_detail": null,
+    "notes": null
   }
 }
